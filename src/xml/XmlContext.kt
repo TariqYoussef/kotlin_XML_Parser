@@ -15,18 +15,18 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
         if(kClass.simpleName == null)
             throw InvalidXmlElementException("Class doesn't have a name")
-        val xmlElement: XmlElement = XmlElement(kClass.simpleName!!)
+        val xmlElement = XmlElement(kClass.simpleName!!)
 
         for(propertyValue in propertyValues)
         {
             if(propertyValue.second != null)
             {
-                val propertyXmlElement: XmlElement = XmlElement(propertyValue.first, propertyValue.second!!)
+                val propertyXmlElement = XmlElement(propertyValue.first, propertyValue.second!!)
                 xmlElement.addChild(propertyXmlElement)
             }
             else
             {
-                val propertyXmlElement: XmlElement = XmlElement(propertyValue.first)
+                val propertyXmlElement = XmlElement(propertyValue.first)
                 xmlElement.addChild(propertyXmlElement)
             }
         }

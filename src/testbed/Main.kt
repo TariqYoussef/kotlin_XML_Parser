@@ -1,13 +1,20 @@
 package testbed
 
 import xml.XmlContext
+import xml.XmlElement
 
 
 fun main()
 {
-    val entity: Entity = Entity(1, "test")
+    val entity = Entity(1, "test")
 
-    val xmlContext: XmlContext = XmlContext()
+    val xmlContext = XmlContext()
+
+    val xmlElement = XmlElement("test", 1)
+    //xmlElement.addAttribute("attribute1", "attribute")
+
+    xmlContext.addXmlElement(xmlElement)
+
     xmlContext.addXmlElement(entity)
     xmlContext.addXmlElement(entity)
     xmlContext.addXmlElement(entity)

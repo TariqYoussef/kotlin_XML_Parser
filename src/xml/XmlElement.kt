@@ -14,7 +14,7 @@ class XmlElement(private val name: String, private val value: Any = "")
 
     fun dump(intent: Int = -1, intentOffset: Int = 0): String
     {
-        var content: String = "<$name"
+        var content = "<$name"
 
         for(attribute in attributes)
             content += " ${attribute.name}=\"${attribute.value}\""
