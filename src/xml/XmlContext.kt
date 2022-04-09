@@ -1,5 +1,6 @@
 package xml
 
+import xml.utils.isBasicType
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
@@ -68,15 +69,18 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         properties.forEach{
             if(it.call(element) != null)
             {
-                if(it.name == "position")
+                if(isBasicType(it.call(element)!!))
                 {
-                    val propertyXmlElement = createXmlElementChildren(it.call(element)!!)
+                    val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
                     xmlElement.addChild(propertyXmlElement)
                 }
                 else
                 {
-                    val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
-                    xmlElement.addChild(propertyXmlElement)
+                    val elementChild: Any = it.call(element)!!
+                    val kClassChild: KClass<out Any> = elementChild::class
+                    val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild)
+                    addXmlElementChildren(kClassChild, elementChild, xmlElementChild)
+                    xmlElement.addChild(xmlElementChild)
                 }
             }
             else
@@ -87,13 +91,4 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
     }
 
-    private fun createXmlElementChildren(element: Any):XmlElement
-    {
-        val kClass: KClass<out Any> = element::class
-        val xmlElement = createXmlElement(kClass, element)
-
-        addXmlElementChildren(kClass, element, xmlElement)
-
-        return xmlElement
-    }
 }
