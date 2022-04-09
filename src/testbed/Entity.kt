@@ -11,4 +11,8 @@ data class Entity(val id: Int, val name: String)
     val data: String = "Data Example"
     @XmlIgnore
     val ignore: String = "Element to ignore"
+
+    val position: Point = Point(5, 7)
 }
+
+data class Point(val x: Int, val y: Int)

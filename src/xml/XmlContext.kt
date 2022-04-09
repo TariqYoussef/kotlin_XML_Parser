@@ -1,10 +1,9 @@
 package xml
 
+import testbed.Point
 import kotlin.reflect.KClass
-import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.hasAnnotation
-
+import kotlin.reflect.full.*
+import kotlin.reflect.javaType
 
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no")
 {
@@ -74,8 +73,16 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         properties.forEach{
             if(it.call(element) != null)
             {
-                val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
-                xmlElement.addChild(propertyXmlElement)
+                if(it.name == "position")
+                {
+                    val propertyXmlElement = createXmlElementChildren(it.call(element)!!)
+                    xmlElement.addChild(propertyXmlElement)
+                }
+                else
+                {
+                    val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
+                    xmlElement.addChild(propertyXmlElement)
+                }
             }
             else
             {
@@ -83,5 +90,15 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
                 xmlElement.addChild(propertyXmlElement)
             }
         }
+    }
+
+    private fun createXmlElementChildren(element: Any):XmlElement
+    {
+        val kClass: KClass<Any> = element::class as KClass<Any>
+        val xmlElement = createXmlElement(kClass, element)
+
+        addXmlElementChildren(kClass, element, xmlElement)
+
+        return xmlElement
     }
 }
