@@ -14,21 +14,14 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     inline fun <reified T : Any>addXmlElement(element: T) {
         val kClass: KClass<T> = T::class
 
+        addXmlElement(kClass, element)
+    }
+
+    fun <T : Any>addXmlElement(kClass: KClass<T>, element: T)
+    {
         val xmlElement = createXmlElement(kClass, element)
 
-        val properties = kClass.declaredMemberProperties.filter{!it.hasAnnotation<XmlElementContent>() && !it.hasAnnotation<XmlIgnore>()}
-        properties.forEach{
-            if(it.call(element) != null)
-            {
-                val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
-                xmlElement.addChild(propertyXmlElement)
-            }
-            else
-            {
-                val propertyXmlElement = XmlElement(it.name)
-                xmlElement.addChild(propertyXmlElement)
-            }
-        }
+        addXmlElementChildren(kClass, element, xmlElement)
 
         addXmlElement(xmlElement)
     }
@@ -48,7 +41,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return content
     }
 
-    fun <T : Any>createXmlElement(kClass: KClass<T>, element: T): XmlElement
+    private fun <T : Any>createXmlElement(kClass: KClass<T>, element: T): XmlElement
     {
         val elementName: String = if(kClass.hasAnnotation<XmlElementName>())
         {
@@ -72,6 +65,23 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             XmlElement(elementName, elementContent[0].call(element)!!)
         } else {
             XmlElement(elementName)
+        }
+    }
+
+    private fun <T : Any>addXmlElementChildren(kClass: KClass<T>, element: T, xmlElement: XmlElement)
+    {
+        val properties = kClass.declaredMemberProperties.filter{!it.hasAnnotation<XmlElementContent>() && !it.hasAnnotation<XmlIgnore>()}
+        properties.forEach{
+            if(it.call(element) != null)
+            {
+                val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
+                xmlElement.addChild(propertyXmlElement)
+            }
+            else
+            {
+                val propertyXmlElement = XmlElement(it.name)
+                xmlElement.addChild(propertyXmlElement)
+            }
         }
     }
 }
