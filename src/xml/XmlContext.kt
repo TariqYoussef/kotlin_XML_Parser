@@ -1,23 +1,18 @@
 package xml
 
-import testbed.Point
 import kotlin.reflect.KClass
-import kotlin.reflect.full.*
-import kotlin.reflect.javaType
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.hasAnnotation
 
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no")
 {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private val xmlElements: MutableList<XmlElement> = mutableListOf()
 
-    inline fun <reified T : Any>addXmlElement(element: T) {
-        val kClass: KClass<T> = T::class
+    fun addXmlElement(element: Any) {
+        val kClass: KClass<out Any> = element::class
 
-        addXmlElement(kClass, element)
-    }
-
-    fun <T : Any>addXmlElement(kClass: KClass<T>, element: T)
-    {
         val xmlElement = createXmlElement(kClass, element)
 
         addXmlElementChildren(kClass, element, xmlElement)
@@ -40,7 +35,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return content
     }
 
-    private fun <T : Any>createXmlElement(kClass: KClass<T>, element: T): XmlElement
+    private fun createXmlElement(kClass: KClass<out Any>, element: Any): XmlElement
     {
         val elementName: String = if(kClass.hasAnnotation<XmlElementName>())
         {
@@ -67,7 +62,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
     }
 
-    private fun <T : Any>addXmlElementChildren(kClass: KClass<T>, element: T, xmlElement: XmlElement)
+    private fun addXmlElementChildren(kClass: KClass<out Any>, element: Any, xmlElement: XmlElement)
     {
         val properties = kClass.declaredMemberProperties.filter{!it.hasAnnotation<XmlElementContent>() && !it.hasAnnotation<XmlIgnore>()}
         properties.forEach{
@@ -94,7 +89,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
     private fun createXmlElementChildren(element: Any):XmlElement
     {
-        val kClass: KClass<Any> = element::class as KClass<Any>
+        val kClass: KClass<out Any> = element::class
         val xmlElement = createXmlElement(kClass, element)
 
         addXmlElementChildren(kClass, element, xmlElement)
