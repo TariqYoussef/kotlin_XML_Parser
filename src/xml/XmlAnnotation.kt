@@ -1,5 +1,5 @@
 package xml
 
 annotation class XmlName
-annotation class XmlTagContent
+annotation class XmlElementContent
 annotation class XmlIgnore
