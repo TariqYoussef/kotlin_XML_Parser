@@ -3,7 +3,6 @@ package xml
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.findAnnotations
 import kotlin.reflect.full.hasAnnotation
 
 
@@ -14,39 +13,46 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
     inline fun <reified T : Any>addXmlElement(element: T) {
         val kClass: KClass<T> = T::class
-        val properties = kClass.declaredMemberProperties
 
-        val propertyValues: List<Pair<String, Any?>> = kClass.declaredMemberProperties.map { Pair(it.name, it.call(element)) }
-
-        var elementName = ""
-        if(kClass.hasAnnotation<XmlElementName>())
+        val elementName: String = if(kClass.hasAnnotation<XmlElementName>())
         {
             if(kClass.findAnnotation<XmlElementName>()?.name == null)
-                throw InvalidXmlElementException("Annotation invalid")
+                throw InvalidXmlAnnotationException("XmlElementName")
 
-            elementName = kClass.findAnnotation<XmlElementName>()?.name!!
-        }
-        else
-        {
+            kClass.findAnnotation<XmlElementName>()?.name!!
+        } else {
             if(kClass.simpleName == null)
                 throw InvalidXmlElementException("Class doesn't have a name")
 
-            elementName = kClass.simpleName!!
+            kClass.simpleName!!
         }
 
-        val xmlElement = XmlElement(elementName)
+        val elementContent = kClass.declaredMemberProperties.filter{it.hasAnnotation<XmlElementContent>()}
+        if(elementContent.size > 1)
+            throw InvalidXmlAnnotationException("XmlElementContent")
 
-        for(propertyValue in propertyValues)
+        val xmlElement: XmlElement = if(elementContent[0].call(element) == null)
         {
-            if(propertyValue.second != null)
+            XmlElement(elementName)
+        }
+        else
+        {
+            XmlElement(elementName, elementContent[0].call(element)!!)
+        }
+
+        kClass.declaredMemberProperties.forEach{
+            if(!it.hasAnnotation<XmlIgnore>() && !it.hasAnnotation<XmlElementContent>())
             {
-                val propertyXmlElement = XmlElement(propertyValue.first, propertyValue.second!!)
-                xmlElement.addChild(propertyXmlElement)
-            }
-            else
-            {
-                val propertyXmlElement = XmlElement(propertyValue.first)
-                xmlElement.addChild(propertyXmlElement)
+                if(it.call(element) != null)
+                {
+                    val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
+                    xmlElement.addChild(propertyXmlElement)
+                }
+                else
+                {
+                    val propertyXmlElement = XmlElement(it.name)
+                    xmlElement.addChild(propertyXmlElement)
+                }
             }
         }
 
