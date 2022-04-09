@@ -1,5 +1,7 @@
 package xml
 
+import xml.utils.createFilledString
+
 class XmlElement(private val name: String, private val value: Any = "")
 {
     private val children: MutableList<XmlElement> = mutableListOf()
@@ -10,27 +12,32 @@ class XmlElement(private val name: String, private val value: Any = "")
 
     fun addAttribute(xmlAttribute: XmlAttribute) = attributes.add(xmlAttribute)
 
-    fun dump(intent: Int = -1, intentOffset: String = ""): String
+    fun dump(intent: Int = -1, intentOffset: Int = 0): String
     {
         var content: String = "<$name"
 
         for(attribute in attributes)
-            content+=" ${attribute.name}=\"${attribute.value}\""
+            content += " ${attribute.name}=\"${attribute.value}\""
 
-        content+=">$value" + if(intent > -1) "\n" else ""
+        content += ">$value"
 
-        var spacing: String = intentOffset
-        if(intent > 0) for(i in 0..intent) spacing += " "
-
-        for(child in children)
+        if(children.isNotEmpty())
         {
-            content += spacing
-            content += child.dump(intent, intentOffset + spacing)
+            content += if(intent > -1) "\n" else ""
+            val spacing: String = createFilledString(intent + intentOffset, ' ')
+
+            for(child in children)
+            {
+                content += spacing
+                content += child.dump(intent, intent + intentOffset)
+            }
+
+            content += createFilledString(intentOffset, ' ')
         }
 
-        content += intentOffset
         content += "</$name>" + if(intent > -1) "\n" else ""
 
         return content
     }
 }
+

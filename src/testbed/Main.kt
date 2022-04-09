@@ -11,6 +11,6 @@ fun main()
     xmlContext.addXmlElement(entity)
     xmlContext.addXmlElement(entity)
     xmlContext.addXmlElement(entity)
-    println(xmlContext.dump())
+    println(xmlContext.dump(4))
 }
 
