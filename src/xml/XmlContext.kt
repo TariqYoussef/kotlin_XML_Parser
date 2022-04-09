@@ -22,8 +22,6 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             if(propertyValue.second != null)
             {
                 val propertyXmlElement: XmlElement = XmlElement(propertyValue.first, propertyValue.second!!)
-                propertyXmlElement.addAttribute(XmlAttribute("test1", 1))
-                propertyXmlElement.addAttribute(XmlAttribute("test2", "test2"))
                 xmlElement.addChild(propertyXmlElement)
             }
             else
