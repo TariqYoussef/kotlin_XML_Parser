@@ -69,7 +69,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         properties.forEach{
             if(it.call(element) != null)
             {
-                if(isBasicType(it.call(element)!!))
+                if(isBasicType(it.call(element)!!) || it.call(element)!! is Enum<*>)
                 {
                     val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
                     xmlElement.addChild(propertyXmlElement)

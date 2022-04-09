@@ -13,6 +13,14 @@ data class Entity(val id: Int, val name: String)
     val ignore: String = "Element to ignore"
 
     val position: Point = Point(5, 7)
+
+    val long: Long = 45
+
+    val direction: Direction = Direction.NORTH
 }
 
 data class Point(val x: Int, val y: Int)
+
+enum class Direction {
+    NORTH, SOUTH, WEST, EAST
+}
