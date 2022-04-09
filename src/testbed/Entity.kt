@@ -17,10 +17,20 @@ data class Entity(val id: Int, val name: String)
     val long: Long = 45
 
     val direction: Direction = Direction.NORTH
+
+    val point2: Point2 = Point2(Point(0,0), Point(5,5))
 }
 
 data class Point(val x: Int, val y: Int)
 
+@XmlElementName("Beg_End")
+data class Point2(val point1: Point, val point2: Point)
+{
+    @XmlElementContent
+    val content: String = "content"
+}
+
 enum class Direction {
     NORTH, SOUTH, WEST, EAST
 }
+
