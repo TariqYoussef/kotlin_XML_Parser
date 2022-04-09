@@ -2,6 +2,9 @@ package xml
 
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.findAnnotations
+import kotlin.reflect.full.hasAnnotation
 
 
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no")
@@ -11,11 +14,27 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
     inline fun <reified T : Any>addXmlElement(element: T) {
         val kClass: KClass<T> = T::class
+        val properties = kClass.declaredMemberProperties
+
         val propertyValues: List<Pair<String, Any?>> = kClass.declaredMemberProperties.map { Pair(it.name, it.call(element)) }
 
-        if(kClass.simpleName == null)
-            throw InvalidXmlElementException("Class doesn't have a name")
-        val xmlElement = XmlElement(kClass.simpleName!!)
+        var elementName = ""
+        if(kClass.hasAnnotation<XmlElementName>())
+        {
+            if(kClass.findAnnotation<XmlElementName>()?.name == null)
+                throw InvalidXmlElementException("Annotation invalid")
+
+            elementName = kClass.findAnnotation<XmlElementName>()?.name!!
+        }
+        else
+        {
+            if(kClass.simpleName == null)
+                throw InvalidXmlElementException("Class doesn't have a name")
+
+            elementName = kClass.simpleName!!
+        }
+
+        val xmlElement = XmlElement(elementName)
 
         for(propertyValue in propertyValues)
         {
