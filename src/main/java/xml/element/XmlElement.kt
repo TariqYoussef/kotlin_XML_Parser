@@ -1,17 +1,29 @@
-package xml
+package xml.element
 
 import xml.utils.createFilledString
 
+/**
+ * Represents a xml context that can be assigned to a context or can be part of a context.
+ */
 class XmlElement(private val name: String, private val value: Any = "")
 {
     private val children: MutableList<XmlElement> = mutableListOf()
 
-    private val attributes: MutableList<XmlAttribute> = mutableListOf()
+    private val attributes: MutableList<XmlElementAttribute> = mutableListOf()
 
+    /**
+     * Adds a child to the xml element.
+     */
     fun addChild(xmlElement: XmlElement) = children.add(xmlElement)
 
-    fun addAttribute(xmlAttribute: XmlAttribute) = attributes.add(xmlAttribute)
+    /**
+     * Adds an attribute to the xml element.
+     */
+    fun addAttribute(xmlElementAttribute: XmlElementAttribute) = attributes.add(xmlElementAttribute)
 
+    /**
+     * Dumps the xml element.
+     */
     fun dump(intent: Int = -1, intentOffset: Int = 0): String
     {
         var content = "<$name"

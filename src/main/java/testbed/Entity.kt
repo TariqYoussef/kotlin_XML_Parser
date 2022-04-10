@@ -2,14 +2,14 @@ package testbed
 
 import xml.XmlElementContent
 import xml.XmlElementName
-import xml.XmlIgnore
+import xml.XmlElementIgnore
 
 @XmlElementName("Entity")
 data class Entity(val id: Int, val name: String)
 {
     @XmlElementContent
     val data: String = "Data Example"
-    @XmlIgnore
+    @XmlElementIgnore
     val ignore: String = "Element to ignore"
 
     val position: Point = Point(5, 7)

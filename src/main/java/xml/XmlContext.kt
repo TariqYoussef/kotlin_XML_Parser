@@ -1,5 +1,6 @@
 package xml
 
+import xml.element.XmlElement
 import xml.utils.isBasicType
 import xml.utils.isEnum
 import kotlin.reflect.KClass
@@ -7,11 +8,17 @@ import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 
+/**
+ * Represents a Xml context.
+ */
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no")
 {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private val xmlElements: MutableList<XmlElement> = mutableListOf()
 
+    /**
+     * Adds a xml element to the context.
+     */
     fun addXmlElement(element: Any) {
         val kClass: KClass<out Any> = element::class
 
@@ -22,11 +29,17 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         addXmlElement(xmlElement)
     }
 
+    /**
+     * Adds a xml element to the context.
+     */
     fun addXmlElement(xmlElement: XmlElement)
     {
         xmlElements.add(xmlElement)
     }
 
+    /**
+     * Dumps the context.
+     */
     fun dump(intent: Int = -1): String
     {
         var content: String = xmlHeader.dump() + if(intent > -1) "\n" else ""
@@ -66,7 +79,9 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
     private fun addXmlElementChildren(kClass: KClass<out Any>, element: Any, xmlElement: XmlElement)
     {
-        val properties = kClass.declaredMemberProperties.filter{!it.hasAnnotation<XmlElementContent>() && !it.hasAnnotation<XmlIgnore>()}
+        val properties = kClass.declaredMemberProperties.filter{
+            !it.hasAnnotation<XmlElementContent>() && !it.hasAnnotation<XmlElementIgnore>()
+        }
         properties.forEach{
             if(it.call(element) != null)
             {

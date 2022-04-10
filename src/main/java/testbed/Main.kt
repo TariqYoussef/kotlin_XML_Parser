@@ -1,8 +1,8 @@
 package testbed
 
-import xml.XmlAttribute
+import xml.element.XmlElementAttribute
 import xml.XmlContext
-import xml.XmlElement
+import xml.element.XmlElement
 
 
 fun main()
@@ -12,7 +12,7 @@ fun main()
     val xmlContext = XmlContext()
 
     val xmlElement = XmlElement("test", 1)
-    xmlElement.addAttribute(XmlAttribute("attribute", "attribute"))
+    xmlElement.addAttribute(XmlElementAttribute("attribute", "attribute"))
 
     xmlContext.addXmlElement(xmlElement)
 
