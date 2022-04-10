@@ -26,7 +26,6 @@ data class Point(val x: Int, val y: Int)
 @XmlElementName("Beg_End")
 data class Point2(val point1: Point, val point2: Point)
 {
-    @XmlElementContent
     val content: String = "content"
 }
 
