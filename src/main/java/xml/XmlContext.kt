@@ -88,6 +88,9 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             if(elementContent[0].hasAnnotation<XmlElementAttributeAnnotation>())
                 throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used with XmlElementAttribute")
 
+            if(elementContent[0].hasAnnotation<XmlElementName>())
+                throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used with XmlElementName")
+
             XmlElement(elementName, elementContent[0].call(element)!!)
         } else {
             XmlElement(elementName)
