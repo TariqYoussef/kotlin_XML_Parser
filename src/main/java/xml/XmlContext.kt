@@ -109,23 +109,34 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             !it.hasAnnotation<XmlElementAttributeAnnotation>()
         }
         properties.forEach{
+            val elementChildName: String = if(it.hasAnnotation<XmlElementChildName>())
+            {
+                if(it.findAnnotation<XmlElementChildName>()?.name == null)
+                    throw InvalidXmlAnnotationException("XmlElementChildName", "Invalid name")
+
+                it.findAnnotation<XmlElementChildName>()?.name!!
+            }else
+            {
+                it.name
+            }
+
             if(it.call(element) == null)
             {
-                val propertyXmlElement = XmlElement(it.name)
+                val propertyXmlElement = XmlElement(elementChildName)
                 xmlElement.addChild(propertyXmlElement)
                 return@forEach
             }
 
             if(isBasicType(it.call(element)!!) || isEnum(it.call(element)!!))
             {
-                val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
+                val propertyXmlElement = XmlElement(elementChildName, it.call(element)!!)
                 xmlElement.addChild(propertyXmlElement)
             }
             else
             {
                 val elementChild: Any = it.call(element)!!
                 val kClassChild: KClass<out Any> = elementChild::class
-                val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild, it.name)
+                val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild, elementChildName)
                 addXmlElementChildren(kClassChild, elementChild, xmlElementChild)
                 xmlElement.addChild(xmlElementChild)
             }

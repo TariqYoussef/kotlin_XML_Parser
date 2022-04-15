@@ -1,9 +1,6 @@
 package testbed
 
-import xml.XmlElementAttribute
-import xml.XmlElementContent
-import xml.XmlElementName
-import xml.XmlElementIgnore
+import xml.*
 
 @XmlElementName("Entity")
 data class Entity(val id: Int, val name: String)
@@ -23,6 +20,7 @@ data class Entity(val id: Int, val name: String)
 
     val direction: Direction = Direction.NORTH
 
+    @XmlElementChildName("itinerary")
     val point2: Point2 = Point2(Point(0,0), Point(5,5))
 }
 
