@@ -99,7 +99,9 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     private fun addXmlElementChildren(kClass: KClass<out Any>, element: Any, xmlElement: XmlElement)
     {
         val properties = kClass.declaredMemberProperties.filter{
-            !it.hasAnnotation<XmlElementContent>() && !it.hasAnnotation<XmlElementIgnore>()
+            !it.hasAnnotation<XmlElementContent>() &&
+            !it.hasAnnotation<XmlElementIgnore>() &&
+            !it.hasAnnotation<XmlElementAttributeAnnotation>()
         }
         properties.forEach{
             if(it.call(element) == null)
