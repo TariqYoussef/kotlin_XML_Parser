@@ -68,15 +68,20 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             kClass.simpleName!!
         }
 
+        return createXmlElement(kClass, element, elementName)
+    }
+
+    private fun createXmlElement(kClass: KClass<out Any>, element: Any, name: String): XmlElement
+    {
         val elementContent = kClass.declaredMemberProperties.filter{it.hasAnnotation<XmlElementContent>() }
 
         val xmlElement = if(elementContent.isNotEmpty()) {
             if(elementContent.size > 1)
                 throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used more than one time in one class")
 
-            XmlElement(elementName, elementContent[0].call(element)!!)
+            XmlElement(name, elementContent[0].call(element)!!)
         } else {
-            XmlElement(elementName)
+            XmlElement(name)
         }
 
         val elementAttributes = kClass.declaredMemberProperties.filter{
@@ -120,7 +125,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             {
                 val elementChild: Any = it.call(element)!!
                 val kClassChild: KClass<out Any> = elementChild::class
-                val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild)
+                val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild, it.name)
                 addXmlElementChildren(kClassChild, elementChild, xmlElementChild)
                 xmlElement.addChild(xmlElementChild)
             }
