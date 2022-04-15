@@ -12,6 +12,7 @@ data class Entity(val id: Int, val name: String)
     @XmlElementAttribute
     val attribute1: String = "Attribute content"
     @XmlElementAttribute
+    @XmlElementName("SpecialAttribute")
     val attribute2: String = "Attribute content"
 
     val position: Point = Point(5, 7)
@@ -20,7 +21,7 @@ data class Entity(val id: Int, val name: String)
 
     val direction: Direction = Direction.NORTH
 
-    @XmlElementChildName("itinerary")
+    @XmlElementName("itinerary")
     val point2: Point2 = Point2(Point(0,0), Point(5,5))
 }
 

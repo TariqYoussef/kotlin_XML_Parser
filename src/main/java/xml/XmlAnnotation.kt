@@ -1,17 +1,12 @@
 package xml
 
 /**
- * Name of the element in the xml tag.
+ * Name of the element
  */
 annotation class XmlElementName(val name: String)
 
 /**
- * Name of the element child in the xml tag.
- */
-annotation class XmlElementChildName(val name: String)
-
-/**
- * Content of the element in the xml tag.
+ * Content of the element.
  */
 annotation class XmlElementContent
 
@@ -21,6 +16,6 @@ annotation class XmlElementContent
 annotation class XmlElementIgnore
 
 /**
- * Attribute of the element in the xml tag.
+ * Attribute of the element.
  */
 annotation class XmlElementAttribute

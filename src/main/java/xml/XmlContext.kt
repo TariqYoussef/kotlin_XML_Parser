@@ -71,30 +71,46 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return createXmlElement(kClass, element, elementName)
     }
 
-    private fun createXmlElement(kClass: KClass<out Any>, element: Any, name: String): XmlElement
+    private fun createXmlElement(kClass: KClass<out Any>, element: Any, elementName: String): XmlElement
     {
-        val elementContent = kClass.declaredMemberProperties.filter{it.hasAnnotation<XmlElementContent>() }
+        val memberProperties = kClass.declaredMemberProperties.filter {
+            !it.hasAnnotation<XmlElementIgnore>()
+        }
+
+        val elementContent = memberProperties.filter{
+            it.hasAnnotation<XmlElementContent>() }
 
         val xmlElement = if(elementContent.isNotEmpty()) {
             if(elementContent.size > 1)
                 throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used more than one time in one class")
 
-            XmlElement(name, elementContent[0].call(element)!!)
+            XmlElement(elementName, elementContent[0].call(element)!!)
         } else {
-            XmlElement(name)
+            XmlElement(elementName)
         }
 
-        val elementAttributes = kClass.declaredMemberProperties.filter{
+        val elementAttributes = memberProperties.filter{
             it.hasAnnotation<XmlElementAttributeAnnotation>() }
 
         elementAttributes.forEach{
             if(it.call(element) == null) return@forEach
 
+            val elementAttributeName: String = if(it.hasAnnotation<XmlElementName>())
+            {
+                if(it.findAnnotation<XmlElementName>()?.name == null)
+                    throw InvalidXmlAnnotationException("XmlElementChildName", "Invalid name")
+
+                it.findAnnotation<XmlElementName>()?.name!!
+            }else
+            {
+                it.name
+            }
+
             if(!isBasicType(it.call(element)!!) && !isEnum(it.call(element)!!))
                 throw InvalidXmlAnnotationTypeException("XmlElementAttributeAnnotation",
                     "An Attribute must be a basic type or an enum and not a/an ${it.call(element)!!::class.qualifiedName}")
 
-            val xmlElementAttribute = XmlElementAttribute(it.name, it.call(element)!!)
+            val xmlElementAttribute = XmlElementAttribute(elementAttributeName, it.call(element)!!)
             xmlElement.addAttribute(xmlElementAttribute)
         }
 
@@ -109,12 +125,12 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             !it.hasAnnotation<XmlElementAttributeAnnotation>()
         }
         properties.forEach{
-            val elementChildName: String = if(it.hasAnnotation<XmlElementChildName>())
+            val elementChildName: String = if(it.hasAnnotation<XmlElementName>())
             {
-                if(it.findAnnotation<XmlElementChildName>()?.name == null)
+                if(it.findAnnotation<XmlElementName>()?.name == null)
                     throw InvalidXmlAnnotationException("XmlElementChildName", "Invalid name")
 
-                it.findAnnotation<XmlElementChildName>()?.name!!
+                it.findAnnotation<XmlElementName>()?.name!!
             }else
             {
                 it.name
