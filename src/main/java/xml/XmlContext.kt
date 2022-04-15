@@ -1,8 +1,10 @@
 package xml
 
 import xml.element.XmlElement
+import xml.utils.isArray
 import xml.element.XmlElementAttribute as XmlElementAttribute
 import xml.utils.isBasicType
+import xml.utils.isCollection
 import xml.utils.isEnum
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
@@ -148,15 +150,44 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
             if(it.call(element) == null)
             {
-                val propertyXmlElement = XmlElement(elementChildName)
-                xmlElement.addChild(propertyXmlElement)
+                val xmlElementChild = XmlElement(elementChildName)
+                xmlElement.addChild(xmlElementChild)
                 return@forEach
             }
 
             if(isBasicType(it.call(element)!!) || isEnum(it.call(element)!!))
             {
-                val propertyXmlElement = XmlElement(elementChildName, it.call(element)!!)
-                xmlElement.addChild(propertyXmlElement)
+                val xmlElementChild = XmlElement(elementChildName, it.call(element)!!)
+                xmlElement.addChild(xmlElementChild)
+            }
+            else if(isArray(it.call(element)!!) || isCollection(it.call(element)!!))
+            {
+                val xmlElementChild = XmlElement(elementChildName)
+                val elementChild: Iterable<Any> = if(isArray(it.call(element)!!))
+                {
+                    val elementArrayChild: Array<Any> = it.call(element)!! as Array<Any>
+                    elementArrayChild.asList()
+                }
+                else
+                {
+                    it.call(element)!! as Iterable<Any>
+                }
+
+                elementChild.forEach {
+                    if(isBasicType(it) || isEnum(it))
+                    {
+                        val xmlElementItem = XmlElement("item", it)
+                        xmlElementChild.addChild(xmlElementItem)
+                    }
+                    else
+                    {
+                        val kClassChild: KClass<out Any> = it::class
+                        val xmlElementItem: XmlElement = createXmlElement(kClassChild, it, "item")
+                        addXmlElementChildren(kClassChild, it, xmlElementItem)
+                        xmlElementChild.addChild(xmlElementItem)
+                    }
+                }
+                xmlElement.addChild(xmlElementChild)
             }
             else
             {
@@ -170,3 +201,5 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     }
 
 }
+
+//TODO: IntArray, ShortArray, etc Support

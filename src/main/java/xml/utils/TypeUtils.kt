@@ -6,7 +6,6 @@ fun isBasicType(element: Any): Boolean = (element is Number
 
 fun isEnum(element: Any): Boolean = element is Enum<*>
 
-fun isArray(element: Any): Boolean = element is Array<*> || element is ByteArray ||
-        element is ShortArray || element is IntArray || element is LongArray
+fun isArray(element: Any): Boolean = element is Array<*>
 
 fun isCollection(element: Any): Boolean = element is Collection<*>
