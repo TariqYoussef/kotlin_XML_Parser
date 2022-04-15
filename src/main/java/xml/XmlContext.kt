@@ -78,11 +78,15 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
 
         val elementContent = memberProperties.filter{
-            it.hasAnnotation<XmlElementContent>() }
+            it.hasAnnotation<XmlElementContent>()
+        }
 
         val xmlElement = if(elementContent.isNotEmpty()) {
             if(elementContent.size > 1)
                 throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used more than one time in one class")
+
+            if(elementContent[0].hasAnnotation<XmlElementAttributeAnnotation>())
+                throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used with XmlElementAttribute")
 
             XmlElement(elementName, elementContent[0].call(element)!!)
         } else {
@@ -90,9 +94,12 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
 
         val elementAttributes = memberProperties.filter{
-            it.hasAnnotation<XmlElementAttributeAnnotation>() }
+            it.hasAnnotation<XmlElementAttributeAnnotation>()}
 
         elementAttributes.forEach{
+            if(it.hasAnnotation<XmlElementContent>())
+                throw InvalidXmlAnnotationException("XmlElementAttribute", "Can't be used with XmlElementContent")
+
             if(it.call(element) == null) return@forEach
 
             val elementAttributeName: String = if(it.hasAnnotation<XmlElementName>())
