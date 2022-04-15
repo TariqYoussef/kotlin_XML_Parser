@@ -85,6 +85,10 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         elementAttributes.forEach{
             if(it.call(element) == null) return@forEach
 
+            if(!isBasicType(it.call(element)!!) && !isEnum(it.call(element)!!))
+                throw InvalidXmlAnnotationTypeException("XmlElementAttributeAnnotation",
+                    "An Attribute must be a basic type or an enum and not a/an ${it.call(element)!!::class.qualifiedName}")
+
             val xmlElementAttribute = XmlElementAttribute(it.name, it.call(element)!!)
             xmlElement.addAttribute(xmlElementAttribute)
         }
