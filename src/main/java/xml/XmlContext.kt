@@ -83,26 +83,25 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             !it.hasAnnotation<XmlElementContent>() && !it.hasAnnotation<XmlElementIgnore>()
         }
         properties.forEach{
-            if(it.call(element) != null)
-            {
-                if(isBasicType(it.call(element)!!) || isEnum(it.call(element)!!))
-                {
-                    val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
-                    xmlElement.addChild(propertyXmlElement)
-                }
-                else
-                {
-                    val elementChild: Any = it.call(element)!!
-                    val kClassChild: KClass<out Any> = elementChild::class
-                    val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild)
-                    addXmlElementChildren(kClassChild, elementChild, xmlElementChild)
-                    xmlElement.addChild(xmlElementChild)
-                }
-            }
-            else
+            if(it.call(element) == null)
             {
                 val propertyXmlElement = XmlElement(it.name)
                 xmlElement.addChild(propertyXmlElement)
+                return
+            }
+
+            if(isBasicType(it.call(element)!!) || isEnum(it.call(element)!!))
+            {
+                val propertyXmlElement = XmlElement(it.name, it.call(element)!!)
+                xmlElement.addChild(propertyXmlElement)
+            }
+            else
+            {
+                val elementChild: Any = it.call(element)!!
+                val kClassChild: KClass<out Any> = elementChild::class
+                val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild)
+                addXmlElementChildren(kClassChild, elementChild, xmlElementChild)
+                xmlElement.addChild(xmlElementChild)
             }
         }
     }
