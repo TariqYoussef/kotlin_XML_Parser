@@ -1,5 +1,6 @@
 package testbed
 
+import xml.XmlElementAttribute
 import xml.XmlElementContent
 import xml.XmlElementName
 import xml.XmlElementIgnore
@@ -11,6 +12,10 @@ data class Entity(val id: Int, val name: String)
     val data: String = "Data Example"
     @XmlElementIgnore
     val ignore: String = "Element to ignore"
+    @XmlElementAttribute
+    val attribute1: String = "Attribute content"
+    @XmlElementAttribute
+    val attribute2: String = "Attribute content"
 
     val position: Point = Point(5, 7)
 

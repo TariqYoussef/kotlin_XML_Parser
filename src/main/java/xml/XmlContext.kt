@@ -1,12 +1,15 @@
 package xml
 
 import xml.element.XmlElement
+import xml.element.XmlElementAttribute as XmlElementAttribute
 import xml.utils.isBasicType
 import xml.utils.isEnum
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
+
+typealias XmlElementAttributeAnnotation = xml.XmlElementAttribute
 
 /**
  * Represents a Xml context.
@@ -67,7 +70,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
         val elementContent = kClass.declaredMemberProperties.filter{it.hasAnnotation<XmlElementContent>() }
 
-        return if(elementContent.isNotEmpty()) {
+        val xmlElement = if(elementContent.isNotEmpty()) {
             if(elementContent.size > 1)
                 throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used more than one time in one class")
 
@@ -75,6 +78,18 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         } else {
             XmlElement(elementName)
         }
+
+        val elementAttributes = kClass.declaredMemberProperties.filter{
+            it.hasAnnotation<XmlElementAttributeAnnotation>() }
+
+        elementAttributes.forEach{
+            if(it.call(element) == null) return@forEach
+
+            val xmlElementAttribute = XmlElementAttribute(it.name, it.call(element)!!)
+            xmlElement.addAttribute(xmlElementAttribute)
+        }
+
+        return xmlElement
     }
 
     private fun addXmlElementChildren(kClass: KClass<out Any>, element: Any, xmlElement: XmlElement)
@@ -87,7 +102,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             {
                 val propertyXmlElement = XmlElement(it.name)
                 xmlElement.addChild(propertyXmlElement)
-                return
+                return@forEach
             }
 
             if(isBasicType(it.call(element)!!) || isEnum(it.call(element)!!))
