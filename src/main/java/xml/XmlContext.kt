@@ -10,6 +10,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
+import kotlin.reflect.KProperty1;
 
 typealias XmlElementAttributeAnnotation = xml.XmlElementAttribute
 
@@ -162,31 +163,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             }
             else if(isArray(it.call(element)!!) || isCollection(it.call(element)!!))
             {
-                val xmlElementChild = XmlElement(elementChildName)
-                val elementChild: Iterable<Any> = if(isArray(it.call(element)!!))
-                {
-                    val elementArrayChild: Array<Any> = it.call(element)!! as Array<Any>
-                    elementArrayChild.asList()
-                }
-                else
-                {
-                    it.call(element)!! as Iterable<Any>
-                }
-
-                elementChild.forEach {
-                    if(isBasicType(it) || isEnum(it))
-                    {
-                        val xmlElementItem = XmlElement("item", it)
-                        xmlElementChild.addChild(xmlElementItem)
-                    }
-                    else
-                    {
-                        val kClassChild: KClass<out Any> = it::class
-                        val xmlElementItem: XmlElement = createXmlElement(kClassChild, it, "item")
-                        addXmlElementChildren(kClassChild, it, xmlElementItem)
-                        xmlElementChild.addChild(xmlElementItem)
-                    }
-                }
+                val xmlElementChild = addXmlElementChildCollection(it.call(element)!!, elementChildName)
                 xmlElement.addChild(xmlElementChild)
             }
             else
@@ -200,6 +177,41 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
     }
 
+    private fun addXmlElementChildCollection(element: Any, elementChildName: String): XmlElement
+    {
+        val xmlElementChild = XmlElement(elementChildName)
+        val elementChild: Iterable<Any> = if(isArray(element))
+        {
+            val elementArrayChild: Array<Any> = element as Array<Any>
+            elementArrayChild.asList()
+        }
+        else
+        {
+            element as Iterable<Any>
+        }
+
+        elementChild.forEach {
+            if(isBasicType(it) || isEnum(it))
+            {
+                val xmlElementItem = XmlElement("item", it)
+                xmlElementChild.addChild(xmlElementItem)
+            }
+            else if(isArray(it) || isCollection(it))
+            {
+                val xmlElementItem: XmlElement = addXmlElementChildCollection(it, "item")
+                xmlElementChild.addChild(xmlElementItem)
+            }
+            else
+            {
+                val kClassChild: KClass<out Any> = it::class
+                val xmlElementItem: XmlElement = createXmlElement(kClassChild, it, "item")
+                addXmlElementChildren(kClassChild, it, xmlElementItem)
+                xmlElementChild.addChild(xmlElementItem)
+            }
+        }
+
+        return xmlElementChild
+    }
 }
 
 //TODO: IntArray, ShortArray, etc Support
