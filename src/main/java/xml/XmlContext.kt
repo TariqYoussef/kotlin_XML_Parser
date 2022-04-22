@@ -17,8 +17,7 @@ typealias XmlElementAttributeAnnotation = xml.XmlElementAttribute
 /**
  * Represents a Xml context.
  */
-class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no")
-{
+class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private val xmlElements: MutableList<XmlElement> = mutableListOf()
 
@@ -38,34 +37,30 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     /**
      * Adds a xml element to the context.
      */
-    fun addXmlElement(xmlElement: XmlElement)
-    {
+    fun addXmlElement(xmlElement: XmlElement) {
         xmlElements.add(xmlElement)
     }
 
     /**
      * Dumps the context.
      */
-    fun dump(intent: Int = -1): String
-    {
-        var content: String = xmlHeader.dump() + if(intent > -1) "\n" else ""
+    fun dump(intent: Int = -1): String {
+        var content: String = xmlHeader.dump() + if (intent > -1) "\n" else ""
 
-        for(element in xmlElements)
+        for (element in xmlElements)
             content += element.dump(intent)
 
         return content
     }
 
-    private fun createXmlElement(kClass: KClass<out Any>, element: Any): XmlElement
-    {
-        val elementName: String = if(kClass.hasAnnotation<XmlElementName>())
-        {
-            if(kClass.findAnnotation<XmlElementName>()?.name == null)
+    private fun createXmlElement(kClass: KClass<out Any>, element: Any): XmlElement {
+        val elementName: String = if (kClass.hasAnnotation<XmlElementName>()) {
+            if (kClass.findAnnotation<XmlElementName>()?.name == null)
                 throw InvalidXmlAnnotationException("XmlElementName", "Invalid name")
 
             kClass.findAnnotation<XmlElementName>()?.name!!
         } else {
-            if(kClass.simpleName == null)
+            if (kClass.simpleName == null)
                 throw InvalidXmlElementException("Class doesn't have a name")
 
             kClass.simpleName!!
@@ -74,24 +69,26 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return createXmlElement(kClass, element, elementName)
     }
 
-    private fun createXmlElement(kClass: KClass<out Any>, element: Any, elementName: String): XmlElement
-    {
+    private fun createXmlElement(kClass: KClass<out Any>, element: Any, elementName: String): XmlElement {
         val memberProperties = kClass.declaredMemberProperties.filter {
             !it.hasAnnotation<XmlElementIgnore>()
         }
 
-        val elementContent = memberProperties.filter{
+        val elementContent = memberProperties.filter {
             it.hasAnnotation<XmlElementContent>()
         }
 
-        val xmlElement = if(elementContent.isNotEmpty()) {
-            if(elementContent.size > 1)
-                throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used more than one time in one class")
+        val xmlElement = if (elementContent.isNotEmpty()) {
+            if (elementContent.size > 1)
+                throw InvalidXmlAnnotationException(
+                    "XmlElementContent",
+                    "Can't be used more than one time in one class"
+                )
 
-            if(elementContent[0].hasAnnotation<XmlElementAttributeAnnotation>())
+            if (elementContent[0].hasAnnotation<XmlElementAttributeAnnotation>())
                 throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used with XmlElementAttribute")
 
-            if(elementContent[0].hasAnnotation<XmlElementName>())
+            if (elementContent[0].hasAnnotation<XmlElementName>())
                 throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used with XmlElementName")
 
             XmlElement(elementName, elementContent[0].call(element)!!)
@@ -99,29 +96,30 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             XmlElement(elementName)
         }
 
-        val elementAttributes = memberProperties.filter{
-            it.hasAnnotation<XmlElementAttributeAnnotation>()}
+        val elementAttributes = memberProperties.filter {
+            it.hasAnnotation<XmlElementAttributeAnnotation>()
+        }
 
-        elementAttributes.forEach{
-            if(it.hasAnnotation<XmlElementContent>())
+        elementAttributes.forEach {
+            if (it.hasAnnotation<XmlElementContent>())
                 throw InvalidXmlAnnotationException("XmlElementAttribute", "Can't be used with XmlElementContent")
 
-            if(it.call(element) == null) return@forEach
+            if (it.call(element) == null) return@forEach
 
-            val elementAttributeName: String = if(it.hasAnnotation<XmlElementName>())
-            {
-                if(it.findAnnotation<XmlElementName>()?.name == null)
+            val elementAttributeName: String = if (it.hasAnnotation<XmlElementName>()) {
+                if (it.findAnnotation<XmlElementName>()?.name == null)
                     throw InvalidXmlAnnotationException("XmlElementChildName", "Invalid name")
 
                 it.findAnnotation<XmlElementName>()?.name!!
-            }else
-            {
+            } else {
                 it.name
             }
 
-            if(!isBasicType(it.call(element)!!) && !isEnum(it.call(element)!!))
-                throw InvalidXmlAnnotationTypeException("XmlElementAttributeAnnotation",
-                    "An Attribute must be a basic type or an enum and not a/an ${it.call(element)!!::class.qualifiedName}")
+            if (!isBasicType(it.call(element)!!) && !isEnum(it.call(element)!!))
+                throw InvalidXmlAnnotationTypeException(
+                    "XmlElementAttributeAnnotation",
+                    "An Attribute must be a basic type or an enum and not a/an ${it.call(element)!!::class.qualifiedName}"
+                )
 
             val xmlElementAttribute = XmlElementAttribute(elementAttributeName, it.call(element)!!)
             xmlElement.addAttribute(xmlElementAttribute)
@@ -130,80 +128,59 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return xmlElement
     }
 
-    private fun addXmlElementChildren(kClass: KClass<out Any>, element: Any, xmlElement: XmlElement)
-    {
-        val properties = kClass.declaredMemberProperties.filter{
+    private fun addXmlElementChildren(kClass: KClass<out Any>, element: Any, xmlElement: XmlElement) {
+        val properties = kClass.declaredMemberProperties.filter {
             !it.hasAnnotation<XmlElementContent>() &&
-            !it.hasAnnotation<XmlElementIgnore>() &&
-            !it.hasAnnotation<XmlElementAttributeAnnotation>()
+                    !it.hasAnnotation<XmlElementIgnore>() &&
+                    !it.hasAnnotation<XmlElementAttributeAnnotation>()
         }
-        properties.forEach{
+        properties.forEach {
             it.isAccessible = true
-            val elementChildName: String = if(it.hasAnnotation<XmlElementName>())
-            {
-                if(it.findAnnotation<XmlElementName>()?.name == null)
+            val elementChildName: String = if (it.hasAnnotation<XmlElementName>()) {
+                if (it.findAnnotation<XmlElementName>()?.name == null)
                     throw InvalidXmlAnnotationException("XmlElementChildName", "Invalid name")
 
                 it.findAnnotation<XmlElementName>()?.name!!
-            }else
-            {
+            } else {
                 it.name
             }
 
-            if(it.call(element) == null)
-            {
+            if (it.call(element) == null) {
                 val xmlElementChild = XmlElement(elementChildName)
                 xmlElement.addChild(xmlElementChild)
                 return@forEach
             }
 
-            if(isBasicType(it.call(element)!!) || isEnum(it.call(element)!!))
-            {
+            if (isBasicType(it.call(element)!!) || isEnum(it.call(element)!!)) {
                 val xmlElementChild = XmlElement(elementChildName, it.call(element)!!)
                 xmlElement.addChild(xmlElementChild)
-            }
-            else if(isArray(it.call(element)!!) || isCollection(it.call(element)!!))
-            {
+            } else if (isArray(it.call(element)!!) || isCollection(it.call(element)!!)) {
                 val xmlElementChild = addXmlElementChildCollection(it.call(element)!!, elementChildName)
                 xmlElement.addChild(xmlElementChild)
-            }
-            else
-            {
-                val elementChild: Any = it.call(element)!!
-                val kClassChild: KClass<out Any> = elementChild::class
-                val xmlElementChild: XmlElement = createXmlElement(kClassChild, elementChild, elementChildName)
-                addXmlElementChildren(kClassChild, elementChild, xmlElementChild)
+            } else {
+                val xmlElementChild = addXmlElementChildAnother(it.call(element)!!, elementChildName)
                 xmlElement.addChild(xmlElementChild)
             }
         }
     }
 
-    private fun addXmlElementChildCollection(element: Any, elementChildName: String): XmlElement
-    {
+    private fun addXmlElementChildCollection(element: Any, elementChildName: String): XmlElement {
         val xmlElementChild = XmlElement(elementChildName)
-        val elementChild: Iterable<Any> = if(isArray(element))
-        {
+        val elementChild: Iterable<Any> = if (isArray(element)) {
             val elementArrayChild: Array<Any> = element as Array<Any>
             elementArrayChild.asList()
-        }
-        else
-        {
+        } else {
             element as Iterable<Any>
         }
 
         elementChild.forEach {
-            if(isBasicType(it) || isEnum(it))
-            {
+            if (isBasicType(it) || isEnum(it)) {
                 val xmlElementItem = XmlElement("item", it)
                 xmlElementChild.addChild(xmlElementItem)
-            }
-            else if(isArray(it) || isCollection(it))
-            {
+            } else if (isArray(it) || isCollection(it)) {
                 val xmlElementItem: XmlElement = addXmlElementChildCollection(it, "item")
                 xmlElementChild.addChild(xmlElementItem)
-            }
-            else
-            {
+            } else {
                 val kClassChild: KClass<out Any> = it::class
                 val xmlElementItem: XmlElement = createXmlElement(kClassChild, it, "item")
                 addXmlElementChildren(kClassChild, it, xmlElementItem)
@@ -211,6 +188,14 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             }
         }
 
+        return xmlElementChild
+    }
+
+    private fun addXmlElementChildAnother(element: Any, elementChildName: String): XmlElement
+    {
+        val kClassChild: KClass<out Any> = element::class
+        val xmlElementChild: XmlElement = createXmlElement(kClassChild, element, elementChildName)
+        addXmlElementChildren(kClassChild, element, xmlElementChild)
         return xmlElementChild
     }
 }
