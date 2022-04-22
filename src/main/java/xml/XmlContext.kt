@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
-import kotlin.reflect.KProperty1;
+import kotlin.reflect.jvm.isAccessible
 
 typealias XmlElementAttributeAnnotation = xml.XmlElementAttribute
 
@@ -138,6 +138,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             !it.hasAnnotation<XmlElementAttributeAnnotation>()
         }
         properties.forEach{
+            it.isAccessible = true
             val elementChildName: String = if(it.hasAnnotation<XmlElementName>())
             {
                 if(it.findAnnotation<XmlElementName>()?.name == null)
