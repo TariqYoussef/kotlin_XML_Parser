@@ -9,3 +9,5 @@ fun isEnum(element: Any): Boolean = element is Enum<*>
 fun isArray(element: Any): Boolean = element is Array<*>
 
 fun isCollection(element: Any): Boolean = element is Collection<*>
+
+fun isMap(element: Any): Boolean = element is Map<*,*>
