@@ -181,9 +181,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
                 val xmlElementItem: XmlElement = addXmlElementChildCollection(it, "item")
                 xmlElementChild.addChild(xmlElementItem)
             } else {
-                val kClassChild: KClass<out Any> = it::class
-                val xmlElementItem: XmlElement = createXmlElement(kClassChild, it, "item")
-                addXmlElementChildren(kClassChild, it, xmlElementItem)
+                val xmlElementItem: XmlElement = addXmlElementChildAnother(it, "item")
                 xmlElementChild.addChild(xmlElementItem)
             }
         }
