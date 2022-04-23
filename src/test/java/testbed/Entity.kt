@@ -29,6 +29,7 @@ data class Entity(val id: Int, val name: String)
     val listPoints: List<Point> = listOf(Point(0,0), Point(1,2), Point(2,3))
     val listLists: List<Array<Point>> = listOf(arrayOf(Point(0,0), Point(1,2), Point(2,3)))
     val map: Map<Int, Point> = mapOf(Pair(0, Point(0,0)), Pair(1, Point(1,1)))
+    val mapList: Map<Int, List<Point>> = mapOf(Pair(0, listPoints), Pair(1, listOf(Point(1,1))))
 }
 
 data class Point(val x: Int, val y: Int)
