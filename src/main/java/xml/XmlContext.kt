@@ -1,11 +1,8 @@
 package xml
 
 import xml.element.XmlElement
-import xml.utils.isArray
+import xml.utils.*
 import xml.element.XmlElementAttribute as XmlElementAttribute
-import xml.utils.isBasicType
-import xml.utils.isCollection
-import xml.utils.isEnum
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
@@ -160,10 +157,17 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         if (isBasicType(elementChild) || isEnum(elementChild)) {
             val xmlElementChild = XmlElement(elementChildName, elementChild)
             xmlElement.addChild(xmlElementChild)
-        } else if (isArray(elementChild) || isCollection(elementChild)) {
+        }
+        else if (isArray(elementChild) || isCollection(elementChild)) {
             val xmlElementChild = addXmlElementChildCollection(elementChild, elementChildName)
             xmlElement.addChild(xmlElementChild)
-        } else {
+        }
+        else if(isMap(elementChild))
+        {
+            val xmlElementChild = addXmlElementChildMap(elementChild, elementChildName)
+            xmlElement.addChild(xmlElementChild)
+        }
+        else {
             val xmlElementChild = addXmlElementChildAnother(elementChild, elementChildName)
             xmlElement.addChild(xmlElementChild)
         }
@@ -185,6 +189,19 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return xmlElementChild
     }
 
+    private fun addXmlElementChildMap(element: Any, elementChildName: String): XmlElement
+    {
+        val xmlElementChild = XmlElement(elementChildName)
+        val elementChild: Map<Any, Any> = element as Map<Any, Any>
+        elementChild.forEach{
+            val xmlElementItem = XmlElement("item")
+            assignElementChildConversionType(xmlElementItem, it.key, "key")
+            assignElementChildConversionType(xmlElementItem, it.value, "value")
+            xmlElementChild.addChild(xmlElementItem)
+        }
+        return xmlElementChild
+    }
+
     private fun addXmlElementChildAnother(element: Any, elementChildName: String): XmlElement
     {
         val kClassChild: KClass<out Any> = element::class
@@ -192,7 +209,6 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         addXmlElementChildren(kClassChild, element, xmlElementChild)
         return xmlElementChild
     }
-
 
 }
 
