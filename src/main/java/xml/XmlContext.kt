@@ -151,16 +151,21 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
                 return@forEach
             }
 
-            if (isBasicType(it.call(element)!!) || isEnum(it.call(element)!!)) {
-                val xmlElementChild = XmlElement(elementChildName, it.call(element)!!)
-                xmlElement.addChild(xmlElementChild)
-            } else if (isArray(it.call(element)!!) || isCollection(it.call(element)!!)) {
-                val xmlElementChild = addXmlElementChildCollection(it.call(element)!!, elementChildName)
-                xmlElement.addChild(xmlElementChild)
-            } else {
-                val xmlElementChild = addXmlElementChildAnother(it.call(element)!!, elementChildName)
-                xmlElement.addChild(xmlElementChild)
-            }
+            assignElementChildConversionType(xmlElement, it.call(element)!!, elementChildName)
+        }
+    }
+
+    private fun assignElementChildConversionType(xmlElement: XmlElement, elementChild: Any, elementChildName: String)
+    {
+        if (isBasicType(elementChild) || isEnum(elementChild)) {
+            val xmlElementChild = XmlElement(elementChildName, elementChild)
+            xmlElement.addChild(xmlElementChild)
+        } else if (isArray(elementChild) || isCollection(elementChild)) {
+            val xmlElementChild = addXmlElementChildCollection(elementChild, elementChildName)
+            xmlElement.addChild(xmlElementChild)
+        } else {
+            val xmlElementChild = addXmlElementChildAnother(elementChild, elementChildName)
+            xmlElement.addChild(xmlElementChild)
         }
     }
 
@@ -174,16 +179,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
 
         elementChild.forEach {
-            if (isBasicType(it) || isEnum(it)) {
-                val xmlElementItem = XmlElement("item", it)
-                xmlElementChild.addChild(xmlElementItem)
-            } else if (isArray(it) || isCollection(it)) {
-                val xmlElementItem: XmlElement = addXmlElementChildCollection(it, "item")
-                xmlElementChild.addChild(xmlElementItem)
-            } else {
-                val xmlElementItem: XmlElement = addXmlElementChildAnother(it, "item")
-                xmlElementChild.addChild(xmlElementItem)
-            }
+            assignElementChildConversionType(xmlElementChild, it, "item")
         }
 
         return xmlElementChild
@@ -196,6 +192,8 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         addXmlElementChildren(kClassChild, element, xmlElementChild)
         return xmlElementChild
     }
+
+
 }
 
 //TODO: IntArray, ShortArray, etc Support
