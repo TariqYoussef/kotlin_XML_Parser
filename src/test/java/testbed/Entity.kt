@@ -1,6 +1,9 @@
 package testbed
 
-import xml.*
+import xmlparser.core.XmlElementAttribute
+import xmlparser.core.XmlElementContent
+import xmlparser.core.XmlElementIgnore
+import xmlparser.core.XmlElementName
 
 @XmlElementName("Entity")
 data class Entity(val id: Int, val name: String)

@@ -1,15 +1,15 @@
-package xml
+package xmlparser.core
 
-import xml.element.XmlElement
-import xml.utils.*
-import xml.element.XmlElementAttribute as XmlElementAttribute
+import xmlparser.core.element.XmlElement
+import xmlparser.core.utils.*
+import xmlparser.core.element.XmlElementAttribute as XmlElementAttribute
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.jvm.isAccessible
 
-typealias XmlElementAttributeAnnotation = xml.XmlElementAttribute
+typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 
 /**
  * Represents a Xml context.

@@ -1,8 +1,8 @@
 package testbed
 
-import xml.element.XmlElementAttribute
-import xml.XmlContext
-import xml.element.XmlElement
+import xmlparser.core.element.XmlElementAttribute
+import xmlparser.core.XmlContext
+import xmlparser.core.element.XmlElement
 
 
 fun main()

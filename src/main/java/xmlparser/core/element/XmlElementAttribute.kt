@@ -1,4 +1,4 @@
-package xml.element
+package xmlparser.core.element
 
 /**
  * Represents an attribute that can be assigned to a xml element.

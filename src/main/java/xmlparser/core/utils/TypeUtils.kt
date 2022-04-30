@@ -1,4 +1,4 @@
-package xml.utils
+package xmlparser.core.utils
 
 fun isBasicType(element: Any): Boolean = (element is Number
         || element is UInt || element is UShort || element is UByte || element is ULong

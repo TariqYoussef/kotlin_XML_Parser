@@ -1,4 +1,4 @@
-package xml
+package xmlparser.core
 
 /**
  * Name of the element

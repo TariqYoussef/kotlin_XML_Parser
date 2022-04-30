@@ -1,6 +1,6 @@
-package xml.element
+package xmlparser.core.element
 
-import xml.utils.createFilledString
+import xmlparser.core.utils.createFilledString
 
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
