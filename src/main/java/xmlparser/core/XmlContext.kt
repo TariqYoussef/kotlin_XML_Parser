@@ -58,6 +58,10 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         visitor.endVisit(this)
     }
 
+    override fun toString(): String {
+        return dump(4)
+    }
+
     private fun createXmlElement(kClass: KClass<out Any>, element: Any): XmlElement {
         val elementName: String = if (kClass.hasAnnotation<XmlElementName>()) {
             if (kClass.findAnnotation<XmlElementName>()?.name == null)

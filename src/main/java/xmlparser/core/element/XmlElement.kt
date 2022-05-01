@@ -58,5 +58,8 @@ class XmlElement(private val name: String, private val value: Any = "") : Visita
         visitor.visit(this)
     }
 
+    override fun toString(): String {
+        return dump(4)
+    }
 }
 
