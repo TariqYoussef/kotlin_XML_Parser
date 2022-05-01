@@ -14,7 +14,7 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 /**
  * Represents a Xml context.
  */
-class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") {
+class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : Visitable {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private val xmlElements: MutableList<XmlElement> = mutableListOf()
 
@@ -48,6 +48,14 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             content += element.dump(intent)
 
         return content
+    }
+
+    override fun accept(visitor: Visitor) {
+        if(visitor.visit(this))
+            xmlElements.forEach {
+                it.accept(visitor)
+            }
+        visitor.endVisit(this)
     }
 
     private fun createXmlElement(kClass: KClass<out Any>, element: Any): XmlElement {
@@ -173,7 +181,8 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
     }
 
-    private fun addXmlElementChildCollection(element: Any, elementChildName: String): XmlElement {
+    private fun addXmlElementChildCollection(element: Any, elementChildName: String): XmlElement
+    {
         val xmlElementChild = XmlElement(elementChildName)
         val elementChild: Iterable<Any> = if (isArray(element)) {
             val elementArrayChild: Array<Any> = element as Array<Any>

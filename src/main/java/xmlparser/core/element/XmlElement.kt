@@ -1,11 +1,13 @@
 package xmlparser.core.element
 
+import xmlparser.core.Visitable
+import xmlparser.core.Visitor
 import xmlparser.core.utils.createFilledString
 
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(private val name: String, private val value: Any = "")
+class XmlElement(private val name: String, private val value: Any = "") : Visitable
 {
     private val children: MutableList<XmlElement> = mutableListOf()
 
@@ -51,5 +53,10 @@ class XmlElement(private val name: String, private val value: Any = "")
 
         return content
     }
+
+    override fun accept(visitor: Visitor) {
+        visitor.visit(this)
+    }
+
 }
 
