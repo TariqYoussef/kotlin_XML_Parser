@@ -19,13 +19,16 @@ fun main()
     val point2 = Point2(Point(0,0), Point(5,5))
     xmlContext.addXmlElement(point2)
 
+    val simpleList = listOf(1,2,3)
+    xmlContext.addXmlElement(simpleList)
+
     println(xmlContext.dump(4))
 
     val filterVisitor = FilterVisitor(){true}
     xmlContext.accept(filterVisitor)
 
     filterVisitor.filteredXmlElements.forEach{
-        println(it)
+        //println(it)
     }
 }
 
