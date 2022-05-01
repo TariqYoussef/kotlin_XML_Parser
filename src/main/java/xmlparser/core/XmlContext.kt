@@ -153,6 +153,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
 
         val xmlElement = if (elementContent.isNotEmpty()) {
+            elementContent[0].isAccessible = true
             if (elementContent.size > 1)
                 throw InvalidXmlAnnotationException(
                     "XmlElementContent",
@@ -175,6 +176,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         }
 
         elementAttributes.forEach {
+            it.isAccessible = true
             if (it.hasAnnotation<XmlElementContent>())
                 throw InvalidXmlAnnotationException("XmlElementAttribute", "Can't be used with XmlElementContent")
 
