@@ -55,7 +55,11 @@ class XmlElement(private val name: String, private val value: Any = "") : Visita
     }
 
     override fun accept(visitor: Visitor) {
-        visitor.visit(this)
+        if(visitor.visit(this))
+            children.forEach {
+                it.accept(visitor)
+            }
+        visitor.endVisit(this)
     }
 
     override fun toString(): String {
