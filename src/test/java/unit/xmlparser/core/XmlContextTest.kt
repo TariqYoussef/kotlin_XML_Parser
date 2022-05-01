@@ -2,7 +2,8 @@ package unit.xmlparser.core
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import xmlparser.core.XmlContext
+import testbed.Point
+import xmlparser.core.*
 import kotlin.test.assertEquals
 
 internal class XmlContextTest {
@@ -75,6 +76,34 @@ internal class XmlContextTest {
         xmlContext.addXmlElement(Direction.SOUTH)
         xmlContext.addXmlElement(Direction.WEST)
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><Direction>NORTH</Direction><Direction>EAST</Direction><Direction>SOUTH</Direction><Direction>WEST</Direction>"
+        assertEquals(expected, xmlContext.dump())
+    }
+
+    @XmlElementName("ComplexEntity")
+    private class Complex()
+    {
+        @XmlElementContent
+        val data: String = "Data Example"
+        @XmlElementIgnore
+        val ignore: String = "Element to ignore"
+        @XmlElementAttribute
+        val attribute1: String = "Attribute content"
+        @XmlElementAttribute
+        @XmlElementName("SpecialAttribute")
+        val attribute2: String = "Attribute content"
+
+        private val entity: Entity = Entity(1, "1")
+        private val point: Point = Point(1,1)
+        @XmlElementName("maps")
+        val map: Map<Int, testbed.Point> = mapOf(Pair(0, testbed.Point(0, 0)), Pair(1, testbed.Point(1, 1)))
+    }
+
+    @Test
+    internal fun anotherTypeSerialization()
+    {
+        val complex = Complex()
+        xmlContext.addXmlElement(complex)
+        val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
         assertEquals(expected, xmlContext.dump())
     }
 }
