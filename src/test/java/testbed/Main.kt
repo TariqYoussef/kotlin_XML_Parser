@@ -20,5 +20,12 @@ fun main()
     xmlContext.addXmlElement(point2)
 
     println(xmlContext.dump(4))
+
+    val filterVisitor = FilterVisitor(){true}
+    xmlContext.accept(filterVisitor)
+
+    filterVisitor.filteredXmlElements.forEach{
+        println(it)
+    }
 }
 

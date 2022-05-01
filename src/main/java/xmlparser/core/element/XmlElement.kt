@@ -63,3 +63,4 @@ class XmlElement(private val name: String, private val value: Any = "") : Visita
     }
 }
 
+//TODO find out which members of the class should be public to be filtered by the visitor accept function

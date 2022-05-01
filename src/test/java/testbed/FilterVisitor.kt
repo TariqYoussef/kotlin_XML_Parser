@@ -5,7 +5,7 @@ import xmlparser.core.element.XmlElement
 
 class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : Visitor {
 
-    private val filteredXmlElements: MutableList<XmlElement> = mutableListOf()
+    val filteredXmlElements: MutableList<XmlElement> = mutableListOf()
 
     override fun visit(xmlElement: XmlElement): Boolean {
         if(accept(xmlElement))
