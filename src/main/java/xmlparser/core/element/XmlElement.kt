@@ -7,10 +7,9 @@ import xmlparser.core.utils.createFilledString
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(private val name: String, private val value: Any = "") : Visitable
+class XmlElement(val name: String, private val value: Any = "") : Visitable
 {
     private val children: MutableList<XmlElement> = mutableListOf()
-
     private val attributes: MutableList<XmlElementAttribute> = mutableListOf()
 
     /**
