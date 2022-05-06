@@ -9,13 +9,22 @@ import xmlparser.core.utils.createFilledString
  */
 class XmlElement(val name: String, val value: Any = "") : Visitable
 {
-    val children: MutableList<XmlElement> = mutableListOf()
+    private val children: MutableList<XmlElement> = mutableListOf()
     private val attributes: MutableList<XmlElementAttribute> = mutableListOf()
+    private var father: XmlElement? = null
 
     /**
      * Adds a child to the xml element.
      */
-    fun addChild(xmlElement: XmlElement) = children.add(xmlElement)
+    fun addChild(name: String, value: Any = "") = addChild(XmlElement(name, value))
+    /**
+     * Adds a child to the xml element.
+     */
+    fun addChild(xmlElement: XmlElement)
+    {
+        xmlElement.father = this
+        children.add(xmlElement)
+    }
 
     /**
      * Adds an attribute to the xml element.

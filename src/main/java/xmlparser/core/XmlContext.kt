@@ -67,8 +67,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     internal fun addXmlElementChild(xmlElement: XmlElement, elementChild: Any, elementChildName: String)
     {
         if (isBasicType(elementChild) || isEnum(elementChild)) {
-            val xmlElementChild = XmlElement(elementChildName, elementChild)
-            xmlElement.addChild(xmlElementChild)
+            xmlElement.addChild(elementChildName, elementChild)
         }
         else if (isArray(elementChild) || isCollection(elementChild)) {
             val iterable: Iterable<Any> = if (isArray(elementChild)) {
@@ -223,8 +222,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             }
 
             if (it.call(element) == null) {
-                val xmlElementChild = XmlElement(elementChildName)
-                xmlElement.addChild(xmlElementChild)
+                xmlElement.addChild(elementChildName)
                 return@forEach
             }
 
