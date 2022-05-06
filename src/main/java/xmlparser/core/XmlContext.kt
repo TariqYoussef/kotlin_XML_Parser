@@ -16,8 +16,8 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
  * Represents a Xml context.
  */
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : Visitable {
-    private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
-    private val xmlElements: MutableList<XmlElement> = mutableListOf()
+    val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
+    val xmlElements: MutableList<XmlElement> = mutableListOf()
 
     /**
      * Adds a xml element to the context.

@@ -3,6 +3,7 @@ package testbed
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
+import xmlparser.core.visitors.FilterVisitor
 
 
 fun main()
@@ -23,12 +24,5 @@ fun main()
     xmlContext.addXmlElement(simpleList)
 
     println(xmlContext.dump(4))
-
-    val filterVisitor = FilterVisitor(){true}
-    xmlContext.accept(filterVisitor)
-
-    filterVisitor.filteredXmlElements.forEach{
-        //println(it)
-    }
 }
 

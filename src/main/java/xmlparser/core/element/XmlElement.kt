@@ -7,9 +7,9 @@ import xmlparser.core.utils.createFilledString
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(val name: String, private val value: Any = "") : Visitable
+class XmlElement(val name: String, val value: Any = "") : Visitable
 {
-    private val children: MutableList<XmlElement> = mutableListOf()
+    val children: MutableList<XmlElement> = mutableListOf()
     private val attributes: MutableList<XmlElementAttribute> = mutableListOf()
 
     /**
@@ -21,6 +21,16 @@ class XmlElement(val name: String, private val value: Any = "") : Visitable
      * Adds an attribute to the xml element.
      */
     fun addAttribute(xmlElementAttribute: XmlElementAttribute) = attributes.add(xmlElementAttribute)
+
+    /**
+     * Clones without children.
+     */
+    fun cloneWithoutChildren(): XmlElement
+    {
+        val clonedXmlElement = XmlElement(name, value)
+        clonedXmlElement.attributes.addAll(attributes)
+        return clonedXmlElement
+    }
 
     /**
      * Dumps the xml element.
