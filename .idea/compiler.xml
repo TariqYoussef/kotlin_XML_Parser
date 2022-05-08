@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="kotlin_XML_Parser" target="17" />
+      <module name="kotlin_XML_Parser" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
