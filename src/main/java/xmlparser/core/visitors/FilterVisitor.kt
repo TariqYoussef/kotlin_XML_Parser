@@ -7,9 +7,8 @@ import xmlparser.core.element.XmlElement
 class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : Visitor {
 
     var xmlContext: XmlContext? = null
-    val xmlElements: MutableList<XmlElement> = mutableListOf()
     var currentXmlElement: XmlElement? = null
-    var depth: Int = 0
+
     override fun visit(xmlContext: XmlContext): Boolean {
         this.xmlContext = XmlContext(xmlContext.xmlHeader.version,
                                     xmlContext.xmlHeader.encoding,
@@ -27,28 +26,23 @@ class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : V
         if(this.xmlContext == null)
             return false
 
-        if(currentXmlElement == null)
-        {
-            currentXmlElement = xmlElement.cloneWithoutChildren()
-        }
-
-        depth++
-        if(accept(xmlElement))
+        val withoutChildrenXmlElement: XmlElement = xmlElement.cloneWithoutChildren()
+        return if(accept(xmlElement))
         {
             if(currentXmlElement != null)
-                currentXmlElement!!.addChild(xmlElement)
+                currentXmlElement!!.addChild(withoutChildrenXmlElement)
 
-            xmlElements.add(xmlElement.cloneWithoutChildren())
-        }
+            currentXmlElement = withoutChildrenXmlElement
 
-        if(xmlElement.children.isNotEmpty())
-            currentXmlElement = xmlElement.cloneWithoutChildren()
-
-        return super.visit(xmlElement)
+            super.visit(xmlElement)
+        } else
+            false
     }
 
+
     override fun endVisit(xmlElement: XmlElement) {
-        depth--
+        if(currentXmlElement != null && currentXmlElement!!.hasFather())
+            currentXmlElement = currentXmlElement!!.father()
         super.endVisit(xmlElement)
     }
 }

@@ -26,10 +26,32 @@ class XmlElement(val name: String, val value: Any = "") : Visitable
         children.add(xmlElement)
     }
 
+    fun removeChild(xmlElement: XmlElement) = children.remove(xmlElement)
+
     /**
      * Adds an attribute to the xml element.
      */
     fun addAttribute(xmlElementAttribute: XmlElementAttribute) = attributes.add(xmlElementAttribute)
+
+    /**
+     * Tells if the xml element has children.
+     */
+    fun hasChildren() = children.isNotEmpty()
+
+    /**
+     * Tells the number of children of the xml element.
+     */
+    fun childrenCount() = children.count()
+
+    /**
+     * Gets the father of the xml element.
+     */
+    fun father() = father
+
+    /**
+     * Tells if xml element has a father.
+     */
+    fun hasFather() = father != null
 
     /**
      * Clones without children.
@@ -70,6 +92,18 @@ class XmlElement(val name: String, val value: Any = "") : Visitable
         content += "</$name>" + if(intent > -1) "\n" else ""
 
         return content
+    }
+    /**
+     * Deep copies XmlEntity.
+     */
+    fun deepCopy(): XmlElement
+    {
+        val clonedXmlElement = XmlElement(name, value)
+        clonedXmlElement.attributes.addAll(attributes)
+        children.forEach{
+            clonedXmlElement.addChild(it.deepCopy())
+        }
+        return clonedXmlElement
     }
 
     override fun accept(visitor: Visitor) {

@@ -36,9 +36,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     /**
      * Adds a xml element to the context.
      */
-    fun addXmlElement(xmlElement: XmlElement) {
-        xmlElements.add(xmlElement)
-    }
+    private fun addXmlElement(xmlElement: XmlElement) = xmlElements.add(xmlElement)
 
     /**
      * Dumps the context.
@@ -50,6 +48,16 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
             content += element.dump(intent)
 
         return content
+    }
+
+    /**
+     * Deep copies XmlContext.
+     */
+    fun deepCopy(): XmlContext
+    {
+        val clonedXmlContext = XmlContext(xmlHeader.version, xmlHeader.encoding, xmlHeader.standalone)
+        clonedXmlContext.addXmlElement(xmlElements[0].deepCopy())
+        return clonedXmlContext
     }
 
     override fun accept(visitor: Visitor) {

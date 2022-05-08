@@ -1,4 +1,4 @@
-package unit.xmlparser.core
+package xmlparser.core
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -95,7 +95,7 @@ internal class XmlContextTest {
         private val entity: Entity = Entity(1, "1")
         private val point: Point = Point(1,1)
         @XmlElementName("maps")
-        val map: Map<Int, testbed.Point> = mapOf(Pair(0, testbed.Point(0, 0)), Pair(1, testbed.Point(1, 1)))
+        val map: Map<Int, Point> = mapOf(Pair(0, Point(0, 0)), Pair(1, Point(1, 1)))
     }
 
     @Test
@@ -112,15 +112,15 @@ internal class XmlContextTest {
         val complex = Complex()
         xmlContext.addXmlElement(complex)
         println(xmlContext)
-        val filterVisitor = FilterVisitor{true}
+        val filterVisitor = FilterVisitor{
+            it.name == "ComplexEntity" || it.name == "point" || it.name == "x" || it.name == "y"
+        }
         xmlContext.accept(filterVisitor)
 
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
         assertEquals(expected, xmlContext.dump())
 
-        println(filterVisitor.xmlElements)
-
         println(filterVisitor.xmlContext)
-        assert(false)
+        assertEquals(expected, filterVisitor.xmlContext!!.dump())
     }
 }
