@@ -17,8 +17,7 @@ class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : V
     }
 
     override fun endVisit(xmlContext: XmlContext) {
-        if(currentXmlElement!=null)
-            this.xmlContext!!.xmlElements.add(currentXmlElement!!)
+        this.xmlContext!!.principalXmlElement = currentXmlElement
         super.endVisit(xmlContext)
     }
 

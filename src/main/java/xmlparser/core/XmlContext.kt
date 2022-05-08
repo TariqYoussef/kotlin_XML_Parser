@@ -17,12 +17,12 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
  */
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : Visitable {
     val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
-    val xmlElements: MutableList<XmlElement> = mutableListOf()
+    var principalXmlElement: XmlElement? = null
 
     /**
-     * Adds a xml element to the context.
+     * Sets the principal xml element of the context.
      */
-    fun addXmlElement(element: Any) {
+    fun setPrincipalXmlElement(element: Any) {
         val kClass: KClass<out Any> = element::class
 
         if (kClass.simpleName == null)
@@ -30,13 +30,8 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
         val xmlElement = createXmlElement(element, kClass.simpleName!!)
 
-        addXmlElement(xmlElement)
+        principalXmlElement = xmlElement
     }
-
-    /**
-     * Adds a xml element to the context.
-     */
-    private fun addXmlElement(xmlElement: XmlElement) = xmlElements.add(xmlElement)
 
     /**
      * Dumps the context.
@@ -44,8 +39,8 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     fun dump(intent: Int = -1): String {
         var content: String = xmlHeader.dump() + if (intent > -1) "\n" else ""
 
-        for (element in xmlElements)
-            content += element.dump(intent)
+        if (principalXmlElement != null)
+            content += principalXmlElement!!.dump(intent)
 
         return content
     }
@@ -56,15 +51,14 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     fun deepCopy(): XmlContext
     {
         val clonedXmlContext = XmlContext(xmlHeader.version, xmlHeader.encoding, xmlHeader.standalone)
-        clonedXmlContext.addXmlElement(xmlElements[0].deepCopy())
+        if (principalXmlElement != null)
+            clonedXmlContext.principalXmlElement = principalXmlElement!!.deepCopy()
         return clonedXmlContext
     }
 
     override fun accept(visitor: Visitor) {
         if(visitor.visit(this))
-            xmlElements.forEach {
-                it.accept(visitor)
-            }
+            if(principalXmlElement != null) principalXmlElement!!.accept(visitor)
         visitor.endVisit(this)
     }
 
@@ -234,7 +228,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
                 return@forEach
             }
 
-            addXmlElementChild(xmlElement, it.call(element)!!, elementChildName)
+            addXmlElementChild(xmlElement, it.call(element)!!,elementChildName)
         }
 
         return xmlElement
