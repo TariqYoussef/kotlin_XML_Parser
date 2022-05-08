@@ -57,8 +57,7 @@ internal class XmlContextTest {
 
     @Test
     internal fun basicTypeSerialization() {
-        val container = "container"
-        xmlContext.setPrincipalXmlElement(container)
+        xmlContext.setPrincipalXmlElement(XmlElement("container"))
         val int = 1
         val double = 1.0
         val string = "string"
@@ -67,7 +66,7 @@ internal class XmlContextTest {
         xmlContext.principalXmlElement()!!.addChild("Double", double)
         xmlContext.principalXmlElement()!!.addChild("String", string)
         xmlContext.principalXmlElement()!!.addChild("Boolean", boolean)
-        val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><String>container<Int>1</Int><Double>1.0</Double><String>string</String><Boolean>true</Boolean></String>"
+        val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><container><Int>1</Int><Double>1.0</Double><String>string</String><Boolean>true</Boolean></container>"
         assertEquals(expected, xmlContext.dump())
     }
 
