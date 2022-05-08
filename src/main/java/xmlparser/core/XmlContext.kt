@@ -16,8 +16,8 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
  * Represents a Xml context.
  */
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : Visitable {
-    val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
-    var principalXmlElement: XmlElement? = null
+    private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
+    private var principalXmlElement: XmlElement? = null
 
     /**
      * Sets the principal xml element of the context.
@@ -34,6 +34,13 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     }
 
     /**
+     * Sets the principal xml element of the context.
+     */
+    fun setPrincipalXmlElement(xmlElement: XmlElement) {
+        principalXmlElement = xmlElement
+    }
+
+    /**
      * Dumps the context.
      */
     fun dump(intent: Int = -1): String {
@@ -44,6 +51,16 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
         return content
     }
+
+    /**
+     * Gets Xml Header.
+     */
+    fun xmlHeader() = xmlHeader
+
+    /**
+     * Gets Principal Xml Element (parent)
+     */
+    fun principalXmlElement() = principalXmlElement
 
     /**
      * Deep copies XmlContext.

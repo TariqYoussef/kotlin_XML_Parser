@@ -2,6 +2,7 @@ package xmlparser.core
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import xmlparser.core.element.XmlElement
 import xmlparser.core.visitors.FilterVisitor
 import kotlin.test.assertEquals
 
@@ -62,11 +63,10 @@ internal class XmlContextTest {
         val double = 1.0
         val string = "string"
         val boolean = true
-        xmlContext.principalXmlElement!!.addChild("Int", int)
-        xmlContext.principalXmlElement!!.addChild("Double", double)
-        xmlContext.principalXmlElement!!.addChild("String", string)
-        xmlContext.principalXmlElement!!.addChild("Boolean", boolean)
-        println(xmlContext.dump())
+        xmlContext.principalXmlElement()!!.addChild("Int", int)
+        xmlContext.principalXmlElement()!!.addChild("Double", double)
+        xmlContext.principalXmlElement()!!.addChild("String", string)
+        xmlContext.principalXmlElement()!!.addChild("Boolean", boolean)
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><String>container<Int>1</Int><Double>1.0</Double><String>string</String><Boolean>true</Boolean></String>"
         assertEquals(expected, xmlContext.dump())
     }
@@ -93,6 +93,7 @@ internal class XmlContextTest {
 
         private val entity: Entity = Entity(1, "1")
         private val point: Point = Point(1,1)
+        private val id: Int = 1
         @XmlElementName("maps")
         val map: Map<Int, Point> = mapOf(Pair(0, Point(0, 0)), Pair(1, Point(1, 1)))
     }
@@ -102,7 +103,7 @@ internal class XmlContextTest {
     {
         val complex = Complex()
         xmlContext.setPrincipalXmlElement(complex)
-        val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
+        val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><id>1</id><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
         assertEquals(expected, xmlContext.dump())
     }
 
@@ -110,16 +111,29 @@ internal class XmlContextTest {
     internal fun accept() {
         val complex = Complex()
         xmlContext.setPrincipalXmlElement(complex)
-        println(xmlContext)
-        val filterVisitor = FilterVisitor{
-            it.name == "ComplexEntity" || it.name == "point" || it.name == "x" || it.name == "y"
+
+        val filterEntity: (xmlElement: XmlElement) -> Boolean = {
+            it.name == "ComplexEntity" || it.name == "entity" ||
+                    (it.father()!!.name == "entity" && (it.name == "id" || it.name == "name"))
         }
-        xmlContext.accept(filterVisitor)
+        val filterVisitorEntity = FilterVisitor(filterEntity)
+        xmlContext.accept(filterVisitorEntity)
 
-        val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
-        assertEquals(expected, xmlContext.dump())
+        val filterMap: (xmlElement: XmlElement) -> Boolean = {
+            it.name == "ComplexEntity" || it.name == "maps" ||
+                    it.father()!!.name == "maps" ||
+                    it.father()!!.name == "item"
+        }
+        val filterVisitorMap = FilterVisitor(filterMap)
+        xmlContext.accept(filterVisitorMap)
 
-        println(filterVisitor.xmlContext)
-        assertEquals(expected, filterVisitor.xmlContext!!.dump())
+        val expectedOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><id>1</id><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
+        assertEquals(expectedOriginal, xmlContext.dump())
+
+        val expectedFilteredEntity = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity></ComplexEntity>"
+        assertEquals(expectedFilteredEntity, filterVisitorEntity.xmlContext()!!.dump())
+
+        val expectedFilteredMap = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<maps><item><key>0</key><value></value></item><item><key>1</key><value></value></item></maps></ComplexEntity>"
+        assertEquals(expectedFilteredMap, filterVisitorMap.xmlContext()!!.dump())
     }
 }

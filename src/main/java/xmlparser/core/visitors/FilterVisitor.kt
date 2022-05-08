@@ -6,18 +6,23 @@ import xmlparser.core.element.XmlElement
 
 class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : Visitor {
 
-    var xmlContext: XmlContext? = null
-    var currentXmlElement: XmlElement? = null
+    private var xmlContext: XmlContext? = null
+    private var currentXmlElement: XmlElement? = null
+
+    /**
+     * Gets XmlContext.
+     */
+    fun xmlContext() = xmlContext
 
     override fun visit(xmlContext: XmlContext): Boolean {
-        this.xmlContext = XmlContext(xmlContext.xmlHeader.version,
-                                    xmlContext.xmlHeader.encoding,
-                                    xmlContext.xmlHeader.standalone)
+        this.xmlContext = XmlContext(xmlContext.xmlHeader().version,
+                                    xmlContext.xmlHeader().encoding,
+                                    xmlContext.xmlHeader().standalone)
         return super.visit(xmlContext)
     }
 
     override fun endVisit(xmlContext: XmlContext) {
-        this.xmlContext!!.principalXmlElement = currentXmlElement
+        this.xmlContext!!.setPrincipalXmlElement(currentXmlElement!!)
         super.endVisit(xmlContext)
     }
 
@@ -33,14 +38,13 @@ class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : V
 
             currentXmlElement = withoutChildrenXmlElement
 
-            super.visit(xmlElement)
+            true
         } else
             false
     }
 
-
     override fun endVisit(xmlElement: XmlElement) {
-        if(currentXmlElement != null && currentXmlElement!!.hasFather())
+        if(accept(xmlElement) && currentXmlElement != null && currentXmlElement!!.hasFather())
             currentXmlElement = currentXmlElement!!.father()
         super.endVisit(xmlElement)
     }
