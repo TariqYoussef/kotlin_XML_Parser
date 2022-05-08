@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import xmlparser.core.element.XmlElement
 import xmlparser.core.visitors.FilterVisitor
+import xmlparser.core.visitors.FindVisitor
 import kotlin.test.assertEquals
 
 internal class XmlContextTest {
@@ -107,7 +108,7 @@ internal class XmlContextTest {
     }
 
     @Test
-    internal fun accept() {
+    internal fun filterVisitor() {
         val complex = Complex()
         xmlContext.setPrincipalXmlElement(complex)
 
@@ -134,5 +135,28 @@ internal class XmlContextTest {
 
         val expectedFilteredMap = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<maps><item><key>0</key><value></value></item><item><key>1</key><value></value></item></maps></ComplexEntity>"
         assertEquals(expectedFilteredMap, filterVisitorMap.xmlContext()!!.dump())
+    }
+
+    @Test
+    internal fun findVisitor() {
+        val complex = Complex()
+        xmlContext.setPrincipalXmlElement(complex)
+
+        val filterPoint: (xmlElement: XmlElement) -> Boolean = {
+            it.name == "ComplexEntity" || it.name == "entity" ||
+                    (it.father()!!.name == "point" && (it.name == "x" || it.name == "y"))
+        }
+        val filterFindPoint = FindVisitor(filterPoint)
+        xmlContext.accept(filterFindPoint)
+
+        val expectedOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><id>1</id><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
+        assertEquals(expectedOriginal, xmlContext.dump())
+
+        val expectedFindPoint = "[<ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example</ComplexEntity>\n" +
+                ", <entity></entity>\n" +
+                ", <x>1</x>\n" +
+                ", <y>1</y>\n" +
+                "]"
+        assertEquals(expectedFindPoint,filterFindPoint.filteredXmlElements().toString())
     }
 }
