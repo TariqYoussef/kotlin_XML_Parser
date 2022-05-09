@@ -1,22 +1,32 @@
 package xmlparser.gui.controllers
 
+import javafx.collections.ObservableList
 import tornadofx.Controller
 import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 
-class EditElementController(private val xmlElement: XmlElement) : Controller() {
-    private val attributes = xmlElement.attributes().asObservable()
+class EditElementController : Controller() {
+
+    private var xmlElement: XmlElement? = null
+    private var attributes: ObservableList<XmlElementAttribute>? = null
 
     fun attributes() = attributes
+    fun element() = xmlElement
+
+    fun setContext(xmlElement: XmlElement?)
+    {
+        this.xmlElement = xmlElement
+        this.attributes = xmlElement?.attributes()?.asObservable()
+    }
 
     fun removeAttribute(xmlElementAttribute: XmlElementAttribute) {
-        attributes.remove(xmlElementAttribute)
+        attributes?.remove(xmlElementAttribute)
     }
 
     fun addAttribute(name: String, value: String) {
         val xmlElementAttribute = XmlElementAttribute(name, value)
-        attributes.add(xmlElementAttribute)
+        attributes?.add(xmlElementAttribute)
     }
 
     fun updateEntity(name: String, value: String) {
@@ -25,10 +35,10 @@ class EditElementController(private val xmlElement: XmlElement) : Controller() {
     }
 
     private fun updateEntityName(name: String) {
-        xmlElement.name = name
+        xmlElement?.name = name
     }
 
     private fun updateEntityValue(value: String) {
-        xmlElement.value = value
+        xmlElement?.value = value
     }
 }

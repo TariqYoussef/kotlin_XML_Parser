@@ -3,13 +3,12 @@ package xmlparser.gui.views
 import javafx.scene.control.Alert
 import javafx.scene.control.TextField
 import tornadofx.*
-import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.controllers.EditElementController
 
-class EditElementView(xmlElement: XmlElement) : View() {
+class EditElementView : View() {
 
-    private val controller: EditElementController = EditElementController(xmlElement)
+    private val controller: EditElementController by inject()
 
     private var newAttributeName: TextField by singleAssign()
     private var newAttributeValue: TextField by singleAssign()
@@ -35,13 +34,13 @@ class EditElementView(xmlElement: XmlElement) : View() {
         form {
             fieldset("Edit Element") {
                 field("Element Name") {
-                    newElementName = textfield(xmlElement.name)
+                    newElementName = textfield(controller.element()?.name)
                     {
                         promptText = "Element Name"
                     }
                 }
                 field("Element Value") {
-                    newElementValue = textfield(xmlElement.value as String)
+                    newElementValue = textfield(controller.element()?.value as String)
                     {
                         promptText = "Element Value"
                     }
