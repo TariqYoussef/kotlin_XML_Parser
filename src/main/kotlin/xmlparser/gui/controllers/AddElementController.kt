@@ -1,10 +1,11 @@
 package xmlparser.gui.controllers
 
+import tornadofx.Controller
 import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 
-class AddElementController(private val xmlElementFather: XmlElement) {
+class AddElementController(private val xmlElementFather: XmlElement) : Controller() {
     private val attributes = observableListOf<XmlElementAttribute>()
     fun attributes() = attributes
 
