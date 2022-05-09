@@ -94,6 +94,7 @@ class AddElementView: View() {
                             return@action
                         }
                         controller.createChild(newElementName.text, newElementValue.text)
+                        this@AddElementView.find(MainView::class).updateTreeView()
                         close()
                     }
                 }
@@ -104,5 +105,6 @@ class AddElementView: View() {
                 }
             }
         }
+
     }
 }

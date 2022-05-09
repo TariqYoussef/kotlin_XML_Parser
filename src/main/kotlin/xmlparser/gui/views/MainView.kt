@@ -13,6 +13,14 @@ class MainView : View() {
 
     private var treeView: TreeView<XmlElement> by singleAssign()
 
+    private var obs = mutableListOf<Int>().asObservable()
+
+    fun updateTreeView()
+    {
+        obs.add(1)
+        obs.clear()
+    }
+
     override val root = vbox {
 
         menubar {
@@ -34,6 +42,7 @@ class MainView : View() {
         treeView = treeview {
             isShowRoot = false
             root = TreeItem()
+            isEditable = true
             cellFormat {
                 text = if(it.value != "") it.name + ": " + it.value
                         else it.name
@@ -46,6 +55,8 @@ class MainView : View() {
             }
 
             populate(childFactory = childFactory)
+
+            obs.onChange { populate(childFactory = childFactory) }
 
             contextmenu {
                 item("Edit").action {
@@ -64,4 +75,5 @@ class MainView : View() {
             }
         }
     }
+
 }
