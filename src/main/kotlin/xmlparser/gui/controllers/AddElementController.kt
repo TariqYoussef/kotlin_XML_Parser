@@ -7,9 +7,16 @@ import xmlparser.core.element.XmlElementAttribute
 
 class AddElementController : Controller() {
 
-    var xmlElementFather: XmlElement? = null
+    private var xmlElementFather: XmlElement? = null
     private val attributes = observableListOf<XmlElementAttribute>()
+
     fun attributes() = attributes
+
+    fun setElementFather(xmlElementFather: XmlElement?)
+    {
+        this.xmlElementFather = xmlElementFather
+    }
+
 
     fun removeAttribute(xmlElementAttribute: XmlElementAttribute) {
         attributes.remove(xmlElementAttribute)
