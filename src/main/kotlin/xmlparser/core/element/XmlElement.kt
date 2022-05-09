@@ -29,10 +29,18 @@ class XmlElement(val name: String, val value: Any = "") : Visitable
     fun removeChild(xmlElement: XmlElement) = children.remove(xmlElement)
 
     /**
+     * Gets the attributes of the xml element.
+     */
+    fun attributes() = attributes
+    /**
      * Adds an attribute to the xml element.
      */
     fun addAttribute(xmlElementAttribute: XmlElementAttribute) = attributes.add(xmlElementAttribute)
 
+    /**
+     * Gets Children of xml element.
+     */
+    fun children() = children
     /**
      * Tells if the xml element has children.
      */

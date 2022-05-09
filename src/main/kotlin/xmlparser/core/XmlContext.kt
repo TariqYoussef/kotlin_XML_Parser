@@ -215,7 +215,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
                     "An Attribute must be a basic type or an enum and not a/an ${it.call(element)!!::class.qualifiedName}"
                 )
 
-            val xmlElementAttribute = XmlElementAttribute(elementAttributeName, it.call(element)!!)
+            val xmlElementAttribute = XmlElementAttribute(elementAttributeName, it.call(element)!! as String)
             xmlElement.addAttribute(xmlElementAttribute)
         }
 
