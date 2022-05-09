@@ -20,14 +20,7 @@ class AddElementView: View() {
     override val root = vbox {
 
         menubar {
-            menu("Edit") {
-                item("Undo").action {
-
-                }
-                item("Redo").action {
-
-                }
-            }
+            menus.addAll(this@AddElementView.find(EditView::class).root.menus)
         }
 
         form {
