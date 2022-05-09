@@ -5,6 +5,7 @@ import javafx.scene.control.TreeView
 import javafx.scene.text.Font
 import tornadofx.*
 import xmlparser.core.element.XmlElement
+import xmlparser.gui.controllers.AddElementController
 import xmlparser.gui.controllers.MainController
 
 class MainView : View() {
@@ -57,12 +58,10 @@ class MainView : View() {
                 item("Edit").action {
                     val editElementView = EditElementView(treeView.selectionModel.selectedItem?.value!!)
                     editElementView.openModal()
-                    populate(childFactory = childFactory)
                 }
                 item("Add Element").action{
-                    val addElementView = AddElementView(treeView.selectionModel.selectedItem?.value!!)
-                    addElementView.openModal()
-                    populate(childFactory = childFactory)
+                    this@MainView.find(AddElementController::class).xmlElementFather = treeView.selectionModel.selectedItem?.value
+                    this@MainView.find(AddElementView::class).openWindow()
                 }
                 item("Remove").action{
                     controller.removeElement(treeView.selectionModel.selectedItem?.value!!)

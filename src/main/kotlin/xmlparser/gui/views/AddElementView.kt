@@ -3,12 +3,11 @@ package xmlparser.gui.views
 import javafx.scene.control.Alert
 import javafx.scene.control.TextField
 import tornadofx.*
-import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.controllers.AddElementController
 
-class AddElementView(xmlElementFather: XmlElement) : View() {
-    private val controller: AddElementController = AddElementController(xmlElementFather)
+class AddElementView: View() {
+    private val controller: AddElementController by inject()
 
     private var newAttributeName: TextField by singleAssign()
     private var newAttributeValue: TextField by singleAssign()

@@ -5,7 +5,9 @@ import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 
-class AddElementController(private val xmlElementFather: XmlElement) : Controller() {
+class AddElementController : Controller() {
+
+    var xmlElementFather: XmlElement? = null
     private val attributes = observableListOf<XmlElementAttribute>()
     fun attributes() = attributes
 
@@ -24,6 +26,6 @@ class AddElementController(private val xmlElementFather: XmlElement) : Controlle
         attributes.forEach {
             xmlElementChild.addAttribute(it)
         }
-        xmlElementFather.addChild(xmlElementChild)
+        xmlElementFather!!.addChild(xmlElementChild)
     }
 }
