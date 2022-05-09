@@ -36,7 +36,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     /**
      * Sets the principal xml element of the context.
      */
-    fun setPrincipalXmlElement(xmlElement: XmlElement) {
+    fun setPrincipalXmlElement(xmlElement: XmlElement?) {
         principalXmlElement = xmlElement
     }
 
