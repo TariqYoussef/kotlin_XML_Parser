@@ -7,8 +7,12 @@ import xmlparser.core.utils.createFilledString
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(val name: String, val value: Any = "") : Visitable
+class XmlElement(var name: String, var value: Any = "") : Visitable
 {
+    init {
+        require(name != ""){"Element name cannot be empty."}
+    }
+
     private val children: MutableList<XmlElement> = mutableListOf()
     private val attributes: MutableList<XmlElementAttribute> = mutableListOf()
     private var father: XmlElement? = null
