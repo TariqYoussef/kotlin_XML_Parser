@@ -30,7 +30,14 @@ class MainView : View() {
                 }
             }
 
-            menus.addAll(this@MainView.find(EditView::class).root.menus)
+            menu("Edit") {
+                item("Undo").action {
+
+                }
+                item("Redo").action {
+
+                }
+            }
         }
 
         treeView = treeview {

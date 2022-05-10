@@ -34,7 +34,14 @@ class EditElementView : View() {
     override val root = vbox {
 
         menubar {
-            menus.addAll(this@EditElementView.find(EditView::class).root.menus)
+            menu("Edit") {
+                item("Undo").action {
+
+                }
+                item("Redo").action {
+
+                }
+            }
         }
 
         form {
