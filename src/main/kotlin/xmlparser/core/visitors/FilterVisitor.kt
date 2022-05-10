@@ -1,10 +1,10 @@
 package xmlparser.core.visitors
 
-import xmlparser.core.Visitor
+import xmlparser.core.IVisitor
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
 
-class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : Visitor {
+class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : IVisitor {
 
     private var xmlContext: XmlContext? = null
     private var currentXmlElement: XmlElement? = null

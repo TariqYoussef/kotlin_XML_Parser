@@ -2,7 +2,7 @@ package xmlparser.core
 
 import xmlparser.core.element.XmlElement
 
-interface Visitor {
+interface IVisitor {
     /**
      * Visit.
      */

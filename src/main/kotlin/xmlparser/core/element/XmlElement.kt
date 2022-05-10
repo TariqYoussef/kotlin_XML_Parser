@@ -1,13 +1,13 @@
 package xmlparser.core.element
 
-import xmlparser.core.Visitable
-import xmlparser.core.Visitor
+import xmlparser.core.IVisitable
+import xmlparser.core.IVisitor
 import xmlparser.core.utils.createFilledString
 
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(var name: String, var value: Any = "") : Visitable
+class XmlElement(var name: String, var value: Any = "") : IVisitable
 {
     init {
         require(name != ""){"Element name cannot be empty."}
@@ -118,7 +118,7 @@ class XmlElement(var name: String, var value: Any = "") : Visitable
         return clonedXmlElement
     }
 
-    override fun accept(visitor: Visitor) {
+    override fun accept(visitor: IVisitor) {
         if(visitor.visit(this))
             children.forEach {
                 it.accept(visitor)

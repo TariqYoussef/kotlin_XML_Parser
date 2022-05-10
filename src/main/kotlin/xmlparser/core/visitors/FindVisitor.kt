@@ -1,9 +1,9 @@
 package xmlparser.core.visitors
 
-import xmlparser.core.Visitor
+import xmlparser.core.IVisitor
 import xmlparser.core.element.XmlElement
 
-class FindVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : Visitor {
+class FindVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : IVisitor {
 
     private val filteredXmlElements: MutableList<XmlElement> = mutableListOf()
 

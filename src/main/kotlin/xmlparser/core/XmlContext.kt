@@ -15,7 +15,7 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 /**
  * Represents a Xml context.
  */
-class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : Visitable {
+class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private var principalXmlElement: XmlElement? = null
 
@@ -80,7 +80,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return clonedXmlContext
     }
 
-    override fun accept(visitor: Visitor) {
+    override fun accept(visitor: IVisitor) {
         if(visitor.visit(this))
             if(principalXmlElement != null) principalXmlElement!!.accept(visitor)
         visitor.endVisit(this)
