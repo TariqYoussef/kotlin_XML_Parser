@@ -1,6 +1,6 @@
 package xmlparser.gui.actions
 
-interface Action {
+interface IAction {
     fun redo()
     fun undo()
 }
