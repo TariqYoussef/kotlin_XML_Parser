@@ -1,8 +1,13 @@
 package xmlparser.gui.controllers
 
+import javafx.scene.control.Alert
+import javafx.stage.FileChooser
 import tornadofx.Controller
+import tornadofx.alert
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
+import java.io.File
+import java.io.PrintWriter
 
 private data class Entity(private val id: Int, val name: String)
 private data class Point(val x: Int, val y: Int)
@@ -30,9 +35,12 @@ private class Complex()
 class MainController : Controller() {
     private val xmlContext: XmlContext = XmlContext()
 
+    private val fileChooser: FileChooser = FileChooser()
     init {
         val complex = Complex()
         xmlContext.setPrincipalXmlElement(complex)
+        fileChooser.title = "Save"
+        fileChooser.extensionFilters.addAll(FileChooser.ExtensionFilter("Xml", "*.xml"))
     }
 
     fun context() = xmlContext
@@ -44,4 +52,15 @@ class MainController : Controller() {
             xmlContext.clearXmlElements()
     }
 
+    fun save(){
+        val file = fileChooser.showSaveDialog(primaryStage)
+        if(file == null)
+        {
+            alert(Alert.AlertType.ERROR, "Must select a file.")
+            return
+        }
+        val printWriter = PrintWriter(file)
+        printWriter.println(context())
+        printWriter.close()
+    }
 }

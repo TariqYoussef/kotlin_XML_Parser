@@ -23,7 +23,7 @@ class MainView : View() {
 
                 }
                 item("Save").action {
-                    println(controller.context())
+                    controller.save()
                 }
                 item("Quit").action {
                     close()
