@@ -1,6 +1,7 @@
 package xmlparser.gui.views
 
 import javafx.scene.control.Alert
+import javafx.scene.control.TableView
 import javafx.scene.control.TextField
 import tornadofx.*
 import xmlparser.core.element.XmlElementAttribute
@@ -16,6 +17,18 @@ class AddElementView: View() {
     private var newElementValue: TextField by singleAssign()
 
     private var selectedAttribute: XmlElementAttribute? = null
+
+    private var tableview: TableView<XmlElementAttribute> by singleAssign()
+
+    fun setContext()
+    {
+        tableview.items = controller.attributes()
+        newAttributeName.text = ""
+        newAttributeValue.text = ""
+        newElementName.text = ""
+        newElementValue.text = ""
+        selectedAttribute = null
+    }
 
     override val root = vbox {
 
@@ -40,7 +53,7 @@ class AddElementView: View() {
             }
         }
 
-        tableview(controller.attributes()) {
+        tableview = tableview(controller.attributes()) {
             isEditable = true
             column("Name", XmlElementAttribute::name).makeEditable()
             column("Value", XmlElementAttribute::value).makeEditable()
