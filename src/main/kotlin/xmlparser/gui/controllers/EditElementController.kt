@@ -5,6 +5,7 @@ import tornadofx.Controller
 import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
+import xmlparser.gui.views.EditElementView
 
 class EditElementController : Controller() {
 
@@ -18,6 +19,7 @@ class EditElementController : Controller() {
     {
         this.xmlElement = xmlElement
         this.attributes = xmlElement?.attributes()?.asObservable()
+        this.find(EditElementView::class).setContext()
     }
 
     fun removeAttribute(xmlElementAttribute: XmlElementAttribute) {
