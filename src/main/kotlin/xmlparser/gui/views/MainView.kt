@@ -36,7 +36,7 @@ class MainView : View() {
         treeView = treeview {
             isShowRoot = false
             root = TreeItem()
-            isEditable = true
+
             cellFormat {
                 text =  if(it.value != "") it.name + ": " + it.value
                         else it.name
