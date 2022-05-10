@@ -95,7 +95,7 @@ class EditElementView : View() {
                             return@action
                         }
                         controller.updateEntity(newElementName.text, newElementValue.text)
-                        this@EditElementView.find(MainView::class).updateTreeView()
+                        this@EditElementView.find(MainView::class).populateTreeView()
                         close()
                     }
                 }
@@ -112,7 +112,7 @@ class EditElementView : View() {
                             return@action
                         }
                         controller.updateEntity(newElementName.text, newElementValue.text)
-                        this@EditElementView.find(MainView::class).updateTreeView()
+                        this@EditElementView.find(MainView::class).populateTreeView()
                     }
                 }
             }
