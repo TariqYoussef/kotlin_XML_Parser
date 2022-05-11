@@ -15,6 +15,7 @@ class UpdateXmlEntityAction(private val xmlElement: XmlElement,
     override fun execute() {
         xmlElement.name = newName
         xmlElement.value = newValue
+        editElementView.setContext()
     }
 
     override fun undo() {
