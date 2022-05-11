@@ -32,7 +32,7 @@ class MainView : View() {
 
             menu("Edit") {
                 item("Undo").action {
-
+                    controller.undo()
                 }
                 item("Redo").action {
 

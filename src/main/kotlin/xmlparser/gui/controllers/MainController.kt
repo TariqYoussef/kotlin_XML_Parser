@@ -6,7 +6,9 @@ import tornadofx.Controller
 import tornadofx.alert
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
-import java.io.File
+import xmlparser.gui.actions.ActionStack
+import xmlparser.gui.actions.RemoveXmlEntityAction
+import xmlparser.gui.views.MainView
 import java.io.PrintWriter
 
 private data class Entity(private val id: Int, val name: String)
@@ -46,10 +48,14 @@ class MainController : Controller() {
     fun context() = xmlContext
 
     fun removeElement(xmlElement: XmlElement) {
-        if(xmlElement.father() != null)
-            xmlElement.father()!!.removeChild(xmlElement)
-        else
-            xmlContext.clearXmlElements()
+        val removeXmlEntityAction = RemoveXmlEntityAction(this.xmlContext, xmlElement)
+        ActionStack.doAction(removeXmlEntityAction)
+    }
+
+    fun undo()
+    {
+        ActionStack.undoAction()
+        this@MainController.find(MainView::class).populateTreeView()
     }
 
     fun save(){
