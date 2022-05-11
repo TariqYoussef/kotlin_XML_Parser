@@ -6,14 +6,21 @@ import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
+import xmlparser.gui.IAction
+import xmlparser.gui.actions.AddAttributeXmlEntityAction
 import xmlparser.gui.actions.AddXmlEntityAction
+import xmlparser.gui.actions.RemoveAttributeXmlEntityAction
+import xmlparser.gui.actions.UpdateAttributeXmlEntityAction
 import xmlparser.gui.views.AddElementView
 import xmlparser.gui.views.MainView
+import java.util.*
 
 class AddElementController : Controller() {
 
     private var xmlElementFather: XmlElement? = null
     private var attributes: ObservableList<XmlElementAttribute>? = null
+
+    private var actions = mutableListOf<IAction>()
 
     fun attributes() = attributes
 
@@ -25,12 +32,24 @@ class AddElementController : Controller() {
     }
 
     fun removeAttribute(xmlElementAttribute: XmlElementAttribute) {
-        attributes?.remove(xmlElementAttribute)
+        val removeAttributeXmlEntityAction = RemoveAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        actions.add(removeAttributeXmlEntityAction)
+        ActionStack.doAction(removeAttributeXmlEntityAction)
     }
 
     fun addAttribute(name: String, value: String) {
         val xmlElementAttribute = XmlElementAttribute(name, value)
-        attributes?.add(xmlElementAttribute)
+        val addAttributeXmlEntityAction = AddAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        actions.add(addAttributeXmlEntityAction)
+        ActionStack.doAction(addAttributeXmlEntityAction)
+    }
+
+    fun registerAttributeUpdate(xmlElementAttribute: XmlElementAttribute, oldXmlElementAttribute: XmlElementAttribute)
+    {
+        val updateAttributeXmlEntityAction = UpdateAttributeXmlEntityAction(xmlElementAttribute,
+            oldXmlElementAttribute, attributes!!)
+        actions.add(updateAttributeXmlEntityAction)
+        ActionStack.doAction(updateAttributeXmlEntityAction)
     }
 
     fun createChild(name: String, value: String)
@@ -46,4 +65,14 @@ class AddElementController : Controller() {
     }
 
     fun undo() = this@AddElementController.find(MainController::class).undo()
+
+    fun onClose()
+    {
+        xmlElementFather = null
+        attributes = null
+        actions.forEach{
+            ActionStack.removeAction(it)
+        }
+        actions.clear()
+    }
 }

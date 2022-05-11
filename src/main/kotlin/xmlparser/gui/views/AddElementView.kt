@@ -65,6 +65,16 @@ class AddElementView: View() {
             column("Name", XmlElementAttribute::name).makeEditable()
             column("Value", XmlElementAttribute::value).makeEditable()
 
+            var oldAttribute: XmlElementAttribute? = null
+
+            onEditCommit {
+                controller.registerAttributeUpdate(it, oldAttribute!!)
+            }
+
+            onEditStart {
+                oldAttribute = it.copy()
+            }
+
             contextmenu {
                 item("Remove").action{
                     if(selectedAttribute == null)
@@ -114,11 +124,13 @@ class AddElementView: View() {
                             return@action
                         }
                         controller.createChild(newElementName.text, newElementValue.text)
+                        controller.onClose()
                         close()
                     }
                 }
                 button("Cancel") {
                     action {
+                        controller.onClose()
                         close()
                     }
                 }

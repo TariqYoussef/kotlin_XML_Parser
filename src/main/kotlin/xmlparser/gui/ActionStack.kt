@@ -17,4 +17,9 @@ object ActionStack {
         action.undo()
         return action
     }
+
+    fun removeAction(action: IAction)
+    {
+        stack.remove(action)
+    }
 }
