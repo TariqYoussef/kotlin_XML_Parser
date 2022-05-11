@@ -5,6 +5,8 @@ import tornadofx.Controller
 import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
+import xmlparser.gui.actions.ActionStack
+import xmlparser.gui.actions.AddXmlEntityAction
 import xmlparser.gui.views.AddElementView
 import xmlparser.gui.views.MainView
 
@@ -37,10 +39,9 @@ class AddElementController : Controller() {
         attributes?.forEach {
             xmlElementChild.addAttribute(it)
         }
-        if(xmlElementFather != null)
-            xmlElementFather!!.addChild(xmlElementChild)
-        else
-            this.find(MainController::class).context().setPrincipalXmlElement(xmlElementChild)
+        val addXmlEntityAction = AddXmlEntityAction(this@AddElementController.find(MainController::class).context(),
+            xmlElementFather,xmlElementChild)
+        ActionStack.doAction(addXmlEntityAction)
         this@AddElementController.find(MainView::class).populateTreeView()
     }
 }
