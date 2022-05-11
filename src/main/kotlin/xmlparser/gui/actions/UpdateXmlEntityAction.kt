@@ -1,26 +1,22 @@
 package xmlparser.gui.actions
 
+import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.IAction
 import xmlparser.gui.views.EditElementView
 
 class UpdateXmlEntityAction(private val xmlElement: XmlElement,
                             private val newName: String,
-                            private val newValue: String,
-                            private val editElementView: EditElementView) : IAction {
+                            private val newValue: String) : IAction {
 
     private val oldName = xmlElement.name
-    private val oldValue = xmlElement.value
+    private val oldValue: String = xmlElement.value.toString()
 
     override fun execute() {
-        xmlElement.name = newName
-        xmlElement.value = newValue
-        editElementView.setContext()
+        xmlElement.updateEntity(newName, newValue)
     }
 
     override fun undo() {
-        xmlElement.name = oldName
-        xmlElement.value = oldValue
-        editElementView.setContext()
+        xmlElement.updateEntity(oldName, oldValue)
     }
 }

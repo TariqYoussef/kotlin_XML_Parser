@@ -41,7 +41,6 @@ class MainView : View() {
         treeTableView = treetableview {
             isShowRoot = false
             root = TreeItem()
-            maxHeight = 250.0
 
             column("Name", XmlElement::name)
             column("Value", XmlElement::value)
@@ -53,7 +52,10 @@ class MainView : View() {
             }
 
             populate(childFactory = childFactory)
-            controller.context().addObserverToAllChildren { populate(childFactory = childFactory) }
+            controller.context().addObserverToAllChildren {
+                populate(childFactory = childFactory)
+                this@treetableview.refresh()
+            }
 
             contextmenu {
                 item("Edit").action {
@@ -70,14 +72,6 @@ class MainView : View() {
                     populate(childFactory = childFactory)
                 }
             }
-        }
-
-        tableview = tableview(mutableListOf<XmlElementAttribute>().asObservable()) {
-            column("Name", XmlElementAttribute::name)
-            column("Value", XmlElementAttribute::value)
-            maxHeight = 250.0
-
-            items = treeTableView.selectionModel.selectedItem?.value?.attributes()?.asObservable()
         }
     }
 

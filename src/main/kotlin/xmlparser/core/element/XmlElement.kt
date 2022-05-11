@@ -8,8 +8,12 @@ import xmlparser.core.utils.createFilledString
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservable<(XmlElement) -> Unit>
+class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlElement) -> Unit>
 {
+    var name: String = name
+    private set
+    var value: Any = value
+    private set
     init {
         require(name != ""){"Element name cannot be empty."}
     }
@@ -77,6 +81,16 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservabl
      * Tells the number of children of the xml element.
      */
     fun childrenCount() = children.count()
+
+    /**
+     * Updates name and value.
+     */
+    fun updateEntity(newName: String, newValue: String)
+    {
+        name = newName
+        value = newValue
+        notifyObservers { it(this) }
+    }
 
     /**
      * Gets the father of the xml element.

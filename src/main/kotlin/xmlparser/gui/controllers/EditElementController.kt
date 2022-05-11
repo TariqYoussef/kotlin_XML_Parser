@@ -44,8 +44,7 @@ class EditElementController : Controller() {
     }
 
     fun updateEntity(name: String, value: String) {
-        val updateXmlEntityAction = UpdateXmlEntityAction(xmlElement!!,
-            name, value, this@EditElementController.find(EditElementView::class))
+        val updateXmlEntityAction = UpdateXmlEntityAction(xmlElement!!, name, value)
         ActionStack.doAction(updateXmlEntityAction)
     }
 
