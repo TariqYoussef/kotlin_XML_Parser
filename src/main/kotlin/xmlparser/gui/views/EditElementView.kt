@@ -58,6 +58,16 @@ class EditElementView : View() {
                         promptText = "Element Value"
                     }
                 }
+                button("Save") {
+                    action {
+                        if(newElementName.text == "")
+                        {
+                            alert(Alert.AlertType.ERROR, "An element must have a name.")
+                            return@action
+                        }
+                        controller.updateEntity(newElementName.text, newElementValue.text)
+                    }
+                }
             }
         }
 
@@ -107,30 +117,9 @@ class EditElementView : View() {
             paddingAll = 5
             right = hbox {
                 spacing = 5.0
-                button("Save") {
-                    action {
-                        if(newElementName.text == "")
-                        {
-                            alert(Alert.AlertType.ERROR, "An element must have a name.")
-                            return@action
-                        }
-                        controller.updateEntity(newElementName.text, newElementValue.text)
-                        close()
-                    }
-                }
-                button("Cancel") {
+                button("Close") {
                     action {
                         close()
-                    }
-                }
-                button("Apply") {
-                    action {
-                        if(newElementName.text == "")
-                        {
-                            alert(Alert.AlertType.ERROR, "An element must have a name.")
-                            return@action
-                        }
-                        controller.updateEntity(newElementName.text, newElementValue.text)
                     }
                 }
             }
