@@ -1,4 +1,4 @@
-package xmlparser.gui.actions
+package xmlparser.gui
 
 interface IAction {
     fun execute()

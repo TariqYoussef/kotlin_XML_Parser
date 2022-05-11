@@ -5,6 +5,7 @@ import tornadofx.Controller
 import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
+import xmlparser.gui.ActionStack
 import xmlparser.gui.actions.*
 import xmlparser.gui.views.EditElementView
 import xmlparser.gui.views.MainView

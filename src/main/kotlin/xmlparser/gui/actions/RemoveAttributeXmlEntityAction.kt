@@ -2,6 +2,7 @@ package xmlparser.gui.actions
 
 import javafx.collections.ObservableList
 import xmlparser.core.element.XmlElementAttribute
+import xmlparser.gui.IAction
 
 class RemoveAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                      private val  attributes: ObservableList<XmlElementAttribute>) : IAction {

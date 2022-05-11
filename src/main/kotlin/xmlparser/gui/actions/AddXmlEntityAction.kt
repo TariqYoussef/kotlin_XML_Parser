@@ -2,6 +2,7 @@ package xmlparser.gui.actions
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
+import xmlparser.gui.IAction
 
 class AddXmlEntityAction(private val context: XmlContext,
                          private val xmlElementFather: XmlElement?,

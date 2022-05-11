@@ -2,6 +2,7 @@ package xmlparser.gui.actions
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
+import xmlparser.gui.IAction
 
 class RemoveXmlEntityAction(private val context: XmlContext, private val xmlElement: XmlElement) : IAction {
 

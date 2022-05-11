@@ -6,7 +6,7 @@ import tornadofx.Controller
 import tornadofx.alert
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.actions.ActionStack
+import xmlparser.gui.ActionStack
 import xmlparser.gui.actions.RemoveXmlEntityAction
 import xmlparser.gui.views.MainView
 import java.io.PrintWriter

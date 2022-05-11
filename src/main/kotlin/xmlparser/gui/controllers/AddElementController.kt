@@ -5,7 +5,7 @@ import tornadofx.Controller
 import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.actions.ActionStack
+import xmlparser.gui.ActionStack
 import xmlparser.gui.actions.AddXmlEntityAction
 import xmlparser.gui.views.AddElementView
 import xmlparser.gui.views.MainView
