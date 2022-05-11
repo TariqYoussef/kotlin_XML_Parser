@@ -5,6 +5,9 @@ import tornadofx.Controller
 import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
+import xmlparser.gui.actions.ActionStack
+import xmlparser.gui.actions.RemoveAttributeXmlEntityAction
+import xmlparser.gui.actions.RemoveXmlEntityAction
 import xmlparser.gui.views.EditElementView
 import xmlparser.gui.views.MainView
 
@@ -24,7 +27,8 @@ class EditElementController : Controller() {
     }
 
     fun removeAttribute(xmlElementAttribute: XmlElementAttribute) {
-        attributes?.remove(xmlElementAttribute)
+        val removeAttributeXmlEntityAction = RemoveAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        ActionStack.doAction(removeAttributeXmlEntityAction)
     }
 
     fun addAttribute(name: String, value: String) {
