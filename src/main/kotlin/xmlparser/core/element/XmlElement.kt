@@ -146,7 +146,7 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservabl
      */
     fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
     {
-        this.addObserverToAllChildren(handler)
+        this.addObserver(handler)
         children.forEach{
             it.addObserverToAllChildren(handler)
         }
