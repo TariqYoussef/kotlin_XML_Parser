@@ -44,4 +44,6 @@ class AddElementController : Controller() {
         ActionStack.doAction(addXmlEntityAction)
         this@AddElementController.find(MainView::class).populateTreeView()
     }
+
+    fun undo() = this@AddElementController.find(MainController::class).undo()
 }
