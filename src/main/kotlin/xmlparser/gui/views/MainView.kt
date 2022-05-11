@@ -1,9 +1,12 @@
 package xmlparser.gui.views
 
+import javafx.scene.control.Alert
+import javafx.scene.control.TableView
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeTableView
 import tornadofx.*
 import xmlparser.core.element.XmlElement
+import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.controllers.AddElementController
 import xmlparser.gui.controllers.EditElementController
 import xmlparser.gui.controllers.MainController
@@ -12,6 +15,7 @@ class MainView : View() {
     private val controller: MainController by inject()
 
     private var treeTableView: TreeTableView<XmlElement> by singleAssign()
+    private var tableview: TableView<XmlElementAttribute> by singleAssign()
 
     var populateTableTreeView: () -> Unit by singleAssign()
 
@@ -40,6 +44,8 @@ class MainView : View() {
         treeTableView = treetableview {
             isShowRoot = false
             root = TreeItem()
+            maxHeight = 250.0
+
             column("Name", XmlElement::name)
             column("Value", XmlElement::value)
 
@@ -67,6 +73,14 @@ class MainView : View() {
                     populate(childFactory = childFactory)
                 }
             }
+        }
+
+        tableview = tableview(mutableListOf<XmlElementAttribute>().asObservable()) {
+            column("Name", XmlElementAttribute::name)
+            column("Value", XmlElementAttribute::value)
+            maxHeight = 250.0
+
+            items = treeTableView.selectionModel.selectedItem?.value?.attributes()?.asObservable()
         }
     }
 
