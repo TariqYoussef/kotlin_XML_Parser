@@ -6,6 +6,7 @@ import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.actions.ActionStack
+import xmlparser.gui.actions.AddAttributeXmlEntityAction
 import xmlparser.gui.actions.RemoveAttributeXmlEntityAction
 import xmlparser.gui.actions.RemoveXmlEntityAction
 import xmlparser.gui.views.EditElementView
@@ -33,7 +34,8 @@ class EditElementController : Controller() {
 
     fun addAttribute(name: String, value: String) {
         val xmlElementAttribute = XmlElementAttribute(name, value)
-        attributes?.add(xmlElementAttribute)
+        val addAttributeXmlEntityAction = AddAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        ActionStack.doAction(addAttributeXmlEntityAction)
     }
 
     fun updateEntity(name: String, value: String) {
