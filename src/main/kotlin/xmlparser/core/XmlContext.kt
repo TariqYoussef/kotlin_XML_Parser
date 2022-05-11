@@ -38,6 +38,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      */
     fun setRootXmlElement(xmlElement: XmlElement) {
         rootXmlElement = xmlElement
+        rootXmlElement!!.notifyObservers { it(rootXmlElement!!) }
     }
 
     /**
