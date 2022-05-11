@@ -12,7 +12,7 @@ class AddXmlEntityAction(private val context: XmlContext,
         if(xmlElementFather != null)
             xmlElementFather.addChild(xmlElement)
         else
-            context.setPrincipalXmlElement(xmlElement)
+            context.setRootXmlElement(xmlElement)
     }
 
     override fun undo() {

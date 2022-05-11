@@ -17,6 +17,6 @@ class RemoveXmlEntityAction(private val context: XmlContext, private val xmlElem
         if(xmlElement.father() != null)
             xmlElement.father()!!.addChild(xmlElement)
         else
-            context.setPrincipalXmlElement(xmlElement)
+            context.setRootXmlElement(xmlElement)
     }
 }

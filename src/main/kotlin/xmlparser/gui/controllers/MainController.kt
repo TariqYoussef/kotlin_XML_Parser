@@ -8,7 +8,6 @@ import xmlparser.core.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
 import xmlparser.gui.actions.RemoveXmlEntityAction
-import xmlparser.gui.views.MainView
 import java.io.PrintWriter
 
 private data class Entity(private val id: Int, val name: String)
@@ -40,7 +39,7 @@ class MainController : Controller() {
     private val fileChooser: FileChooser = FileChooser()
     init {
         val complex = Complex()
-        xmlContext.setPrincipalXmlElement(complex)
+        xmlContext.setRootXmlElement(complex)
         fileChooser.title = "Save"
         fileChooser.extensionFilters.addAll(FileChooser.ExtensionFilter("Xml", "*.xml"))
     }

@@ -22,7 +22,7 @@ class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : I
     }
 
     override fun endVisit(xmlContext: XmlContext) {
-        this.xmlContext!!.setPrincipalXmlElement(currentXmlElement!!)
+        this.xmlContext!!.setRootXmlElement(currentXmlElement!!)
         super.endVisit(xmlContext)
     }
 

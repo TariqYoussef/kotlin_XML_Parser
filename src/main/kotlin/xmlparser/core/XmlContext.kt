@@ -17,12 +17,12 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
  */
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
-    private var principalXmlElement: XmlElement? = null
+    private var rootXmlElement: XmlElement? = null
 
     /**
-     * Sets the principal xml element of the context.
+     * Sets root of the context.
      */
-    fun setPrincipalXmlElement(element: Any) {
+    fun setRootXmlElement(element: Any) {
         val kClass: KClass<out Any> = element::class
 
         if (kClass.simpleName == null)
@@ -30,21 +30,21 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
         val xmlElement = createXmlElement(element, kClass.simpleName!!)
 
-        principalXmlElement = xmlElement
+        rootXmlElement = xmlElement
     }
 
     /**
-     * Sets the principal xml element of the context.
+     * Sets root of the context.
      */
-    fun setPrincipalXmlElement(xmlElement: XmlElement) {
-        principalXmlElement = xmlElement
+    fun setRootXmlElement(xmlElement: XmlElement) {
+        rootXmlElement = xmlElement
     }
 
     /**
      * Clears Xml elements in the context.
      */
     fun clearXmlElements() {
-        principalXmlElement = null
+        rootXmlElement = null
     }
 
     /**
@@ -53,8 +53,8 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     fun dump(intent: Int = -1): String {
         var content: String = xmlHeader.dump() + if (intent > -1) "\n" else ""
 
-        if (principalXmlElement != null)
-            content += principalXmlElement!!.dump(intent)
+        if (rootXmlElement != null)
+            content += rootXmlElement!!.dump(intent)
 
         return content
     }
@@ -65,9 +65,9 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     fun xmlHeader() = xmlHeader
 
     /**
-     * Gets Principal Xml Element (parent)
+     * Gets root Xml Element (parent)
      */
-    fun principalXmlElement() = principalXmlElement
+    fun root() = rootXmlElement
 
     /**
      * Deep copies XmlContext.
@@ -75,8 +75,8 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     fun deepCopy(): XmlContext
     {
         val clonedXmlContext = XmlContext(xmlHeader.version, xmlHeader.encoding, xmlHeader.standalone)
-        if (principalXmlElement != null)
-            clonedXmlContext.principalXmlElement = principalXmlElement!!.deepCopy()
+        if (rootXmlElement != null)
+            clonedXmlContext.rootXmlElement = rootXmlElement!!.deepCopy()
         return clonedXmlContext
     }
 
@@ -85,13 +85,13 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      */
     fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
     {
-        if (principalXmlElement != null)
-            principalXmlElement?.addObserverToAllChildren(handler)
+        if (rootXmlElement != null)
+            rootXmlElement?.addObserverToAllChildren(handler)
     }
 
     override fun accept(visitor: IVisitor) {
         if(visitor.visit(this))
-            if(principalXmlElement != null) principalXmlElement!!.accept(visitor)
+            if(rootXmlElement != null) rootXmlElement!!.accept(visitor)
         visitor.endVisit(this)
     }
 

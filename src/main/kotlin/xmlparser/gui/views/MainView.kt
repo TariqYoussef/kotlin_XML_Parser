@@ -1,6 +1,5 @@
 package xmlparser.gui.views
 
-import javafx.scene.control.Alert
 import javafx.scene.control.TableView
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeTableView
@@ -48,8 +47,8 @@ class MainView : View() {
             column("Value", XmlElement::value)
 
             val childFactory: (TreeItem<XmlElement>) -> Iterable<XmlElement>? = {
-                if(controller.context().principalXmlElement() == null) listOf()
-                else if (it == root) listOf(controller.context().principalXmlElement()!!)
+                if(controller.context().root() == null) listOf()
+                else if (it == root) listOf(controller.context().root()!!)
                 else it.value.children()
             }
 
