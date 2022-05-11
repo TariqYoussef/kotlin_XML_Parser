@@ -19,9 +19,6 @@ class MainView : View() {
 
         menubar {
             menu("File") {
-                item("Load").action {
-
-                }
                 item("Save").action {
                     controller.save()
                 }
