@@ -36,6 +36,13 @@ class EditElementController : Controller() {
         ActionStack.doAction(addAttributeXmlEntityAction)
     }
 
+    fun registerAttributeUpdate(xmlElementAttribute: XmlElementAttribute, oldXmlElementAttribute: XmlElementAttribute)
+    {
+        val updateAttributeXmlEntityAction = UpdateAttributeXmlEntityAction(xmlElementAttribute,
+            oldXmlElementAttribute, attributes!!)
+        ActionStack.doAction(updateAttributeXmlEntityAction)
+    }
+
     fun updateEntity(name: String, value: String) {
         val updateXmlEntityAction = UpdateXmlEntityAction(xmlElement!!,
             name, value, this@EditElementController.find(EditElementView::class))

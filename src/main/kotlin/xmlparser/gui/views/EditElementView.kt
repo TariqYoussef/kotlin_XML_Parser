@@ -73,19 +73,18 @@ class EditElementView : View() {
 
         tableview = tableview(controller.attributes()) {
             isEditable = true
-            column("Name", XmlElementAttribute::name)
-            {
-                onEditCommit{
+            column("Name", XmlElementAttribute::name).makeEditable()
+            column("Value", XmlElementAttribute::value).makeEditable()
 
-                }
-                makeEditable()
+            var oldAttribute: XmlElementAttribute? = null
+
+            onEditCommit {
+                println("$it, $oldAttribute")
+                controller.registerAttributeUpdate(it, oldAttribute!!)
             }
-            column("Value", XmlElementAttribute::value)
-            {
-                onEditCommit{
 
-                }
-                makeEditable()
+            onEditStart {
+                oldAttribute = it.copy()
             }
 
             contextmenu {
