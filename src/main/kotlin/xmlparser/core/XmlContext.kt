@@ -80,6 +80,15 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         return clonedXmlContext
     }
 
+    /**
+     * Adds observer to all children
+     */
+    fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
+    {
+        if (principalXmlElement != null)
+            principalXmlElement?.addObserverToAllChildren(handler)
+    }
+
     override fun accept(visitor: IVisitor) {
         if(visitor.visit(this))
             if(principalXmlElement != null) principalXmlElement!!.accept(visitor)

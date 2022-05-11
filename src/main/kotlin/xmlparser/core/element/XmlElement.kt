@@ -141,6 +141,18 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservabl
         return clonedXmlElement
     }
 
+    /**
+     * Adds observer to all children
+     */
+    fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
+    {
+        this.addObserverToAllChildren(handler)
+        children.forEach{
+            it.addObserverToAllChildren(handler)
+        }
+    }
+
+
     override fun accept(visitor: IVisitor) {
         if(visitor.visit(this))
             children.forEach {
