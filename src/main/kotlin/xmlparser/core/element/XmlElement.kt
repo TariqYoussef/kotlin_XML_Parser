@@ -1,5 +1,6 @@
 package xmlparser.core.element
 
+import xmlparser.core.IObservable
 import xmlparser.core.IVisitable
 import xmlparser.core.IVisitor
 import xmlparser.core.utils.createFilledString
@@ -7,7 +8,7 @@ import xmlparser.core.utils.createFilledString
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(var name: String, var value: Any = "") : IVisitable
+class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservable<(XmlElement) -> Unit>
 {
     init {
         require(name != ""){"Element name cannot be empty."}
@@ -16,6 +17,8 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable
     private val children: MutableList<XmlElement> = mutableListOf()
     private val attributes: MutableList<XmlElementAttribute> = mutableListOf()
     private var father: XmlElement? = null
+
+    override val observers: MutableList<(XmlElement) -> Unit> = mutableListOf()
 
     /**
      * Adds a child to the xml element.
@@ -28,9 +31,17 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable
     {
         xmlElement.father = this
         children.add(xmlElement)
+        notifyObservers { it(this) }
     }
 
-    fun removeChild(xmlElement: XmlElement) = children.remove(xmlElement)
+    /**
+     * Removes child of the xml element.
+     */
+    fun removeChild(xmlElement: XmlElement)
+    {
+        children.remove(xmlElement)
+        notifyObservers { it(this) }
+    }
 
     /**
      * Gets the attributes of the xml element.
@@ -39,7 +50,19 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable
     /**
      * Adds an attribute to the xml element.
      */
-    fun addAttribute(xmlElementAttribute: XmlElementAttribute) = attributes.add(xmlElementAttribute)
+    fun addAttribute(xmlElementAttribute: XmlElementAttribute)
+    {
+        attributes.add(xmlElementAttribute)
+        notifyObservers { it(this) }
+    }
+    /**
+     * Removes an attribute to the xml element.
+     */
+    fun removeAttribute(xmlElementAttribute: XmlElementAttribute)
+    {
+        attributes.remove(xmlElementAttribute)
+        notifyObservers { it(this) }
+    }
 
     /**
      * Gets Children of xml element.
