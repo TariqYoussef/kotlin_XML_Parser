@@ -36,7 +36,7 @@ class EditElementView : View() {
         menubar {
             menu("Edit") {
                 item("Undo").action {
-
+                    controller.undo()
                 }
                 item("Redo").action {
 

@@ -49,4 +49,6 @@ class EditElementController : Controller() {
     private fun updateEntityValue(value: String) {
         xmlElement?.value = value
     }
+
+    fun undo() = this@EditElementController.find(MainController::class).undo()
 }
