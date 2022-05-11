@@ -36,6 +36,9 @@ class AddElementController : Controller() {
         attributes?.forEach {
             xmlElementChild.addAttribute(it)
         }
-        xmlElementFather!!.addChild(xmlElementChild)
+        if(xmlElementFather != null)
+            xmlElementFather!!.addChild(xmlElementChild)
+        else
+            this.find(MainController::class).context().setPrincipalXmlElement(xmlElementChild)
     }
 }
