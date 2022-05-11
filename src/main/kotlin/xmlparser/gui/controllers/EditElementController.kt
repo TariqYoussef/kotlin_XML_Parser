@@ -5,10 +5,7 @@ import tornadofx.Controller
 import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.actions.ActionStack
-import xmlparser.gui.actions.AddAttributeXmlEntityAction
-import xmlparser.gui.actions.RemoveAttributeXmlEntityAction
-import xmlparser.gui.actions.RemoveXmlEntityAction
+import xmlparser.gui.actions.*
 import xmlparser.gui.views.EditElementView
 import xmlparser.gui.views.MainView
 
@@ -39,17 +36,10 @@ class EditElementController : Controller() {
     }
 
     fun updateEntity(name: String, value: String) {
-        updateEntityName(name)
-        updateEntityValue(value)
+        val updateXmlEntityAction = UpdateXmlEntityAction(xmlElement!!,
+            name, value, this@EditElementController.find(EditElementView::class))
+        ActionStack.doAction(updateXmlEntityAction)
         this@EditElementController.find(MainView::class).populateTreeView()
-    }
-
-    private fun updateEntityName(name: String) {
-        xmlElement?.name = name
-    }
-
-    private fun updateEntityValue(value: String) {
-        xmlElement?.value = value
     }
 
     fun undo() = this@EditElementController.find(MainController::class).undo()
