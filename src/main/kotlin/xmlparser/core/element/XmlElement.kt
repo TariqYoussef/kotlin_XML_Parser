@@ -46,7 +46,7 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservabl
     /**
      * Gets the attributes of the xml element.
      */
-    fun attributes() = attributes
+    fun attributes() = attributes as List<XmlElementAttribute>
     /**
      * Adds an attribute to the xml element.
      */
@@ -67,7 +67,7 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservabl
     /**
      * Gets Children of xml element.
      */
-    fun children() = children
+    fun children() = children as List<XmlElement>
     /**
      * Tells if the xml element has children.
      */
@@ -151,7 +151,6 @@ class XmlElement(var name: String, var value: Any = "") : IVisitable, IObservabl
             it.addObserverToAllChildren(handler)
         }
     }
-
 
     override fun accept(visitor: IVisitor) {
         if(visitor.visit(this))

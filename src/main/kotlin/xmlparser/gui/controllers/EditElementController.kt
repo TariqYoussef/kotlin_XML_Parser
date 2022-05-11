@@ -47,7 +47,6 @@ class EditElementController : Controller() {
         val updateXmlEntityAction = UpdateXmlEntityAction(xmlElement!!,
             name, value, this@EditElementController.find(EditElementView::class))
         ActionStack.doAction(updateXmlEntityAction)
-        this@EditElementController.find(MainView::class).populateTableTreeView()
     }
 
     fun undo() = this@EditElementController.find(MainController::class).undo()
