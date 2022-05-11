@@ -73,8 +73,20 @@ class EditElementView : View() {
 
         tableview = tableview(controller.attributes()) {
             isEditable = true
-            column("Name", XmlElementAttribute::name).makeEditable()
-            column("Value", XmlElementAttribute::value).makeEditable()
+            column("Name", XmlElementAttribute::name)
+            {
+                onEditCommit{
+
+                }
+                makeEditable()
+            }
+            column("Value", XmlElementAttribute::value)
+            {
+                onEditCommit{
+
+                }
+                makeEditable()
+            }
 
             contextmenu {
                 item("Remove").action{

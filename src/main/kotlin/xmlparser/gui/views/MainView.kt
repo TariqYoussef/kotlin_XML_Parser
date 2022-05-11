@@ -1,7 +1,7 @@
 package xmlparser.gui.views
 
 import javafx.scene.control.TreeItem
-import javafx.scene.control.TreeView
+import javafx.scene.control.TreeTableView
 import tornadofx.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.controllers.AddElementController
@@ -11,7 +11,7 @@ import xmlparser.gui.controllers.MainController
 class MainView : View() {
     private val controller: MainController by inject()
 
-    private var treeView: TreeView<XmlElement> by singleAssign()
+    private var treeTableView: TreeTableView<XmlElement> by singleAssign()
 
     var populateTreeView: () -> Unit by singleAssign()
 
@@ -37,14 +37,11 @@ class MainView : View() {
             }
         }
 
-        treeView = treeview {
+        treeTableView = treetableview {
             isShowRoot = false
             root = TreeItem()
-
-            cellFormat {
-                text =  if(it.value != "") it.name + ": " + it.value
-                        else it.name
-            }
+            column("Name", XmlElement::name)
+            column("Value", XmlElement::value)
 
             val childFactory: (TreeItem<XmlElement>) -> Iterable<XmlElement>? = {
                 if(controller.context().principalXmlElement() == null) listOf()
@@ -57,16 +54,16 @@ class MainView : View() {
 
             contextmenu {
                 item("Edit").action {
-                    this@MainView.find(EditElementController::class).setContext(treeView.selectionModel.selectedItem?.value)
+                    this@MainView.find(EditElementController::class).setContext(treeTableView.selectionModel.selectedItem?.value)
                     this@MainView.find(EditElementView::class).openWindow()
                 }
                 item("Add Element").action{
-                    this@MainView.find(AddElementController::class).setContext(treeView.selectionModel.selectedItem?.value)
+                    this@MainView.find(AddElementController::class).setContext(treeTableView.selectionModel.selectedItem?.value)
                     this@MainView.find(AddElementView::class).openWindow()
                 }
                 item("Remove").action{
-                    controller.removeElement(treeView.selectionModel.selectedItem?.value!!)
-                    treeView.selectionModel.selectedItem?.value = null
+                    controller.removeElement(treeTableView.selectionModel.selectedItem?.value!!)
+                    treeTableView.selectionModel.selectedItem?.value = null
                     populate(childFactory = childFactory)
                 }
             }
