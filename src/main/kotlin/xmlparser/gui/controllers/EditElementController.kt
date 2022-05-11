@@ -6,6 +6,7 @@ import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.views.EditElementView
+import xmlparser.gui.views.MainView
 
 class EditElementController : Controller() {
 
@@ -34,6 +35,7 @@ class EditElementController : Controller() {
     fun updateEntity(name: String, value: String) {
         updateEntityName(name)
         updateEntityValue(value)
+        this@EditElementController.find(MainView::class).populateTreeView()
     }
 
     private fun updateEntityName(name: String) {

@@ -6,6 +6,7 @@ import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.views.AddElementView
+import xmlparser.gui.views.MainView
 
 class AddElementController : Controller() {
 
@@ -40,5 +41,6 @@ class AddElementController : Controller() {
             xmlElementFather!!.addChild(xmlElementChild)
         else
             this.find(MainController::class).context().setPrincipalXmlElement(xmlElementChild)
+        this@AddElementController.find(MainView::class).populateTreeView()
     }
 }
