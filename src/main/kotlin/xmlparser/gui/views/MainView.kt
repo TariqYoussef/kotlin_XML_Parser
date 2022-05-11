@@ -13,7 +13,7 @@ class MainView : View() {
 
     private var treeTableView: TreeTableView<XmlElement> by singleAssign()
 
-    var populateTreeView: () -> Unit by singleAssign()
+    var populateTableTreeView: () -> Unit by singleAssign()
 
     override val root = vbox {
 
@@ -50,7 +50,7 @@ class MainView : View() {
             }
 
             populate(childFactory = childFactory)
-            populateTreeView = { populate(childFactory = childFactory) }
+            populateTableTreeView = { populate(childFactory = childFactory) }
 
             contextmenu {
                 item("Edit").action {

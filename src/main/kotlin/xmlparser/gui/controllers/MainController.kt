@@ -55,7 +55,7 @@ class MainController : Controller() {
     fun undo()
     {
         ActionStack.undoAction()
-        this@MainController.find(MainView::class).populateTreeView()
+        this@MainController.find(MainView::class).populateTableTreeView()
     }
 
     fun save(){

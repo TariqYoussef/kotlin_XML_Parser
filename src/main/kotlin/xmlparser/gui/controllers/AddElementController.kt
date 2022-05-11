@@ -42,7 +42,7 @@ class AddElementController : Controller() {
         val addXmlEntityAction = AddXmlEntityAction(this@AddElementController.find(MainController::class).context(),
             xmlElementFather,xmlElementChild)
         ActionStack.doAction(addXmlEntityAction)
-        this@AddElementController.find(MainView::class).populateTreeView()
+        this@AddElementController.find(MainView::class).populateTableTreeView()
     }
 
     fun undo() = this@AddElementController.find(MainController::class).undo()
