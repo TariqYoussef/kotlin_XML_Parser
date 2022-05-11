@@ -79,7 +79,6 @@ class EditElementView : View() {
             var oldAttribute: XmlElementAttribute? = null
 
             onEditCommit {
-                println("$it, $oldAttribute")
                 controller.registerAttributeUpdate(it, oldAttribute!!)
             }
 
