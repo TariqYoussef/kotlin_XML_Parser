@@ -51,4 +51,10 @@ class EditElementController : Controller() {
     }
 
     fun undo() = this@EditElementController.find(MainController::class).undo()
+
+    fun onClose()
+    {
+        xmlElement = null
+        attributes = null
+    }
 }

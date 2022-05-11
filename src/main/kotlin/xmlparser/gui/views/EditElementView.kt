@@ -129,6 +129,7 @@ class EditElementView : View() {
                 spacing = 5.0
                 button("Close") {
                     action {
+                        controller.onClose()
                         close()
                     }
                 }
