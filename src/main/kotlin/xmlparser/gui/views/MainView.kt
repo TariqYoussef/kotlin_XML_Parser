@@ -55,6 +55,7 @@ class MainView : View() {
             populate(childFactory = childFactory)
             controller.context().addObserverToAllChildren {
                 populate(childFactory = childFactory)
+                this@MainView.find(EditElementView::class).setContext()
                 this@treetableview.refresh()
             }
 
