@@ -56,6 +56,11 @@ class MainController : Controller() {
         ActionStack.undoAction()
     }
 
+    fun redo()
+    {
+        ActionStack.redoAction()
+    }
+
     fun save(){
         val file = fileChooser.showSaveDialog(primaryStage)
         if(file == null)

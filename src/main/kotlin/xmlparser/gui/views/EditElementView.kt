@@ -40,7 +40,7 @@ class EditElementView : View() {
                     controller.undo()
                 }
                 item("Redo").action {
-
+                    controller.redo()
                 }
             }
         }

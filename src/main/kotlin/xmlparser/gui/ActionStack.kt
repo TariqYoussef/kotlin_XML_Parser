@@ -3,23 +3,31 @@ package xmlparser.gui
 import java.util.*
 
 object ActionStack {
-    private val stack = Stack<IAction>()
+    private val undoStack = Stack<IAction>()
+    private val redoStack = Stack<IAction>()
 
     fun doAction(action: IAction)
     {
         action.execute()
-        stack.push(action)
+        undoStack.push(action)
     }
 
-    fun undoAction(): IAction
+    fun undoAction()
     {
-        val action = stack.pop()
+        val action = undoStack.pop()
         action.undo()
-        return action
+        redoStack.push(action)
+    }
+
+    fun redoAction()
+    {
+        val action = redoStack.pop()
+        doAction(action)
     }
 
     fun removeAction(action: IAction)
     {
-        stack.remove(action)
+        undoStack.remove(action)
+        redoStack.remove(action)
     }
 }
