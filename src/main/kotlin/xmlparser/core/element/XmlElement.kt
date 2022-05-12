@@ -75,7 +75,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     {
         xmlElementAttribute.name = newName
         xmlElementAttribute.value = newValue
-        print("$xmlElementAttribute ${attributes.contains(xmlElementAttribute)} ")
         notifyObservers { it(this) }
     }
 

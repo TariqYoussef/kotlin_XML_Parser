@@ -7,7 +7,10 @@ import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.IAction
+import xmlparser.gui.actions.view.add.AddAttributeXmlEntityAction
 import xmlparser.gui.actions.view.add.AddXmlEntityAction
+import xmlparser.gui.actions.view.add.RemoveAttributeXmlEntityAction
+import xmlparser.gui.actions.view.add.UpdateAttributeXmlEntityAction
 import xmlparser.gui.views.AddElementView
 
 class AddElementController : Controller() {
@@ -27,23 +30,24 @@ class AddElementController : Controller() {
     }
 
     fun removeAttribute(xmlElementAttribute: XmlElementAttribute) {
-        //val removeAttributeXmlEntityAction = RemoveAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
-        //actions.add(removeAttributeXmlEntityAction)
-        //ActionStack.doAction(removeAttributeXmlEntityAction)
+        val removeAttributeXmlEntityAction = RemoveAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        actions.add(removeAttributeXmlEntityAction)
+        ActionStack.doAction(removeAttributeXmlEntityAction)
     }
 
     fun addAttribute(name: String, value: String) {
         val xmlElementAttribute = XmlElementAttribute(name, value)
-        //val addAttributeXmlEntityAction = AddAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
-        //actions.add(addAttributeXmlEntityAction)
-        //ActionStack.doAction(addAttributeXmlEntityAction)
+        val addAttributeXmlEntityAction = AddAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        actions.add(addAttributeXmlEntityAction)
+        ActionStack.doAction(addAttributeXmlEntityAction)
     }
 
     fun registerAttributeUpdate(xmlElementAttribute: XmlElementAttribute, oldXmlElementAttribute: XmlElementAttribute)
     {
-        //val updateAttributeXmlEntityAction = UpdateAttributeXmlEntityAction(xmlElementAttribute, oldXmlElementAttribute, attributes!!)
-        //actions.add(updateAttributeXmlEntityAction)
-        //ActionStack.doAction(updateAttributeXmlEntityAction)
+        val updateAttributeXmlEntityAction = UpdateAttributeXmlEntityAction(xmlElementAttribute,
+            oldXmlElementAttribute, this.find(AddElementView::class))
+        actions.add(updateAttributeXmlEntityAction)
+        ActionStack.doAction(updateAttributeXmlEntityAction)
     }
 
     fun createChild(name: String, value: String)
