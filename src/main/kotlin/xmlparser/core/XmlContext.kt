@@ -19,6 +19,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private var rootXmlElement: XmlElement? = null
 
+    private var observers: MutableList<(XmlElement) -> Unit> = mutableListOf()
     /**
      * Sets root of the context.
      */
@@ -38,6 +39,9 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      */
     fun setRootXmlElement(xmlElement: XmlElement) {
         rootXmlElement = xmlElement
+        observers.forEach {
+            rootXmlElement!!.addObserverToAllChildren(it)
+        }
         rootXmlElement!!.notifyObservers { it(rootXmlElement!!) }
     }
 
@@ -86,6 +90,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      */
     fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
     {
+        observers.add(handler)
         if (rootXmlElement != null)
             rootXmlElement?.addObserverToAllChildren(handler)
     }
