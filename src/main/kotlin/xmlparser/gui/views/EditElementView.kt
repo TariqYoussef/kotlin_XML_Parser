@@ -24,6 +24,7 @@ class EditElementView : View() {
     fun setContext()
     {
         tableview.items = controller.attributes()
+        tableview.refresh()
         newAttributeName.text = ""
         newAttributeValue.text = ""
         newElementName.text = controller.element()?.name

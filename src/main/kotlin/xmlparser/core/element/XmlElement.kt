@@ -69,6 +69,17 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     }
 
     /**
+     * Updates an attribute of the xml element.
+     */
+    fun updateAttribute(xmlElementAttribute: XmlElementAttribute, newName: String, newValue: String)
+    {
+        xmlElementAttribute.name = newName
+        xmlElementAttribute.value = newValue
+        print("$xmlElementAttribute ${attributes.contains(xmlElementAttribute)} ")
+        notifyObservers { it(this) }
+    }
+
+    /**
      * Gets Children of xml element.
      */
     fun children() = children as List<XmlElement>

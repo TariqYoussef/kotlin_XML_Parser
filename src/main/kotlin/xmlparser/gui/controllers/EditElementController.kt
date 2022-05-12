@@ -26,20 +26,20 @@ class EditElementController : Controller() {
     }
 
     fun removeAttribute(xmlElementAttribute: XmlElementAttribute) {
-        val removeAttributeXmlEntityAction = RemoveAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        val removeAttributeXmlEntityAction = RemoveAttributeXmlEntityAction(xmlElementAttribute, xmlElement!!)
         ActionStack.doAction(removeAttributeXmlEntityAction)
     }
 
     fun addAttribute(name: String, value: String) {
         val xmlElementAttribute = XmlElementAttribute(name, value)
-        val addAttributeXmlEntityAction = AddAttributeXmlEntityAction(xmlElementAttribute, attributes!!)
+        val addAttributeXmlEntityAction = AddAttributeXmlEntityAction(xmlElementAttribute,  xmlElement!!)
         ActionStack.doAction(addAttributeXmlEntityAction)
     }
 
     fun registerAttributeUpdate(xmlElementAttribute: XmlElementAttribute, oldXmlElementAttribute: XmlElementAttribute)
     {
         val updateAttributeXmlEntityAction = UpdateAttributeXmlEntityAction(xmlElementAttribute,
-            oldXmlElementAttribute, attributes!!)
+            oldXmlElementAttribute,  xmlElement!!)
         ActionStack.doAction(updateAttributeXmlEntityAction)
     }
 

@@ -23,6 +23,7 @@ class AddElementView: View() {
     fun setContext()
     {
         tableview.items = controller.attributes()
+        tableview.refresh()
         newAttributeName.text = ""
         newAttributeValue.text = ""
         newElementName.text = ""
