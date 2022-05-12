@@ -1,4 +1,4 @@
-package xmlparser.gui.actions
+package xmlparser.gui.actions.view.edit
 
 import javafx.collections.ObservableList
 import xmlparser.core.element.XmlElement
