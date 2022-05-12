@@ -53,6 +53,7 @@ class MainView : View() {
             }
 
             populate(childFactory = childFactory)
+            //TODO PUT THIS OUTSIDE THE SCOPE
             controller.context().addObserverToAllChildren {
                 populate(childFactory = childFactory)
                 this@MainView.find(EditElementController::class).setContext(it)
