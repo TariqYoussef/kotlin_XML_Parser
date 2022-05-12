@@ -6,12 +6,14 @@ import xmlparser.gui.views.AddElementView
 
 class UpdateAttributeXmlEntityAction(private val xmlElementAttribute: XmlElementAttribute,
                                      private val oldXmlElementAttribute: XmlElementAttribute,
-                                     private val addElementView: AddElementView
-) : IAction {
+                                     private val addElementView: AddElementView) : IAction {
+
+    private val newName: String = xmlElementAttribute.name
+    private val newValue: String = xmlElementAttribute.value
 
     override fun execute() {
-        xmlElementAttribute.name = xmlElementAttribute.name
-        xmlElementAttribute.value = xmlElementAttribute.value
+        xmlElementAttribute.name = newName
+        xmlElementAttribute.value = newValue
         addElementView.setContext()
     }
 

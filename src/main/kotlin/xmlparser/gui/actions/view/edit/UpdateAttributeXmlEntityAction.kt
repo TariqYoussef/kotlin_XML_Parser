@@ -8,8 +8,11 @@ class UpdateAttributeXmlEntityAction(private val xmlElementAttribute: XmlElement
                                      private val oldXmlElementAttribute: XmlElementAttribute,
                                      private val xmlElement: XmlElement) : IAction {
 
+    private val newName: String = xmlElementAttribute.name
+    private val newValue: String = xmlElementAttribute.value
+
     override fun execute() {
-        xmlElement.updateAttribute(xmlElementAttribute, xmlElementAttribute.name, xmlElementAttribute.value)
+        xmlElement.updateAttribute(xmlElementAttribute, newName, newValue)
     }
 
     override fun undo() {
