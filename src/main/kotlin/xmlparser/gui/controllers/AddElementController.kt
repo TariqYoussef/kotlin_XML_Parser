@@ -62,7 +62,6 @@ class AddElementController : Controller() {
     }
 
     fun undo() = this@AddElementController.find(MainController::class).undo()
-    fun redo() = this@AddElementController.find(MainController::class).redo()
 
     fun onClose()
     {

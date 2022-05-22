@@ -39,9 +39,6 @@ class EditElementView : View() {
                 item("Undo").action {
                     controller.undo()
                 }
-                item("Redo").action {
-                    controller.redo()
-                }
             }
         }
 

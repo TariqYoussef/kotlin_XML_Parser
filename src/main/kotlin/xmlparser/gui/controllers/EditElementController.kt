@@ -51,7 +51,6 @@ class EditElementController : Controller() {
     }
 
     fun undo() = this@EditElementController.find(MainController::class).undo()
-    fun redo() = this@EditElementController.find(MainController::class).redo()
 
     fun onClose()
     {
