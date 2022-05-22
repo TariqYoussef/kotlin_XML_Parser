@@ -22,7 +22,7 @@ class RemoveXmlEntityAction(private val context: XmlContext,
     override fun undo() {
         xmlElement.addObserverToAllChildren( treeTableViewObserver )
         if(fatherXmlElement != null)
-            xmlElement.father()!!.addChild(xmlElement)
+            fatherXmlElement!!.addChild(xmlElement)
         else
             context.setRootXmlElement(xmlElement)
     }
