@@ -39,8 +39,13 @@ class MainController : Controller() {
 
     private val fileChooser: FileChooser = FileChooser()
 
-    var treeTableViewObserver: ((XmlElement) -> Unit) by singleAssign()
-    var populateTreeView: () -> Unit by singleAssign()
+    var updateTreeView: () -> Unit by singleAssign()
+
+    var treeTableViewObserver: ((XmlElement) -> Unit) = {
+        updateTreeView()
+        this.find(EditElementController::class).setContext(it)
+        this.find(AddElementController::class).setContext(it)
+    }
 
     init {
         val complex = Complex()
@@ -52,7 +57,7 @@ class MainController : Controller() {
     fun context() = xmlContext
 
     fun removeElement(xmlElement: XmlElement) {
-        val removeXmlEntityAction = RemoveXmlEntityAction(xmlContext, treeTableViewObserver, populateTreeView, xmlElement)
+        val removeXmlEntityAction = RemoveXmlEntityAction(xmlContext, treeTableViewObserver, updateTreeView, xmlElement)
         ActionStack.doAction(removeXmlEntityAction)
     }
 
