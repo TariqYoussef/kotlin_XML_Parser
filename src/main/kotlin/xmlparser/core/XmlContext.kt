@@ -15,9 +15,11 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 /**
  * Represents a Xml context.
  */
-class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable {
+class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable, IObservable<(XmlContext) -> Unit> {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private var rootXmlElement: XmlElement? = null
+
+    override val observers: MutableList<(XmlContext) -> Unit> = mutableListOf()
     /**
      * Sets root of the context.
      */
@@ -30,6 +32,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         val xmlElement = createXmlElement(element, kClass.simpleName!!)
 
         rootXmlElement = xmlElement
+        notifyObservers { it(this) }
     }
 
     /**
@@ -37,7 +40,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      */
     fun setRootXmlElement(xmlElement: XmlElement) {
         rootXmlElement = xmlElement
-        rootXmlElement!!.notifyObservers { it(rootXmlElement!!) }
+        notifyObservers { it(this) }
     }
 
     /**
@@ -46,6 +49,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     fun clearXmlElements() {
         rootXmlElement!!.removeAllObservers()
         rootXmlElement = null
+        notifyObservers { it(this) }
     }
 
     /**
@@ -84,7 +88,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
     /**
      * Adds observer to all children
      */
-    fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
+    fun addObserverToAllXmlElements(handler: (XmlElement) -> Unit)
     {
         if (rootXmlElement != null)
             rootXmlElement?.addObserverToAllChildren(handler)

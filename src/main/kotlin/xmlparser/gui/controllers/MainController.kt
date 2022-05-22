@@ -41,10 +41,14 @@ class MainController : Controller() {
 
     var updateTreeView: () -> Unit by singleAssign()
 
-    var treeTableViewObserver: ((XmlElement) -> Unit) = {
+    var treeTableViewXmlElementObserver: ((XmlElement) -> Unit) = {
         updateTreeView()
         this.find(EditElementController::class).setContext(it)
         this.find(AddElementController::class).setContext(it)
+    }
+
+    var treeTableViewXmlContextObserver: ((XmlContext) -> Unit) = {
+        updateTreeView()
     }
 
     init {
@@ -57,7 +61,7 @@ class MainController : Controller() {
     fun context() = xmlContext
 
     fun removeElement(xmlElement: XmlElement) {
-        val removeXmlEntityAction = RemoveXmlEntityAction(xmlContext, treeTableViewObserver, updateTreeView, xmlElement)
+        val removeXmlEntityAction = RemoveXmlEntityAction(xmlContext, treeTableViewXmlElementObserver, xmlElement)
         ActionStack.doAction(removeXmlEntityAction)
     }
 

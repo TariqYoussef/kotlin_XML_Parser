@@ -6,7 +6,6 @@ import xmlparser.gui.IAction
 
 class RemoveXmlEntityAction(private val context: XmlContext,
                             private val treeTableViewObserver: ((XmlElement) -> Unit),
-                            private val populateTreeView: () -> Unit,
                             private val xmlElement: XmlElement) : IAction {
 
     private var fatherXmlElement: XmlElement? = null
@@ -19,7 +18,6 @@ class RemoveXmlEntityAction(private val context: XmlContext,
         else
         {
             context.clearXmlElements()
-            populateTreeView()
         }
     }
 

@@ -60,7 +60,8 @@ class MainView : View() {
                 this@treetableview.refresh()
             }
 
-            controller.context().addObserverToAllChildren(controller.treeTableViewObserver)
+            controller.context().addObserverToAllXmlElements(controller.treeTableViewXmlElementObserver)
+            controller.context().addObserver(controller.treeTableViewXmlContextObserver)
 
             contextmenu {
                 item("Edit").action {
