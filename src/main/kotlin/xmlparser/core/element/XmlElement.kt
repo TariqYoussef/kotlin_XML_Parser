@@ -34,9 +34,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     fun addChild(xmlElement: XmlElement)
     {
         xmlElement.father = this
-        observers.forEach {
-            xmlElement.addObserverToAllChildren(it)
-        }
         children.add(xmlElement)
         notifyObservers { it(this) }
     }

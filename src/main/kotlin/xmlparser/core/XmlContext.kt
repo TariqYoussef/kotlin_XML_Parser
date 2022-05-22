@@ -44,6 +44,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      * Clears Xml elements in the context.
      */
     fun clearXmlElements() {
+        rootXmlElement!!.removeAllObservers()
         rootXmlElement = null
     }
 

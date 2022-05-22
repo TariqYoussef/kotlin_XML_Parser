@@ -4,6 +4,7 @@ import javafx.scene.control.Alert
 import javafx.stage.FileChooser
 import tornadofx.Controller
 import tornadofx.alert
+import tornadofx.singleAssign
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
@@ -37,6 +38,9 @@ class MainController : Controller() {
     private val xmlContext: XmlContext = XmlContext()
 
     private val fileChooser: FileChooser = FileChooser()
+
+    var treeTableViewObserver: ((XmlElement) -> Unit) by singleAssign()
+
     init {
         val complex = Complex()
         xmlContext.setRootXmlElement(complex)
