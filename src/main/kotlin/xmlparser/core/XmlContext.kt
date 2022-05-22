@@ -275,5 +275,3 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
 
 //endregion
 }
-
-//TODO: IntArray, ShortArray, etc Support
