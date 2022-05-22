@@ -47,6 +47,7 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     fun removeChild(xmlElement: XmlElement)
     {
         children.remove(xmlElement)
+        xmlElement.removeAllObservers()
         notifyObservers { it(this) }
     }
 

@@ -17,6 +17,8 @@ class MainView : View() {
     private var treeTableView: TreeTableView<XmlElement> by singleAssign()
     private var tableview: TableView<XmlElementAttribute> by singleAssign()
 
+    private var treeTableViewObserver: ((XmlElement) -> Unit)? = null
+
     override val root = vbox {
 
         menubar {
@@ -53,13 +55,16 @@ class MainView : View() {
             }
 
             populate(childFactory = childFactory)
-            //TODO PUT THIS OUTSIDE THE SCOPE
-            controller.context().addObserverToAllChildren {
+
+            treeTableViewObserver = {
+                treeTableView.selectionModel.selectedItem?.value = null
                 populate(childFactory = childFactory)
                 this@MainView.find(EditElementController::class).setContext(it)
                 this@MainView.find(AddElementController::class).setContext(it)
                 this@treetableview.refresh()
             }
+
+            controller.context().addObserverToAllChildren(treeTableViewObserver!!)
 
             contextmenu {
                 item("Edit").action {

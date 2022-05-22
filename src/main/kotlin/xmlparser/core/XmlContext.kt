@@ -18,8 +18,6 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable {
     private val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     private var rootXmlElement: XmlElement? = null
-
-    private var observers: MutableList<(XmlElement) -> Unit> = mutableListOf()
     /**
      * Sets root of the context.
      */
@@ -39,9 +37,6 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      */
     fun setRootXmlElement(xmlElement: XmlElement) {
         rootXmlElement = xmlElement
-        observers.forEach {
-            rootXmlElement!!.addObserverToAllChildren(it)
-        }
         rootXmlElement!!.notifyObservers { it(rootXmlElement!!) }
     }
     //TODO solve: cannot redo remove root
@@ -90,14 +85,13 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
      */
     fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
     {
-        observers.add(handler)
         if (rootXmlElement != null)
             rootXmlElement?.addObserverToAllChildren(handler)
     }
 
     override fun accept(visitor: IVisitor) {
-        if(visitor.visit(this))
-            if(rootXmlElement != null) rootXmlElement!!.accept(visitor)
+        if(visitor.visit(this) && rootXmlElement != null)
+            rootXmlElement!!.accept(visitor)
         visitor.endVisit(this)
     }
 
