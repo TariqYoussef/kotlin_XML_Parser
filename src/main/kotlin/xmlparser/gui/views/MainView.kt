@@ -43,6 +43,7 @@ class MainView : View() {
             isShowRoot = false
             root = TreeItem()
 
+
             column("Name", XmlElement::name)
             column("Value", XmlElement::value)
 
@@ -61,6 +62,8 @@ class MainView : View() {
                 this@MainView.find(AddElementController::class).setContext(it)
                 this@treetableview.refresh()
             }
+
+            controller.populateTreeView = { populate(childFactory = childFactory);this@treetableview.refresh() }
 
             controller.context().addObserverToAllChildren(controller.treeTableViewObserver)
 
@@ -91,7 +94,6 @@ class MainView : View() {
                     }
                     controller.removeElement(treeTableView.selectionModel.selectedItem?.value!!)
                     treeTableView.selectionModel.selectedItem?.value = null
-                    populate(childFactory = childFactory)
                 }
             }
         }

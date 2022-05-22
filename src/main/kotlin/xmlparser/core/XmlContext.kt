@@ -39,7 +39,7 @@ class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone
         rootXmlElement = xmlElement
         rootXmlElement!!.notifyObservers { it(rootXmlElement!!) }
     }
-    //TODO solve: cannot redo remove root
+
     /**
      * Clears Xml elements in the context.
      */
