@@ -56,7 +56,7 @@ class MainView : View() {
 
             controller.updateTreeView = {
                 treeTableView.selectionModel.selectedItem?.value = null
-                populate(childFactory = childFactory);
+                populate(childFactory = childFactory)
                 this@treetableview.refresh()
             }
 
