@@ -5,10 +5,12 @@ import xmlparser.core.element.XmlElement
 import xmlparser.gui.IAction
 
 class AddXmlEntityAction(private val context: XmlContext,
+                         private val treeTableViewObserver: ((XmlElement) -> Unit),
                          private val xmlElementFather: XmlElement?,
                          private val xmlElement: XmlElement) : IAction {
 
     override fun execute() {
+        xmlElement.addObserverToAllChildren(treeTableViewObserver)
         if(xmlElementFather != null)
             xmlElementFather.addChild(xmlElement)
         else

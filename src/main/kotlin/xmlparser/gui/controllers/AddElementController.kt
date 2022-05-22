@@ -57,7 +57,7 @@ class AddElementController : Controller() {
             xmlElementChild.addAttribute(it)
         }
         val addXmlEntityAction = AddXmlEntityAction(this@AddElementController.find(MainController::class).context(),
-            xmlElementFather,xmlElementChild)
+            this@AddElementController.find(MainController::class).treeTableViewObserver, xmlElementFather,xmlElementChild)
         ActionStack.doAction(addXmlEntityAction)
     }
 
