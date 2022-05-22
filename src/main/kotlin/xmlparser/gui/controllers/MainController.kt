@@ -51,7 +51,7 @@ class MainController : Controller() {
     fun context() = xmlContext
 
     fun removeElement(xmlElement: XmlElement) {
-        val removeXmlEntityAction = RemoveXmlEntityAction(this.xmlContext, xmlElement)
+        val removeXmlEntityAction = RemoveXmlEntityAction(this.xmlContext, treeTableViewObserver, xmlElement)
         ActionStack.doAction(removeXmlEntityAction)
     }
 
