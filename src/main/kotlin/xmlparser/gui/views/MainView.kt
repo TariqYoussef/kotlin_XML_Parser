@@ -15,7 +15,6 @@ class MainView : View() {
     private val controller: MainController by inject()
 
     private var treeTableView: TreeTableView<XmlElement> by singleAssign()
-    private var tableview: TableView<XmlElementAttribute> by singleAssign()
 
     override val root = vbox {
 
