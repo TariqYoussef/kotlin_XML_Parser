@@ -8,6 +8,7 @@ import xmlparser.core.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
 import xmlparser.gui.actions.view.main.RemoveXmlEntityAction
+import xmlparser.gui.views.LocalHistoryView
 import java.io.PrintWriter
 
 
@@ -45,10 +46,12 @@ class MainController : Controller() {
         updateTreeView()
         this.find(EditElementController::class).setContext(it)
         this.find(AddElementController::class).setContext(it)
+        this.find(LocalHistoryView::class).updateHistoryList()
     }
 
     var treeTableViewXmlContextObserver: ((XmlContext) -> Unit) = {
         updateTreeView()
+        this.find(LocalHistoryView::class).updateHistoryList()
     }
 
     init {
@@ -67,26 +70,32 @@ class MainController : Controller() {
 
     fun undo()
     {
-        alert(Alert.AlertType.CONFIRMATION,
-            "Do you wish to undo ${ActionStack.getPeekActionUndo().name} ?",
-            "", buttons = arrayOf(ButtonType.YES, ButtonType.NO)){
-            when(it)
-            {
-                ButtonType.YES -> ActionStack.undoAction()
+        if(!ActionStack.isUndoStackEmpty())
+            alert(Alert.AlertType.CONFIRMATION,
+                "Do you wish to undo ${ActionStack.getPeekActionUndo().name} ?",
+                "", buttons = arrayOf(ButtonType.YES, ButtonType.NO)){
+                when(it)
+                {
+                    ButtonType.YES -> ActionStack.undoAction()
+                }
             }
-        }
+        else
+            alert(Alert.AlertType.ERROR, "There is no actions to undo.")
     }
 
     fun redo()
     {
-        alert(Alert.AlertType.CONFIRMATION,
-            "Do you wish to redo ${ActionStack.getPeekActionRedo().name} ?",
-            "", buttons = arrayOf(ButtonType.YES, ButtonType.NO)){
-            when(it)
-            {
-                ButtonType.YES -> ActionStack.redoAction()
+        if(!ActionStack.isRedoStackEmpty())
+            alert(Alert.AlertType.CONFIRMATION,
+                "Do you wish to redo ${ActionStack.getPeekActionRedo().name} ?",
+                "", buttons = arrayOf(ButtonType.YES, ButtonType.NO)){
+                when(it)
+                {
+                    ButtonType.YES -> ActionStack.redoAction()
+                }
             }
-        }
+        else
+            alert(Alert.AlertType.ERROR, "There is no actions to redo.")
     }
 
     fun save(){

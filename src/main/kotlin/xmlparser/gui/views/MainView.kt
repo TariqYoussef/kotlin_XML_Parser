@@ -25,7 +25,7 @@ class MainView : View() {
                     controller.save()
                 }
                 item("Local History").action {
-
+                    this@MainView.find(LocalHistoryView::class).openWindow()
                 }
                 item("Quit").action {
                     close()

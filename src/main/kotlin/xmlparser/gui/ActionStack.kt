@@ -31,13 +31,14 @@ object ActionStack {
         redoStack.remove(action)
     }
 
-    fun getPeekActionUndo(): IAction
-    {
-        return undoStack.peek()
-    }
+    fun getPeekActionUndo(): IAction = undoStack.peek()
 
-    fun getPeekActionRedo(): IAction
-    {
-        return redoStack.peek()
-    }
+    fun getPeekActionRedo(): IAction = redoStack.peek()
+
+    fun getUndoStack() = undoStack
+
+    fun isUndoStackEmpty() = undoStack.isEmpty()
+
+    fun isRedoStackEmpty() = redoStack.isEmpty()
+
 }
