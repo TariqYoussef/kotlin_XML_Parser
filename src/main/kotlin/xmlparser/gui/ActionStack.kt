@@ -35,4 +35,9 @@ object ActionStack {
     {
         return undoStack.peek()
     }
+
+    fun getPeekActionRedo(): IAction
+    {
+        return redoStack.peek()
+    }
 }

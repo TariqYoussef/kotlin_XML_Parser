@@ -79,7 +79,14 @@ class MainController : Controller() {
 
     fun redo()
     {
-        ActionStack.redoAction()
+        alert(Alert.AlertType.CONFIRMATION,
+            "Do you wish to redo ${ActionStack.getPeekActionRedo().name} ?",
+            "", buttons = arrayOf(ButtonType.YES, ButtonType.NO)){
+            when(it)
+            {
+                ButtonType.YES -> ActionStack.redoAction()
+            }
+        }
     }
 
     fun save(){
