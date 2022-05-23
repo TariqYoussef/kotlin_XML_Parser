@@ -5,7 +5,9 @@ import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.IAction
 
 class RemoveAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
-                                     private val  attributes: ObservableList<XmlElementAttribute>) : IAction {
+                                     private val  attributes: ObservableList<XmlElementAttribute>,
+                                     override val name: String = "Remove Attribute Entity"
+) : IAction {
 
     override fun execute() {
         attributes.remove(attribute)

@@ -1,15 +1,15 @@
 package xmlparser.gui.controllers
 
 import javafx.scene.control.Alert
+import javafx.scene.control.ButtonType
 import javafx.stage.FileChooser
-import tornadofx.Controller
-import tornadofx.alert
-import tornadofx.singleAssign
+import tornadofx.*
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
 import xmlparser.gui.actions.view.main.RemoveXmlEntityAction
 import java.io.PrintWriter
+
 
 private data class Entity(private val id: Int, val name: String)
 private data class Point(val x: Int, val y: Int)
@@ -67,7 +67,14 @@ class MainController : Controller() {
 
     fun undo()
     {
-        ActionStack.undoAction()
+        alert(Alert.AlertType.CONFIRMATION,
+            "Do you wish to undo ${ActionStack.getPeekActionUndo().name} ?",
+            "", buttons = arrayOf(ButtonType.YES, ButtonType.NO)){
+            when(it)
+            {
+                ButtonType.YES -> ActionStack.undoAction()
+            }
+        }
     }
 
     fun redo()

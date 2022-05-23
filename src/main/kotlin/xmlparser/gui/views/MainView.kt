@@ -24,6 +24,9 @@ class MainView : View() {
                 item("Save").action {
                     controller.save()
                 }
+                item("Local History").action {
+
+                }
                 item("Quit").action {
                     close()
                 }

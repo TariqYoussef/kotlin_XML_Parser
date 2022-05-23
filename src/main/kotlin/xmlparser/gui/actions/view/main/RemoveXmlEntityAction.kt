@@ -6,7 +6,9 @@ import xmlparser.gui.IAction
 
 class RemoveXmlEntityAction(private val context: XmlContext,
                             private val treeTableViewObserver: ((XmlElement) -> Unit),
-                            private val xmlElement: XmlElement) : IAction {
+                            private val xmlElement: XmlElement,
+                            override val name: String = "Remove Entity"
+) : IAction {
 
     private var fatherXmlElement: XmlElement? = null
     override fun execute() {

@@ -7,7 +7,8 @@ import xmlparser.gui.IAction
 class AddXmlEntityAction(private val context: XmlContext,
                          private val treeTableViewObserver: ((XmlElement) -> Unit),
                          private val xmlElementFather: XmlElement?,
-                         private val xmlElement: XmlElement) : IAction {
+                         private val xmlElement: XmlElement, override val name: String = "Add Entity"
+) : IAction {
 
     override fun execute() {
         xmlElement.addObserverToAllChildren(treeTableViewObserver)

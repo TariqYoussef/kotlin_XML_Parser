@@ -30,4 +30,9 @@ object ActionStack {
         undoStack.remove(action)
         redoStack.remove(action)
     }
+
+    fun getPeekActionUndo(): IAction
+    {
+        return undoStack.peek()
+    }
 }

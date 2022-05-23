@@ -5,7 +5,11 @@ import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.IAction
 
 class AddAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
-                                  private val  attributes: ObservableList<XmlElementAttribute>) : IAction {
+                                  private val  attributes: ObservableList<XmlElementAttribute>,
+                                  override val name: String = "Add Attribute Entity"
+) : IAction {
+
+
     override fun execute() {
         attributes.add(attribute)
     }

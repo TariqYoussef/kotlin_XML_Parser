@@ -6,7 +6,9 @@ import xmlparser.gui.IAction
 
 class UpdateAttributeXmlEntityAction(private val xmlElementAttribute: XmlElementAttribute,
                                      private val oldXmlElementAttribute: XmlElementAttribute,
-                                     private val xmlElement: XmlElement) : IAction {
+                                     private val xmlElement: XmlElement,
+                                     override val name: String = "Update Attribute Entity"
+) : IAction {
 
     private val newName: String = xmlElementAttribute.name
     private val newValue: String = xmlElementAttribute.value
