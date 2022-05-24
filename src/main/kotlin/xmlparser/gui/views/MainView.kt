@@ -23,7 +23,7 @@ class MainView : View() {
                 item("Save").action {
                     controller.save()
                 }
-                item("Local History").action {
+                item("History").action {
                     this@MainView.find(LocalHistoryView::class).openWindow()
                 }
                 item("Quit").action {
