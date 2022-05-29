@@ -22,7 +22,7 @@ class AddElementView: View() {
 
     fun setContext()
     {
-        tableview.items = controller.attributes()
+        tableview.items = controller.attributes
         tableview.refresh()
         newAttributeName.text = ""
         newAttributeValue.text = ""
@@ -61,7 +61,7 @@ class AddElementView: View() {
             }
         }
 
-        tableview = tableview(controller.attributes()) {
+        tableview = tableview(controller.attributes) {
             isEditable = true
             column("Name", XmlElementAttribute::name).makeEditable()
             column("Value", XmlElementAttribute::value).makeEditable()

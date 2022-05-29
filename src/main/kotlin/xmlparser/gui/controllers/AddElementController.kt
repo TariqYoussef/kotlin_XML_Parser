@@ -15,12 +15,12 @@ import xmlparser.gui.views.AddElementView
 
 class AddElementController : Controller() {
 
-    private var xmlElementFather: XmlElement? = null
-    private var attributes: ObservableList<XmlElementAttribute>? = null
+    var xmlElementFather: XmlElement? = null
+        private set
+    var attributes: ObservableList<XmlElementAttribute>? = null
+        private set
 
     private var actions = mutableListOf<IAction>()
-
-    fun attributes() = attributes
 
     fun setContext(xmlElementFather: XmlElement?)
     {
