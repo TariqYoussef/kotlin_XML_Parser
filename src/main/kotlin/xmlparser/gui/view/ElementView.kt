@@ -3,10 +3,7 @@ package xmlparser.gui.view
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
-import xmlparser.gui.action.AddAttributeAction
-import xmlparser.gui.action.AddChildAction
-import xmlparser.gui.action.RemoveElementAction
-import xmlparser.gui.action.RenameElementAction
+import xmlparser.gui.action.*
 import java.awt.Color
 import java.awt.FlowLayout
 import java.awt.Font
@@ -46,7 +43,11 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
             val panel = JPanel()
             panel.layout = GridLayout(1,2)
             panel.add(JLabel(it.name))
-            panel.add(JTextField(it.value))
+            val textField = JTextField(it.value)
+            textField.addActionListener{ _ ->
+                ActionStack.doAction(EditAttributeAction(xmlElement, it, textField.text))
+            }
+            panel.add(textField)
             this.panel.add(panel)
         }
 
