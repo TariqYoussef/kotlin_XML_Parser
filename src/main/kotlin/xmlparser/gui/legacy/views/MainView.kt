@@ -1,13 +1,13 @@
-package xmlparser.gui.views
+package xmlparser.gui.legacy.views
 
 import javafx.scene.control.Alert
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeTableView
 import tornadofx.*
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.controllers.AddElementController
-import xmlparser.gui.controllers.EditElementController
-import xmlparser.gui.controllers.MainController
+import xmlparser.gui.legacy.controllers.AddElementController
+import xmlparser.gui.legacy.controllers.EditElementController
+import xmlparser.gui.legacy.controllers.MainController
 
 class MainView : View() {
     private val controller: MainController by inject()

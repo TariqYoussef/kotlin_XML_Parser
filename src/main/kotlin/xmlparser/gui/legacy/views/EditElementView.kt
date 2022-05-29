@@ -1,11 +1,11 @@
-package xmlparser.gui.views
+package xmlparser.gui.legacy.views
 
 import javafx.scene.control.Alert
 import javafx.scene.control.TableView
 import javafx.scene.control.TextField
 import tornadofx.*
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.controllers.EditElementController
+import xmlparser.gui.legacy.controllers.EditElementController
 
 class EditElementView : View() {
 

@@ -1,4 +1,4 @@
-package xmlparser.gui.controllers
+package xmlparser.gui.legacy.controllers
 
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
@@ -9,8 +9,8 @@ import tornadofx.singleAssign
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
-import xmlparser.gui.actions.view.main.RemoveXmlEntityAction
-import xmlparser.gui.views.LocalHistoryView
+import xmlparser.gui.legacy.view.main.RemoveXmlEntityAction
+import xmlparser.gui.legacy.views.LocalHistoryView
 import java.io.PrintWriter
 
 

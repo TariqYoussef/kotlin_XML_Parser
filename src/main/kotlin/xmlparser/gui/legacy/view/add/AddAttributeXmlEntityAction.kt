@@ -1,4 +1,4 @@
-package xmlparser.gui.actions.view.add
+package xmlparser.gui.legacy.view.add
 
 import javafx.collections.ObservableList
 import xmlparser.core.element.XmlElementAttribute

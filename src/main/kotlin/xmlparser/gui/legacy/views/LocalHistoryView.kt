@@ -1,4 +1,4 @@
-package xmlparser.gui.views
+package xmlparser.gui.legacy.views
 
 import javafx.scene.control.ListView
 import javafx.scene.text.FontWeight

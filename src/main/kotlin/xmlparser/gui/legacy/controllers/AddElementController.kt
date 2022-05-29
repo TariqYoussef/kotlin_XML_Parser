@@ -1,4 +1,4 @@
-package xmlparser.gui.controllers
+package xmlparser.gui.legacy.controllers
 
 import javafx.collections.ObservableList
 import tornadofx.Controller
@@ -7,11 +7,11 @@ import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.IAction
-import xmlparser.gui.actions.view.add.AddAttributeXmlEntityAction
-import xmlparser.gui.actions.view.add.AddXmlEntityAction
-import xmlparser.gui.actions.view.add.RemoveAttributeXmlEntityAction
-import xmlparser.gui.actions.view.add.UpdateAttributeXmlEntityAction
-import xmlparser.gui.views.AddElementView
+import xmlparser.gui.legacy.view.add.AddAttributeXmlEntityAction
+import xmlparser.gui.legacy.view.add.AddXmlEntityAction
+import xmlparser.gui.legacy.view.add.RemoveAttributeXmlEntityAction
+import xmlparser.gui.legacy.view.add.UpdateAttributeXmlEntityAction
+import xmlparser.gui.legacy.views.AddElementView
 
 class AddElementController : Controller() {
 
