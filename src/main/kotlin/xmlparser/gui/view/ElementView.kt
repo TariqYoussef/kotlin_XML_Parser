@@ -51,7 +51,11 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
             this.panel.add(panel)
         }
 
-        panel.add(JTextArea())
+        val textField = JTextField(xmlElement.value.toString())
+        textField.addActionListener{
+            ActionStack.doAction(EditElementValueAction(xmlElement, textField.text))
+        }
+        panel.add(textField)
         add(panel)
 
         xmlElement.children.forEach {
