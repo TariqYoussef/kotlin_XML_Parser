@@ -3,9 +3,10 @@ package xmlparser.gui
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.view.ElementView
+import java.awt.BorderLayout
 import java.awt.Dimension
-import javax.swing.JButton
-import javax.swing.JFrame
+import javax.swing.*
+import kotlin.system.exitProcess
 
 class Application : JFrame("XML Editor") {
 
@@ -17,9 +18,43 @@ class Application : JFrame("XML Editor") {
 
         context.setRootXmlElement(XmlElement("Root"))
 
-        add(ElementView(context.rootXmlElement!!))
-        //add(JButton("undo"))
+        contentPane.layout = BorderLayout()
+        add(ElementView(context.rootXmlElement!!), BorderLayout.CENTER)
+
+        add(JButton("undo"), BorderLayout.SOUTH)
         //add(JButton("redo"))
+        createMenuBar()
+    }
+
+    private fun createMenuBar() {
+
+        val menuBar = JMenuBar()
+
+        val file = JMenu("File")
+
+        val saveMenuItem = JMenuItem("Save")
+        saveMenuItem.addActionListener { exitProcess(0) }
+        file.add(saveMenuItem)
+
+        val exitMenuItem = JMenuItem("Exit")
+        exitMenuItem.addActionListener { exitProcess(0) }
+        file.add(exitMenuItem)
+
+        val edit = JMenu("Edit")
+
+        val undoMenuItem = JMenuItem("Undo")
+        undoMenuItem.addActionListener { exitProcess(0) }
+        edit.add(undoMenuItem)
+
+        val redoMenuItem = JMenuItem("Redo")
+        redoMenuItem.addActionListener { exitProcess(0) }
+        edit.add(redoMenuItem)
+
+
+        menuBar.add(file)
+        menuBar.add(edit)
+
+        jMenuBar = menuBar
     }
 
     fun open() {
