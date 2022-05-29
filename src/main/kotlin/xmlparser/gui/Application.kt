@@ -3,6 +3,7 @@ package xmlparser.gui
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.view.ElementView
+import xmlparser.gui.view.HistoryView
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.io.PrintWriter
@@ -43,6 +44,14 @@ class Application : JFrame("XML Editor") {
             }
         }
         file.add(saveMenuItem)
+
+        val historyMenuItem = JMenuItem("History")
+        historyMenuItem.addActionListener {
+            val historyView = HistoryView(this@Application, "History")
+            historyView.open()
+        }
+        file.add(historyMenuItem)
+
 
         val exitMenuItem = JMenuItem("Exit")
         exitMenuItem.addActionListener { exitProcess(0) }
