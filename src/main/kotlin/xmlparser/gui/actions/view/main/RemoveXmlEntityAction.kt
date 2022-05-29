@@ -12,10 +12,10 @@ class RemoveXmlEntityAction(private val context: XmlContext,
 
     private var fatherXmlElement: XmlElement? = null
     override fun execute() {
-        if(xmlElement.father() != null)
+        if(xmlElement.hasFather())
         {
-            fatherXmlElement = xmlElement.father()
-            xmlElement.father()!!.removeChild(xmlElement)
+            fatherXmlElement = xmlElement.father
+            xmlElement.father!!.removeChild(xmlElement)
         }
         else
         {

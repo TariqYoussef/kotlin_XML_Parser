@@ -23,7 +23,7 @@ class EditElementController : Controller() {
     fun setContext(xmlElement: XmlElement)
     {
         this.xmlElement = xmlElement
-        this.attributes = xmlElement.attributes().asObservable()
+        this.attributes = xmlElement.attributes.asObservable()
         this.find(EditElementView::class).setContext()
     }
 

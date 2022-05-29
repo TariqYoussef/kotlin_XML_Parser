@@ -18,9 +18,10 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
         require(name != ""){"Element name cannot be empty."}
     }
 
-    private val children: MutableList<XmlElement> = mutableListOf()
-    private val attributes: MutableList<XmlElementAttribute> = mutableListOf()
-    private var father: XmlElement? = null
+    val children: MutableList<XmlElement> = mutableListOf()
+    val attributes: MutableList<XmlElementAttribute> = mutableListOf()
+    var father: XmlElement? = null
+    private set
 
     override val observers: MutableList<(XmlElement) -> Unit> = mutableListOf()
 
@@ -50,10 +51,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     }
 
     /**
-     * Gets the attributes of the xml element.
-     */
-    fun attributes() = attributes as List<XmlElementAttribute>
-    /**
      * Adds an attribute to the xml element.
      */
     fun addAttribute(xmlElementAttribute: XmlElementAttribute)
@@ -81,10 +78,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     }
 
     /**
-     * Gets Children of xml element.
-     */
-    fun children() = children as List<XmlElement>
-    /**
      * Tells if the xml element has children.
      */
     fun hasChildren() = children.isNotEmpty()
@@ -103,11 +96,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
         value = newValue
         notifyObservers { it(this) }
     }
-
-    /**
-     * Gets the father of the xml element.
-     */
-    fun father() = father
 
     /**
      * Tells if xml element has a father.

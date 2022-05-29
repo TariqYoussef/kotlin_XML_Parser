@@ -114,15 +114,15 @@ internal class XmlContextTest {
 
         val filterEntity: (xmlElement: XmlElement) -> Boolean = {
             it.name == "ComplexEntity" || it.name == "entity" ||
-                    (it.father()!!.name == "entity" && (it.name == "id" || it.name == "name"))
+                    (it.father!!.name == "entity" && (it.name == "id" || it.name == "name"))
         }
         val filterVisitorEntity = FilterVisitor(filterEntity)
         xmlContext.accept(filterVisitorEntity)
 
         val filterMap: (xmlElement: XmlElement) -> Boolean = {
             it.name == "ComplexEntity" || it.name == "maps" ||
-                    it.father()!!.name == "maps" ||
-                    it.father()!!.name == "item"
+                    it.father!!.name == "maps" ||
+                    it.father!!.name == "item"
         }
         val filterVisitorMap = FilterVisitor(filterMap)
         xmlContext.accept(filterVisitorMap)
@@ -144,7 +144,7 @@ internal class XmlContextTest {
 
         val filterPoint: (xmlElement: XmlElement) -> Boolean = {
             it.name == "ComplexEntity" || it.name == "entity" ||
-                    (it.father()!!.name == "point" && (it.name == "x" || it.name == "y"))
+                    (it.father!!.name == "point" && (it.name == "x" || it.name == "y"))
         }
         val filterFindPoint = FindVisitor(filterPoint)
         xmlContext.accept(filterFindPoint)

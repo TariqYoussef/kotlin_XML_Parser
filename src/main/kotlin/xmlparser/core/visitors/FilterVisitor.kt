@@ -45,7 +45,7 @@ class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : I
 
     override fun endVisit(xmlElement: XmlElement) {
         if(accept(xmlElement) && currentXmlElement != null && currentXmlElement!!.hasFather())
-            currentXmlElement = currentXmlElement!!.father()
+            currentXmlElement = currentXmlElement!!.father
         super.endVisit(xmlElement)
     }
 }

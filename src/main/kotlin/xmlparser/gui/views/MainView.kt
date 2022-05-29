@@ -51,7 +51,7 @@ class MainView : View() {
             val childFactory: (TreeItem<XmlElement>) -> Iterable<XmlElement>? = {
                 if(controller.context().root() == null) listOf()
                 else if (it == root) listOf(controller.context().root()!!)
-                else it.value.children()
+                else it.value.children
             }
 
             populate(childFactory = childFactory)
