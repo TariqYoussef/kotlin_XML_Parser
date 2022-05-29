@@ -3,9 +3,10 @@ package xmlparser.gui.view
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
+import xmlparser.gui.IAction
+import xmlparser.gui.InjectAdd
 import xmlparser.gui.action.*
 import java.awt.Color
-import java.awt.FlowLayout
 import java.awt.Font
 import java.awt.Graphics
 import java.awt.GridLayout
@@ -17,6 +18,9 @@ import javax.swing.border.CompoundBorder
 class ElementView(private val xmlElement: XmlElement) : JPanel() {
 
     private val panel = JPanel()
+
+    @InjectAdd
+    private val pluginActions = mutableListOf<IAction>()
     init {
         layout = GridLayout(2, 1)
         border = CompoundBorder(

@@ -8,7 +8,7 @@ class RemoveAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                      private val xmlElement: XmlElement,
                                      override val name: String = "Remove Attribute Entity"
 ) : IAction {
-
+    override val displayName: String = ""
     override fun execute() {
         xmlElement.removeAttribute(attribute)
     }

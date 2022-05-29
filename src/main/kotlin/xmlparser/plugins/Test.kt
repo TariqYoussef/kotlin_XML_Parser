@@ -1,17 +1,17 @@
 package xmlparser.plugins
 
 import xmlparser.gui.Application
-import xmlparser.gui.plugin.IPluginAction
+import xmlparser.gui.IAction
 
 class Test {
     val name = "ce"
 }
 
-class ActionTest1() : IPluginAction
+class ActionTest1() : IAction
 {
     override val name: String = "ActionTest1"
     override val displayName: String = ""
-    override fun execute(application: Application) {
+    override fun execute() {
         TODO("Not yet implemented")
     }
 
@@ -20,11 +20,11 @@ class ActionTest1() : IPluginAction
     }
 }
 
-class ActionTest2() : IPluginAction
+class ActionTest2() : IAction
 {
     override val name: String = "ActionTest2"
     override val displayName: String = ""
-    override fun execute(application: Application) {
+    override fun execute() {
         TODO("Not yet implemented")
     }
 

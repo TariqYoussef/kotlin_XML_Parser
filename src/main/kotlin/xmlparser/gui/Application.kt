@@ -2,7 +2,6 @@ package xmlparser.gui
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.plugin.IPluginAction
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
 import xmlparser.plugins.Test
@@ -19,9 +18,6 @@ class Application : JFrame("XML Editor") {
 
     @Inject
     private lateinit var test: Test
-
-    @InjectAdd
-    private val pluginActions = mutableListOf<IPluginAction>()
 
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
@@ -91,7 +87,8 @@ class Application : JFrame("XML Editor") {
     }
 
     fun open() {
-        add(JLabel(test.name), BorderLayout.NORTH)
+        if(this::test.isInitialized)
+            add(JLabel(test.name), BorderLayout.NORTH)
         isVisible = true
     }
 }

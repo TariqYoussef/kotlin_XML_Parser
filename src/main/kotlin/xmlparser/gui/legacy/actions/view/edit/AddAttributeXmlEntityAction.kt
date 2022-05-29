@@ -8,6 +8,7 @@ class AddAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                   private val xmlElement: XmlElement,
                                   override val name: String = "Add Attribute Entity"
 ) : IAction {
+    override val displayName: String = ""
     override fun execute() {
         xmlElement.addAttribute(attribute)
     }

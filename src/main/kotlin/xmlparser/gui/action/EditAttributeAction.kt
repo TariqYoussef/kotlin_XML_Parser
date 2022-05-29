@@ -10,6 +10,7 @@ class EditAttributeAction(private val xmlElement: XmlElement,
 
     private val oldValue: String = xmlElementAttribute.value
     override val name: String = "Attribute value from $oldValue to $newValue"
+    override val displayName: String = ""
 
     override fun execute() {
         xmlElement.updateAttribute(xmlElementAttribute, xmlElementAttribute.name, newValue)

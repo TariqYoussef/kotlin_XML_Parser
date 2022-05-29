@@ -8,7 +8,7 @@ class UpdateXmlEntityAction(private val xmlElement: XmlElement,
                             private val newValue: String,
                             override val name: String = "Update Entity"
 ) : IAction {
-
+    override val displayName: String = ""
     private val oldName = xmlElement.name
     private val oldValue: String = xmlElement.value.toString()
 

@@ -9,7 +9,7 @@ class RemoveXmlEntityAction(private val context: XmlContext,
                             private val xmlElement: XmlElement,
                             override val name: String = "Remove Entity"
 ) : IAction {
-
+    override val displayName: String = ""
     private var fatherXmlElement: XmlElement? = null
     override fun execute() {
         if(xmlElement.hasFather())

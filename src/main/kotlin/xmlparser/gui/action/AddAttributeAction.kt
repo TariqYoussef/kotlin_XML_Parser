@@ -6,6 +6,7 @@ import xmlparser.gui.IAction
 
 class AddAttributeAction(private val xmlElement: XmlElement, private val xmlElementAttribute: XmlElementAttribute) : IAction {
     override val name: String = "Add Attribute ${xmlElementAttribute.name} to ${xmlElement.name}"
+    override val displayName: String = ""
 
     override fun execute() {
         xmlElement.addAttribute(xmlElementAttribute)

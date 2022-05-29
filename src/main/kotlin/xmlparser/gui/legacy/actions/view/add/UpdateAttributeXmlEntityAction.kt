@@ -9,7 +9,7 @@ class UpdateAttributeXmlEntityAction(private val xmlElementAttribute: XmlElement
                                      private val addElementView: AddElementView,
                                      override val name: String = "Update Attribute Entity"
 ) : IAction {
-
+    override val displayName: String = ""
     private val newName: String = xmlElementAttribute.name
     private val newValue: String = xmlElementAttribute.value
 

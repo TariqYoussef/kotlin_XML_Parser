@@ -8,6 +8,7 @@ class RenameElementAction(private val xmlElement: XmlElement, private val newNam
     override val name: String = "Rename Element ${xmlElement.name} to $newName"
 
     private val oldName: String = xmlElement.name
+    override val displayName: String = ""
 
     override fun execute() {
         xmlElement.name = newName

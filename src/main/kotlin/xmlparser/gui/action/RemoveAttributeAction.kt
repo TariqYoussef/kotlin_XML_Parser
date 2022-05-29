@@ -6,6 +6,8 @@ import xmlparser.gui.IAction
 
 class RemoveAttributeAction(private val xmlElement: XmlElement, private val xmlElementAttribute: XmlElementAttribute) : IAction {
     override val name: String = "Remove Attribute ${xmlElementAttribute.name} from ${xmlElement.name}"
+    override val displayName: String = ""
+
     override fun execute() {
         xmlElement.removeAttribute(xmlElementAttribute)
     }

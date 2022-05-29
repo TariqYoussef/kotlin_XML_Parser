@@ -8,6 +8,7 @@ class RemoveAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                      private val  attributes: ObservableList<XmlElementAttribute>,
                                      override val name: String = "Remove Attribute Entity"
 ) : IAction {
+    override val displayName: String = ""
 
     override fun execute() {
         attributes.remove(attribute)

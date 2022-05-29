@@ -9,7 +9,7 @@ class AddXmlEntityAction(private val context: XmlContext,
                          private val xmlElementFather: XmlElement?,
                          private val xmlElement: XmlElement, override val name: String = "Add Entity"
 ) : IAction {
-
+    override val displayName: String = ""
     override fun execute() {
         xmlElement.addObserverToAllChildren(treeTableViewObserver)
         if(xmlElementFather != null)

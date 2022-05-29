@@ -5,7 +5,7 @@ import xmlparser.gui.IAction
 
 class RemoveElementAction(private val xmlElementChild: XmlElement, private val xmlElementFather: XmlElement) : IAction {
     override val name: String = "Remove child ${xmlElementChild.name} on ${xmlElementFather.name}"
-
+    override val displayName: String = ""
     override fun execute() {
         xmlElementFather.removeChild(xmlElementChild)
     }
