@@ -23,12 +23,12 @@ class EditElementView : View() {
 
     fun setContext()
     {
-        tableview.items = controller.attributes()
+        tableview.items = controller.attributes
         tableview.refresh()
         newAttributeName.text = ""
         newAttributeValue.text = ""
-        newElementName.text = controller.element()?.name
-        newElementValue.text = controller.element()?.value.toString()
+        newElementName.text = controller.xmlElement?.name
+        newElementValue.text = controller.xmlElement?.value.toString()
         selectedAttribute = null
     }
 
@@ -48,13 +48,13 @@ class EditElementView : View() {
         form {
             fieldset("Edit Element") {
                 field("Element Name") {
-                    newElementName = textfield(controller.element()?.name)
+                    newElementName = textfield(controller.xmlElement?.name)
                     {
                         promptText = "Element Name"
                     }
                 }
                 field("Element Value") {
-                    newElementValue = textfield(controller.element()?.value.toString())
+                    newElementValue = textfield(controller.xmlElement?.value.toString())
                     {
                         promptText = "Element Value"
                     }
@@ -72,7 +72,7 @@ class EditElementView : View() {
             }
         }
 
-        tableview = tableview(controller.attributes()) {
+        tableview = tableview(controller.attributes) {
             isEditable = true
             column("Name", XmlElementAttribute::name).makeEditable()
             column("Value", XmlElementAttribute::value).makeEditable()

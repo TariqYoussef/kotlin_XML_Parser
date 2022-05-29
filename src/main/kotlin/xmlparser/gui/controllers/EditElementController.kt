@@ -14,11 +14,10 @@ import xmlparser.gui.views.EditElementView
 
 class EditElementController : Controller() {
 
-    private var xmlElement: XmlElement? = null
-    private var attributes: ObservableList<XmlElementAttribute>? = null
-
-    fun attributes() = attributes
-    fun element() = xmlElement
+    var xmlElement: XmlElement? = null
+    private set
+    var attributes: ObservableList<XmlElementAttribute>? = null
+    private set
 
     fun setContext(xmlElement: XmlElement)
     {
