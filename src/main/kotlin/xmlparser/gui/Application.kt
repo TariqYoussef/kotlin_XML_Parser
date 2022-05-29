@@ -5,8 +5,10 @@ import xmlparser.core.element.XmlElement
 import xmlparser.gui.view.ElementView
 import java.awt.BorderLayout
 import java.awt.Dimension
+import java.io.PrintWriter
 import javax.swing.*
 import kotlin.system.exitProcess
+
 
 class Application : JFrame("XML Editor") {
 
@@ -31,7 +33,15 @@ class Application : JFrame("XML Editor") {
         val file = JMenu("File")
 
         val saveMenuItem = JMenuItem("Save")
-        saveMenuItem.addActionListener { exitProcess(0) }
+        saveMenuItem.addActionListener {
+            val fileChooser = JFileChooser()
+            val option = fileChooser.showSaveDialog(this@Application)
+            if (option == JFileChooser.APPROVE_OPTION) {
+                val printWriter = PrintWriter(fileChooser.selectedFile)
+                printWriter.println(context)
+                printWriter.close()
+            }
+        }
         file.add(saveMenuItem)
 
         val exitMenuItem = JMenuItem("Exit")
