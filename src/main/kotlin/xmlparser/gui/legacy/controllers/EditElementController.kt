@@ -6,10 +6,10 @@ import tornadofx.asObservable
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
-import xmlparser.gui.legacy.view.edit.AddAttributeXmlEntityAction
-import xmlparser.gui.legacy.view.edit.RemoveAttributeXmlEntityAction
-import xmlparser.gui.legacy.view.edit.UpdateAttributeXmlEntityAction
-import xmlparser.gui.legacy.view.edit.UpdateXmlEntityAction
+import xmlparser.gui.legacy.actions.view.edit.AddAttributeXmlEntityAction
+import xmlparser.gui.legacy.actions.view.edit.RemoveAttributeXmlEntityAction
+import xmlparser.gui.legacy.actions.view.edit.UpdateAttributeXmlEntityAction
+import xmlparser.gui.legacy.actions.view.edit.UpdateXmlEntityAction
 import xmlparser.gui.legacy.views.EditElementView
 
 class EditElementController : Controller() {

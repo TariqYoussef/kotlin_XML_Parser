@@ -7,10 +7,10 @@ import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.IAction
-import xmlparser.gui.legacy.view.add.AddAttributeXmlEntityAction
-import xmlparser.gui.legacy.view.add.AddXmlEntityAction
-import xmlparser.gui.legacy.view.add.RemoveAttributeXmlEntityAction
-import xmlparser.gui.legacy.view.add.UpdateAttributeXmlEntityAction
+import xmlparser.gui.legacy.actions.view.add.AddAttributeXmlEntityAction
+import xmlparser.gui.legacy.actions.view.add.AddXmlEntityAction
+import xmlparser.gui.legacy.actions.view.add.RemoveAttributeXmlEntityAction
+import xmlparser.gui.legacy.actions.view.add.UpdateAttributeXmlEntityAction
 import xmlparser.gui.legacy.views.AddElementView
 
 class AddElementController : Controller() {

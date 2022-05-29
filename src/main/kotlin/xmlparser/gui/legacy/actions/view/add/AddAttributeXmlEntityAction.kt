@@ -1,18 +1,20 @@
-package xmlparser.gui.legacy.view.edit
+package xmlparser.gui.legacy.actions.view.add
 
-import xmlparser.core.element.XmlElement
+import javafx.collections.ObservableList
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.IAction
 
 class AddAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
-                                  private val xmlElement: XmlElement,
+                                  private val  attributes: ObservableList<XmlElementAttribute>,
                                   override val name: String = "Add Attribute Entity"
 ) : IAction {
+
+
     override fun execute() {
-        xmlElement.addAttribute(attribute)
+        attributes.add(attribute)
     }
 
     override fun undo() {
-        xmlElement.removeAttribute(attribute)
+        attributes.remove(attribute)
     }
 }

@@ -9,7 +9,7 @@ import tornadofx.singleAssign
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
-import xmlparser.gui.legacy.view.main.RemoveXmlEntityAction
+import xmlparser.gui.legacy.actions.view.main.RemoveXmlEntityAction
 import xmlparser.gui.legacy.views.LocalHistoryView
 import java.io.PrintWriter
 

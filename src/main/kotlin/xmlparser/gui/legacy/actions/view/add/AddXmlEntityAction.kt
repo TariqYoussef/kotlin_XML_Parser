@@ -1,4 +1,4 @@
-package xmlparser.gui.legacy.view.add
+package xmlparser.gui.legacy.actions.view.add
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement

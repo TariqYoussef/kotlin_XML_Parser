@@ -1,19 +1,19 @@
-package xmlparser.gui.legacy.view.edit
+package xmlparser.gui.legacy.actions.view.add
 
-import xmlparser.core.element.XmlElement
+import javafx.collections.ObservableList
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.IAction
 
 class RemoveAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
-                                     private val xmlElement: XmlElement,
+                                     private val  attributes: ObservableList<XmlElementAttribute>,
                                      override val name: String = "Remove Attribute Entity"
 ) : IAction {
 
     override fun execute() {
-        xmlElement.removeAttribute(attribute)
+        attributes.remove(attribute)
     }
 
     override fun undo() {
-        xmlElement.addAttribute(attribute)
+        attributes.add(attribute)
     }
 }
