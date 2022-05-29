@@ -11,9 +11,15 @@ import xmlparser.core.utils.createFilledString
 class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlElement) -> Unit>
 {
     var name: String = name
-    private set
+    set(name){
+        field = name
+        notifyObservers { it(this) }
+    }
     var value: Any = value
-    private set
+    set(value){
+        field = value
+        notifyObservers { it(this) }
+    }
     init {
         require(name != ""){"Element name cannot be empty."}
     }
