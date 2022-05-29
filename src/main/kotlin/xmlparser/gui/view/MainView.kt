@@ -1,10 +1,15 @@
-import java.awt.*
+package xmlparser.gui.view
+
+import java.awt.Color
+import java.awt.Font
+import java.awt.Graphics
+import java.awt.GridLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ComponentSkeleton(val text: String) : JPanel() {
+class MainView(val text: String) : JPanel() {
 
     override fun paintComponent(g: Graphics) {
         super.paintComponent(g)
@@ -26,7 +31,7 @@ class ComponentSkeleton(val text: String) : JPanel() {
         val a = JMenuItem("Add child")
         a.addActionListener {
             val text = JOptionPane.showInputDialog("text")
-            add(ComponentSkeleton(text))
+            add(MainView(text))
             revalidate()
         }
         popupmenu.add(a)
@@ -43,26 +48,8 @@ class ComponentSkeleton(val text: String) : JPanel() {
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
                 if (SwingUtilities.isRightMouseButton(e))
-                    popupmenu.show(this@ComponentSkeleton, e.x, e.y)
+                    popupmenu.show(this@MainView, e.x, e.y)
             }
         })
     }
-}
-
-class WindowSkeleton : JFrame("title") {
-    init {
-        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        size = Dimension(300, 300)
-
-        add(ComponentSkeleton("root"))
-    }
-
-    fun open() {
-        isVisible = true
-    }
-}
-
-fun main() {
-    val w = WindowSkeleton()
-    w.open()
 }

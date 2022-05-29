@@ -1,5 +1,6 @@
 package xmlparser.gui
 
+import xmlparser.gui.view.MainView
 import java.awt.Dimension
 import javax.swing.JFrame
 
@@ -8,7 +9,7 @@ class Application : JFrame("XML Editor") {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(300, 300)
 
-        //add(ComponentSkeleton("root"))
+        add(MainView("root"))
     }
 
     fun open() {
