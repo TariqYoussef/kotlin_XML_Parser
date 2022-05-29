@@ -5,8 +5,8 @@ import tornadofx.Controller
 import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.ActionStack
-import xmlparser.gui.IAction
+import xmlparser.gui.legacy.ActionStack
+import xmlparser.gui.legacy.IAction
 import xmlparser.gui.legacy.actions.view.add.AddAttributeXmlEntityAction
 import xmlparser.gui.legacy.actions.view.add.AddXmlEntityAction
 import xmlparser.gui.legacy.actions.view.add.RemoveAttributeXmlEntityAction
