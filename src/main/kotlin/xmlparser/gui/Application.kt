@@ -21,8 +21,6 @@ class Application : JFrame("XML Editor") {
         contentPane.layout = BorderLayout()
         add(ElementView(context.rootXmlElement!!), BorderLayout.CENTER)
 
-        add(JButton("undo"), BorderLayout.SOUTH)
-        //add(JButton("redo"))
         createMenuBar()
     }
 
@@ -43,11 +41,21 @@ class Application : JFrame("XML Editor") {
         val edit = JMenu("Edit")
 
         val undoMenuItem = JMenuItem("Undo")
-        undoMenuItem.addActionListener { ActionStack.undoAction() }
+        undoMenuItem.addActionListener {
+            if(ActionStack.isUndoStackEmpty())
+                JOptionPane.showMessageDialog(this@Application, "No Actions to Undo");
+            else
+                ActionStack.undoAction()
+        }
         edit.add(undoMenuItem)
 
         val redoMenuItem = JMenuItem("Redo")
-        redoMenuItem.addActionListener { ActionStack.redoAction() }
+        redoMenuItem.addActionListener {
+            if(ActionStack.isRedoStackEmpty())
+                JOptionPane.showMessageDialog(this@Application, "No Actions to Redo");
+            else
+            ActionStack.redoAction()
+        }
         edit.add(redoMenuItem)
 
         menuBar.add(file)
