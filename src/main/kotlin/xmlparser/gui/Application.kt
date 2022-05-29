@@ -43,13 +43,12 @@ class Application : JFrame("XML Editor") {
         val edit = JMenu("Edit")
 
         val undoMenuItem = JMenuItem("Undo")
-        undoMenuItem.addActionListener { exitProcess(0) }
+        undoMenuItem.addActionListener { ActionStack.undoAction() }
         edit.add(undoMenuItem)
 
         val redoMenuItem = JMenuItem("Redo")
-        redoMenuItem.addActionListener { exitProcess(0) }
+        redoMenuItem.addActionListener { ActionStack.redoAction() }
         edit.add(redoMenuItem)
-
 
         menuBar.add(file)
         menuBar.add(edit)

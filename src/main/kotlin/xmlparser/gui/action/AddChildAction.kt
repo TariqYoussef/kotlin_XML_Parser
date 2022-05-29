@@ -11,7 +11,7 @@ class AddChildAction(private val xmlElementFather: XmlElement, private val xmlEl
     }
 
     override fun undo() {
-        xmlElementChild.removeChild(xmlElementChild)
+        xmlElementFather.removeChild(xmlElementChild)
     }
 
 }
