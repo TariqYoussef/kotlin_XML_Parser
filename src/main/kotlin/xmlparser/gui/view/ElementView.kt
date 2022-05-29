@@ -43,7 +43,11 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
         panel.layout = GridLayout(xmlElement.attributes.size + 1,1)
 
         xmlElement.attributes.forEach {
+            val panel = JPanel()
+            panel.layout = GridLayout(1,2)
             panel.add(JLabel(it.name))
+            panel.add(JTextField(it.value))
+            this.panel.add(panel)
         }
 
         panel.add(JTextArea())
