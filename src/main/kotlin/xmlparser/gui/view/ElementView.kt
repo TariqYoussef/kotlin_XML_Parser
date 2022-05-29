@@ -1,10 +1,13 @@
 package xmlparser.gui.view
 
 import xmlparser.core.element.XmlElement
+import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
+import xmlparser.gui.action.AddAttributeAction
 import xmlparser.gui.action.AddChildAction
 import xmlparser.gui.action.RenameElementAction
 import java.awt.Color
+import java.awt.FlowLayout
 import java.awt.Font
 import java.awt.Graphics
 import java.awt.GridLayout
@@ -35,10 +38,15 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
 
     private fun makeElementUI()
     {
-        //panel.layout = GridLayout(2,1)
-        //add(panel)
-        //panel.add(JTextField())
-        //panel.add(JTextArea())
+        panel.removeAll()
+        panel.layout = GridLayout(xmlElement.attributes.size + 1,1)
+
+        xmlElement.attributes.forEach {
+            panel.add(JLabel(it.name))
+        }
+
+        panel.add(JTextArea())
+        add(panel)
 
         xmlElement.children.forEach {
             add(ElementView(it))
@@ -50,7 +58,7 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
         val a = JMenuItem("Add child")
         a.addActionListener {
             val text = JOptionPane.showInputDialog("Name")
-            ActionStack.doAction(AddChildAction(this.xmlElement, XmlElement(text)))
+            ActionStack.doAction(AddChildAction(xmlElement, XmlElement(text)))
         }
         popupmenu.add(a)
 
@@ -60,6 +68,13 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
             ActionStack.doAction(RenameElementAction(xmlElement, text))
         }
         popupmenu.add(b)
+
+        val c = JMenuItem("Add attribute")
+        c.addActionListener {
+            val text = JOptionPane.showInputDialog("text")
+            ActionStack.doAction(AddAttributeAction(xmlElement, XmlElementAttribute(text)))
+        }
+        popupmenu.add(c)
 
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
