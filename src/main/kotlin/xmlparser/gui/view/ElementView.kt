@@ -5,6 +5,7 @@ import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.action.AddAttributeAction
 import xmlparser.gui.action.AddChildAction
+import xmlparser.gui.action.RemoveElementAction
 import xmlparser.gui.action.RenameElementAction
 import java.awt.Color
 import java.awt.FlowLayout
@@ -75,6 +76,15 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
             ActionStack.doAction(AddAttributeAction(xmlElement, XmlElementAttribute(text)))
         }
         popupmenu.add(c)
+
+        if(xmlElement.hasFather())
+        {
+            val d = JMenuItem("Remove")
+            d.addActionListener {
+                ActionStack.doAction(RemoveElementAction(xmlElement, xmlElement.father!!))
+            }
+            popupmenu.add(d)
+        }
 
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
