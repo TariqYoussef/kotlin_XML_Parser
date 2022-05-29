@@ -3,7 +3,9 @@ package xmlparser.gui.controllers
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.stage.FileChooser
-import tornadofx.*
+import tornadofx.Controller
+import tornadofx.alert
+import tornadofx.singleAssign
 import xmlparser.core.*
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
@@ -16,8 +18,7 @@ private data class Entity(private val id: Int, val name: String)
 private data class Point(val x: Int, val y: Int)
 
 @XmlElementName("ComplexEntity")
-private class Complex()
-{
+private class Complex {
     @XmlElementContent
     val data: String = "Data Example"
     @XmlElementIgnore

@@ -1,12 +1,10 @@
 package xmlparser.gui.views
 
 import javafx.scene.control.Alert
-import javafx.scene.control.TableView
 import javafx.scene.control.TreeItem
 import javafx.scene.control.TreeTableView
 import tornadofx.*
 import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.controllers.AddElementController
 import xmlparser.gui.controllers.EditElementController
 import xmlparser.gui.controllers.MainController

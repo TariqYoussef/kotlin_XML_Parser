@@ -79,8 +79,7 @@ internal class XmlContextTest {
     }
 
     @XmlElementName("ComplexEntity")
-    private class Complex()
-    {
+    private class Complex {
         @XmlElementContent
         val data: String = "Data Example"
         @XmlElementIgnore

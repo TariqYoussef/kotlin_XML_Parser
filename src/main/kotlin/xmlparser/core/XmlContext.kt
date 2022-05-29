@@ -1,9 +1,9 @@
 package xmlparser.core
 
 import xmlparser.core.element.XmlElement
+import xmlparser.core.element.XmlElementAttribute
 import xmlparser.core.type.createXmlElement
 import xmlparser.core.utils.*
-import xmlparser.core.element.XmlElementAttribute as XmlElementAttribute
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
