@@ -49,8 +49,8 @@ class MainView : View() {
             column("Value", XmlElement::value)
 
             val childFactory: (TreeItem<XmlElement>) -> Iterable<XmlElement>? = {
-                if(controller.context().root() == null) listOf()
-                else if (it == root) listOf(controller.context().root()!!)
+                if(controller.context().rootXmlElement == null) listOf()
+                else if (it == root) listOf(controller.context().rootXmlElement!!)
                 else it.value.children
             }
 
@@ -76,7 +76,7 @@ class MainView : View() {
                     this@MainView.find(EditElementView::class).openWindow()
                 }
                 item("Add Element").action {
-                    if (treeTableView.selectionModel.selectedItem?.value == null && controller.context().root() != null)
+                    if (treeTableView.selectionModel.selectedItem?.value == null && controller.context().rootXmlElement != null)
                     {
                         alert(Alert.AlertType.ERROR, "A xml Document can't have 2 roots. Please select an element or delete the root.")
                         return@action

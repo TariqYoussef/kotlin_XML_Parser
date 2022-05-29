@@ -63,10 +63,10 @@ internal class XmlContextTest {
         val double = 1.0
         val string = "string"
         val boolean = true
-        xmlContext.root()!!.addChild("Int", int)
-        xmlContext.root()!!.addChild("Double", double)
-        xmlContext.root()!!.addChild("String", string)
-        xmlContext.root()!!.addChild("Boolean", boolean)
+        xmlContext.rootXmlElement!!.addChild("Int", int)
+        xmlContext.rootXmlElement!!.addChild("Double", double)
+        xmlContext.rootXmlElement!!.addChild("String", string)
+        xmlContext.rootXmlElement!!.addChild("Boolean", boolean)
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><container><Int>1</Int><Double>1.0</Double><String>string</String><Boolean>true</Boolean></container>"
         assertEquals(expected, xmlContext.dump())
     }

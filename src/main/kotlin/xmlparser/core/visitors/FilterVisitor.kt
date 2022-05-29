@@ -15,9 +15,9 @@ class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : I
     fun xmlContext() = xmlContext
 
     override fun visit(xmlContext: XmlContext): Boolean {
-        this.xmlContext = XmlContext(xmlContext.xmlHeader().version,
-                                    xmlContext.xmlHeader().encoding,
-                                    xmlContext.xmlHeader().standalone)
+        this.xmlContext = XmlContext(xmlContext.xmlHeader.version,
+                                    xmlContext.xmlHeader.encoding,
+                                    xmlContext.xmlHeader.standalone)
         return super.visit(xmlContext)
     }
 
