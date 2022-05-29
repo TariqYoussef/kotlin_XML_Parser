@@ -2,8 +2,10 @@ package xmlparser.gui
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
+import xmlparser.gui.plugin.IPluginAction
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
+import xmlparser.plugins.Test
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.io.PrintWriter
@@ -14,6 +16,12 @@ import kotlin.system.exitProcess
 class Application : JFrame("XML Editor") {
 
     private val context = XmlContext()
+
+    @Inject
+    private lateinit var test: Test
+
+    @InjectAdd
+    private val pluginActions = mutableListOf<IPluginAction>()
 
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
@@ -52,7 +60,6 @@ class Application : JFrame("XML Editor") {
         }
         file.add(historyMenuItem)
 
-
         val exitMenuItem = JMenuItem("Exit")
         exitMenuItem.addActionListener { exitProcess(0) }
         file.add(exitMenuItem)
@@ -84,11 +91,12 @@ class Application : JFrame("XML Editor") {
     }
 
     fun open() {
+        add(JLabel(test.name), BorderLayout.NORTH)
         isVisible = true
     }
 }
 
 fun main() {
-    val w = Application()
+    val w = Injector.create(Application::class) as Application
     w.open()
 }
