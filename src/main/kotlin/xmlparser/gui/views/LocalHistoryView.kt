@@ -20,7 +20,7 @@ class LocalHistoryView : View() {
             }
         }
         historyList = listview{
-            items = ActionStack.getUndoStack().asObservable()
+            items = ActionStack.undoStack.asObservable()
             cellFormat {
                 text = it.name
             }
@@ -29,6 +29,6 @@ class LocalHistoryView : View() {
 
     fun updateHistoryList()
     {
-        historyList.items = ActionStack.getUndoStack().asObservable()
+        historyList.items = ActionStack.undoStack.asObservable()
     }
 }

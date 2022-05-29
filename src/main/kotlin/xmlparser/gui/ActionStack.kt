@@ -3,7 +3,7 @@ package xmlparser.gui
 import java.util.*
 
 object ActionStack {
-    private val undoStack = Stack<IAction>()
+    val undoStack = Stack<IAction>()
     private val redoStack = Stack<IAction>()
 
     fun doAction(action: IAction)
@@ -34,8 +34,6 @@ object ActionStack {
     fun getPeekActionUndo(): IAction = undoStack.peek()
 
     fun getPeekActionRedo(): IAction = redoStack.peek()
-
-    fun getUndoStack() = undoStack
 
     fun isUndoStackEmpty() = undoStack.isEmpty()
 
