@@ -80,7 +80,7 @@ class MainController : Controller() {
                 }
             }
         else
-            alert(Alert.AlertType.ERROR, "There is no actions to undo.")
+            alert(Alert.AlertType.ERROR, "There are no actions to undo.")
     }
 
     fun redo()
@@ -95,7 +95,7 @@ class MainController : Controller() {
                 }
             }
         else
-            alert(Alert.AlertType.ERROR, "There is no actions to redo.")
+            alert(Alert.AlertType.ERROR, "There are no actions to redo.")
     }
 
     fun save(){
