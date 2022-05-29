@@ -37,7 +37,7 @@ private class Complex {
 }
 
 class MainController : Controller() {
-    private val xmlContext: XmlContext = XmlContext()
+    val xmlContext: XmlContext = XmlContext()
 
     private val fileChooser: FileChooser = FileChooser()
 
@@ -61,8 +61,6 @@ class MainController : Controller() {
         fileChooser.title = "Save"
         fileChooser.extensionFilters.addAll(FileChooser.ExtensionFilter("Xml", "*.xml"))
     }
-
-    fun context() = xmlContext
 
     fun removeElement(xmlElement: XmlElement) {
         val removeXmlEntityAction = RemoveXmlEntityAction(xmlContext, treeTableViewXmlElementObserver, xmlElement)
@@ -107,7 +105,7 @@ class MainController : Controller() {
             return
         }
         val printWriter = PrintWriter(file)
-        printWriter.println(context())
+        printWriter.println(xmlContext)
         printWriter.close()
     }
 }
