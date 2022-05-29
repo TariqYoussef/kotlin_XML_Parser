@@ -1,15 +1,14 @@
-package xmlparser.gui.legacy.views
+package xmlparser.guilegacy.views
 
 import javafx.scene.control.Alert
 import javafx.scene.control.TableView
 import javafx.scene.control.TextField
 import tornadofx.*
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.legacy.controllers.EditElementController
+import xmlparser.guilegacy.controllers.AddElementController
 
-class EditElementView : View() {
-
-    private val controller: EditElementController by inject()
+class AddElementView: View() {
+    private val controller: AddElementController by inject()
 
     private var newAttributeName: TextField by singleAssign()
     private var newAttributeValue: TextField by singleAssign()
@@ -27,8 +26,8 @@ class EditElementView : View() {
         tableview.refresh()
         newAttributeName.text = ""
         newAttributeValue.text = ""
-        newElementName.text = controller.xmlElement?.name
-        newElementValue.text = controller.xmlElement?.value.toString()
+        newElementName.text = ""
+        newElementValue.text = ""
         selectedAttribute = null
     }
 
@@ -46,27 +45,17 @@ class EditElementView : View() {
         }
 
         form {
-            fieldset("Edit Element") {
+            fieldset("Add Element") {
                 field("Element Name") {
-                    newElementName = textfield(controller.xmlElement?.name)
+                    newElementName = textfield()
                     {
-                        promptText = "Element Name"
+                        promptText = "Element name"
                     }
                 }
                 field("Element Value") {
-                    newElementValue = textfield(controller.xmlElement?.value.toString())
+                    newElementValue = textfield()
                     {
-                        promptText = "Element Value"
-                    }
-                }
-                button("Save") {
-                    action {
-                        if(newElementName.text == "")
-                        {
-                            alert(Alert.AlertType.ERROR, "An element must have a name.")
-                            return@action
-                        }
-                        controller.updateEntity(newElementName.text, newElementValue.text)
+                        promptText = "Element value"
                     }
                 }
             }
@@ -104,11 +93,11 @@ class EditElementView : View() {
         hbox {
             newAttributeName = textfield()
             {
-                promptText = "Attribute name"
+                promptText = "Attribute Name"
             }
             newAttributeValue = textfield()
             {
-                promptText = "Attribute value"
+                promptText = "Attribute Value"
             }
             button("Add Attribute") {
                 action {
@@ -128,7 +117,19 @@ class EditElementView : View() {
             paddingAll = 5
             right = hbox {
                 spacing = 5.0
-                button("Close") {
+                button("Create") {
+                    action {
+                        if(newElementName.text == "")
+                        {
+                            alert(Alert.AlertType.ERROR, "An element must have a name.")
+                            return@action
+                        }
+                        controller.createChild(newElementName.text, newElementValue.text)
+                        controller.onClose()
+                        close()
+                    }
+                }
+                button("Cancel") {
                     action {
                         controller.onClose()
                         close()
@@ -136,5 +137,6 @@ class EditElementView : View() {
                 }
             }
         }
+
     }
 }

@@ -1,8 +1,8 @@
-package xmlparser.gui.legacy
+package xmlparser.guilegacy
 
 import tornadofx.App
 import tornadofx.launch
-import xmlparser.gui.legacy.views.MainView
+import xmlparser.guilegacy.views.MainView
 
 class Application : App(MainView::class)
 

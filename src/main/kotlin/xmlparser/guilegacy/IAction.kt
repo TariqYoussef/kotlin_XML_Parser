@@ -1,4 +1,4 @@
-package xmlparser.gui.legacy
+package xmlparser.guilegacy
 
 interface IAction {
     val name: String

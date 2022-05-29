@@ -1,4 +1,4 @@
-package xmlparser.gui.legacy
+package xmlparser.guilegacy
 
 import java.util.*
 

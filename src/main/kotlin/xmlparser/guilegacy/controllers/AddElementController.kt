@@ -1,17 +1,17 @@
-package xmlparser.gui.legacy.controllers
+package xmlparser.guilegacy.controllers
 
 import javafx.collections.ObservableList
 import tornadofx.Controller
 import tornadofx.observableListOf
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.legacy.ActionStack
-import xmlparser.gui.legacy.IAction
-import xmlparser.gui.legacy.actions.view.add.AddAttributeXmlEntityAction
-import xmlparser.gui.legacy.actions.view.add.AddXmlEntityAction
-import xmlparser.gui.legacy.actions.view.add.RemoveAttributeXmlEntityAction
-import xmlparser.gui.legacy.actions.view.add.UpdateAttributeXmlEntityAction
-import xmlparser.gui.legacy.views.AddElementView
+import xmlparser.guilegacy.ActionStack
+import xmlparser.guilegacy.IAction
+import xmlparser.guilegacy.actions.view.add.AddAttributeXmlEntityAction
+import xmlparser.guilegacy.actions.view.add.AddXmlEntityAction
+import xmlparser.guilegacy.actions.view.add.RemoveAttributeXmlEntityAction
+import xmlparser.guilegacy.actions.view.add.UpdateAttributeXmlEntityAction
+import xmlparser.guilegacy.views.AddElementView
 
 class AddElementController : Controller() {
 

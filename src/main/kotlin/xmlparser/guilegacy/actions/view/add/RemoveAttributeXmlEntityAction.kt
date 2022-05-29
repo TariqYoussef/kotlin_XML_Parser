@@ -1,8 +1,8 @@
-package xmlparser.gui.legacy.actions.view.add
+package xmlparser.guilegacy.actions.view.add
 
 import javafx.collections.ObservableList
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.legacy.IAction
+import xmlparser.guilegacy.IAction
 
 class RemoveAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                      private val  attributes: ObservableList<XmlElementAttribute>,

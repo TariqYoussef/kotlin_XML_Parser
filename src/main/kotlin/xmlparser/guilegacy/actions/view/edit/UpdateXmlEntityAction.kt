@@ -1,7 +1,7 @@
-package xmlparser.gui.legacy.actions.view.edit
+package xmlparser.guilegacy.actions.view.edit
 
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.legacy.IAction
+import xmlparser.guilegacy.IAction
 
 class UpdateXmlEntityAction(private val xmlElement: XmlElement,
                             private val newName: String,

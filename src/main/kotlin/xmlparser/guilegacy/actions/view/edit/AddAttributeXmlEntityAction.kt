@@ -1,8 +1,8 @@
-package xmlparser.gui.legacy.actions.view.edit
+package xmlparser.guilegacy.actions.view.edit
 
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.legacy.IAction
+import xmlparser.guilegacy.IAction
 
 class AddAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                   private val xmlElement: XmlElement,

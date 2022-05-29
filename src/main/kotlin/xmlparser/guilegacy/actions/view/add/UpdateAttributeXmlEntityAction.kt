@@ -1,12 +1,12 @@
-package xmlparser.gui.legacy.actions.view.edit
+package xmlparser.guilegacy.actions.view.add
 
-import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.legacy.IAction
+import xmlparser.guilegacy.IAction
+import xmlparser.guilegacy.views.AddElementView
 
 class UpdateAttributeXmlEntityAction(private val xmlElementAttribute: XmlElementAttribute,
                                      private val oldXmlElementAttribute: XmlElementAttribute,
-                                     private val xmlElement: XmlElement,
+                                     private val addElementView: AddElementView,
                                      override val name: String = "Update Attribute Entity"
 ) : IAction {
     override val displayName: String = ""
@@ -14,10 +14,14 @@ class UpdateAttributeXmlEntityAction(private val xmlElementAttribute: XmlElement
     private val newValue: String = xmlElementAttribute.value
 
     override fun execute() {
-        xmlElement.updateAttribute(xmlElementAttribute, newName, newValue)
+        xmlElementAttribute.name = newName
+        xmlElementAttribute.value = newValue
+        addElementView.setContext()
     }
 
     override fun undo() {
-        xmlElement.updateAttribute(xmlElementAttribute, oldXmlElementAttribute.name, oldXmlElementAttribute.value)
+        xmlElementAttribute.name = oldXmlElementAttribute.name
+        xmlElementAttribute.value = oldXmlElementAttribute.value
+        addElementView.setContext()
     }
 }
