@@ -2,7 +2,7 @@ package xmlparser.gui.legacy.actions.view.edit
 
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.IAction
+import xmlparser.gui.legacy.IAction
 
 class RemoveAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                      private val xmlElement: XmlElement,

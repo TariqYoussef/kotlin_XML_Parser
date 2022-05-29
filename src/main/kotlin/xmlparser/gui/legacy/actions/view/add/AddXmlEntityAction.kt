@@ -2,7 +2,7 @@ package xmlparser.gui.legacy.actions.view.add
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.IAction
+import xmlparser.gui.legacy.IAction
 
 class AddXmlEntityAction(private val context: XmlContext,
                          private val treeTableViewObserver: ((XmlElement) -> Unit),

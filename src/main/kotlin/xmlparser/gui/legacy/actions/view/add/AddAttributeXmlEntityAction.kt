@@ -2,7 +2,7 @@ package xmlparser.gui.legacy.actions.view.add
 
 import javafx.collections.ObservableList
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.IAction
+import xmlparser.gui.legacy.IAction
 
 class AddAttributeXmlEntityAction(private val attribute: XmlElementAttribute,
                                   private val  attributes: ObservableList<XmlElementAttribute>) : IAction {
