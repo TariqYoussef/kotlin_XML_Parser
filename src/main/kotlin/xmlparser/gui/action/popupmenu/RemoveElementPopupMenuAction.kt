@@ -3,6 +3,7 @@ package xmlparser.gui.action.popupmenu
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.IAction
 import xmlparser.gui.IActionPopupMenu
+import xmlparser.gui.action.RemoveElementAction
 import xmlparser.gui.view.ElementView
 
 class RemoveElementPopupMenuAction : IActionPopupMenu
@@ -14,16 +15,4 @@ class RemoveElementPopupMenuAction : IActionPopupMenu
 
     override fun accept(elementView: ElementView): Boolean = elementView.xmlElement.hasFather()
 
-    class RemoveElementAction(private val xmlElementChild: XmlElement, private val xmlElementFather: XmlElement) : IAction {
-        override val name: String = "Remove child ${xmlElementChild.name} on ${xmlElementFather.name}"
-
-        override fun execute() {
-            xmlElementFather.removeChild(xmlElementChild)
-        }
-
-        override fun undo() {
-            xmlElementFather.addChild(xmlElementChild)
-        }
-
-    }
 }
