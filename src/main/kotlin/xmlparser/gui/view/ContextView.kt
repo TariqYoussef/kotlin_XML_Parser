@@ -9,7 +9,7 @@ import javax.swing.JPanel
 import javax.swing.JPopupMenu
 import javax.swing.SwingUtilities
 
-abstract class IContextView<T> : JPanel() {
+abstract class ContextView<T> : JPanel() {
 
     abstract val popupMenuName: String
 
@@ -50,7 +50,7 @@ abstract class IContextView<T> : JPanel() {
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
                 if (SwingUtilities.isRightMouseButton(e))
-                    popupMenu.show(this@IContextView, e.x, e.y)
+                    popupMenu.show(this@ContextView, e.x, e.y)
             }
         })
     }

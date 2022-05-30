@@ -11,7 +11,7 @@ import java.awt.GridLayout
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ElementView(private val application: Application, val xmlElement: XmlElement) : IContextView<ElementView>() {
+class ElementView(private val application: Application, val xmlElement: XmlElement) : ContextView<ElementView>() {
 
     override val popupMenuName: String = "Actions"
 
