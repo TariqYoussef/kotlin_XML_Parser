@@ -1,11 +1,9 @@
 package xmlparser.gui.view
 
 import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
 import xmlparser.gui.action.*
-import xmlparser.gui.action.popupmenu.*
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -78,7 +76,9 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
             {
                 val jMenuItem = JMenuItem(it.displayName)
                 jMenuItem.addActionListener {_ ->
-                    ActionStack.doAction(it.getAction(this))
+                    val action = it.getAction(this)
+                    if(action != null)
+                        ActionStack.doAction(action)
                 }
                 popupmenu.add(jMenuItem)
             }

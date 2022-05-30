@@ -71,7 +71,7 @@ class Application : JFrame("XML Editor") {
         val undoMenuItem = JMenuItem("Undo")
         undoMenuItem.addActionListener {
             if(ActionStack.isUndoStackEmpty())
-                JOptionPane.showMessageDialog(this@Application, "No Actions to Undo");
+                JOptionPane.showMessageDialog(this@Application, "No Actions to Undo")
             else
                 ActionStack.undoAction()
         }
@@ -80,7 +80,7 @@ class Application : JFrame("XML Editor") {
         val redoMenuItem = JMenuItem("Redo")
         redoMenuItem.addActionListener {
             if(ActionStack.isRedoStackEmpty())
-                JOptionPane.showMessageDialog(this@Application, "No Actions to Redo");
+                JOptionPane.showMessageDialog(this@Application, "No Actions to Redo")
             else
                 ActionStack.redoAction()
         }

@@ -14,5 +14,5 @@ interface IActionPopupMenu {
     /**
      * Gets the action.
      */
-    fun getAction(elementView: ElementView): IAction
+    fun getAction(elementView: ElementView): IAction?
 }

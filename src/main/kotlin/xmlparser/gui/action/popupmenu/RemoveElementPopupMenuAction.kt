@@ -1,6 +1,5 @@
 package xmlparser.gui.action.popupmenu
 
-import xmlparser.core.element.XmlElement
 import xmlparser.gui.IAction
 import xmlparser.gui.IActionPopupMenu
 import xmlparser.gui.action.RemoveElementAction
