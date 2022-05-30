@@ -1,8 +1,8 @@
 package xmlparser.plugins
 
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.IAction
-import xmlparser.gui.IActionPopupMenu
+import xmlparser.gui.action.IAction
+import xmlparser.gui.action.popupmenu.IActionPopupMenu
 import xmlparser.gui.action.AddChildAction
 import xmlparser.gui.view.ElementView
 import javax.swing.*

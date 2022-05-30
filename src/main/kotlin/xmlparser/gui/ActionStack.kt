@@ -1,5 +1,6 @@
 package xmlparser.gui
 
+import xmlparser.gui.action.IAction
 import java.util.*
 
 object ActionStack {

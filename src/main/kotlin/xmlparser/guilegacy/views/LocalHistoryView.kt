@@ -3,8 +3,8 @@ package xmlparser.guilegacy.views
 import javafx.scene.control.ListView
 import javafx.scene.text.FontWeight
 import tornadofx.*
-import xmlparser.gui.ActionStack
-import xmlparser.gui.IAction
+import xmlparser.guilegacy.ActionStack
+import xmlparser.guilegacy.IAction
 
 class LocalHistoryView : View() {
 

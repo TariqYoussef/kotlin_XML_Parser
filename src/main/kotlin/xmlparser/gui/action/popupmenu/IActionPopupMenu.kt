@@ -1,5 +1,6 @@
-package xmlparser.gui
+package xmlparser.gui.action.popupmenu
 
+import xmlparser.gui.action.IAction
 import xmlparser.gui.view.ElementView
 
 interface IActionPopupMenu {

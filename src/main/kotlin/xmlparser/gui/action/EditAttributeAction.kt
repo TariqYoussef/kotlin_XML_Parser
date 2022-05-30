@@ -2,7 +2,6 @@ package xmlparser.gui.action
 
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.IAction
 
 class EditAttributeAction(private val xmlElement: XmlElement,
                           private val xmlElementAttribute: XmlElementAttribute,

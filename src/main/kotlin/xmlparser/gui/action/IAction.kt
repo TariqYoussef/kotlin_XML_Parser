@@ -1,4 +1,4 @@
-package xmlparser.gui
+package xmlparser.gui.action
 
 interface IAction {
     /**

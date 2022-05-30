@@ -1,8 +1,7 @@
 package xmlparser.gui.action.popupmenu
 
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.IAction
-import xmlparser.gui.IActionPopupMenu
+import xmlparser.gui.action.IAction
 import xmlparser.gui.action.AddAttributeAction
 import xmlparser.gui.view.ElementView
 import javax.swing.JOptionPane

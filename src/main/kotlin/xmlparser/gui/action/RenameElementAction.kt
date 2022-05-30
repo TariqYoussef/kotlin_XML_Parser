@@ -1,7 +1,6 @@
 package xmlparser.gui.action
 
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.IAction
 
 class RenameElementAction(private val xmlElement: XmlElement, private val newName: String) : IAction {
 
