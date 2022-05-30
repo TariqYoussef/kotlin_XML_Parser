@@ -3,10 +3,12 @@ package xmlparser.gui
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.action.popupmenu.*
+import xmlparser.gui.action.popupmenu.attribute.RemoveAttributePopupMenuAction
 import xmlparser.gui.action.popupmenu.element.AddAttributePopupMenuAction
 import xmlparser.gui.action.popupmenu.element.AddChildPopupMenuAction
 import xmlparser.gui.action.popupmenu.element.RemoveElementPopupMenuAction
 import xmlparser.gui.action.popupmenu.element.RenameElementPopupMenuAction
+import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
 import xmlparser.plugins.Test
@@ -25,7 +27,11 @@ class Application : JFrame("XML Editor") {
     private lateinit var test: Test
 
     @InjectAdd
-    val popupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
+    val elementViewPopupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
+
+    @InjectAdd
+    val attributeViewPopupMenuActions = mutableListOf<IActionPopupMenu<AttributeView>>()
+
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(300, 300)
@@ -35,7 +41,8 @@ class Application : JFrame("XML Editor") {
         contentPane.layout = BorderLayout()
 
         createMenuBar()
-        populateDefaultMenuActions()
+        populateElementViewPopupMenuActions()
+        populateAttributeViewPopupMenuActions()
     }
 
     private fun createMenuBar() {
@@ -94,12 +101,17 @@ class Application : JFrame("XML Editor") {
         jMenuBar = menuBar
     }
 
-    private fun populateDefaultMenuActions()
+    private fun populateElementViewPopupMenuActions()
     {
-        popupMenuActions.add(AddChildPopupMenuAction())
-        popupMenuActions.add(RenameElementPopupMenuAction())
-        popupMenuActions.add(AddAttributePopupMenuAction())
-        popupMenuActions.add(RemoveElementPopupMenuAction())
+        elementViewPopupMenuActions.add(AddChildPopupMenuAction())
+        elementViewPopupMenuActions.add(RenameElementPopupMenuAction())
+        elementViewPopupMenuActions.add(AddAttributePopupMenuAction())
+        elementViewPopupMenuActions.add(RemoveElementPopupMenuAction())
+    }
+
+    private fun populateAttributeViewPopupMenuActions()
+    {
+        attributeViewPopupMenuActions.add(RemoveAttributePopupMenuAction())
     }
 
     fun open() {

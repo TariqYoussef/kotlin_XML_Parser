@@ -5,7 +5,6 @@ import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
 import xmlparser.gui.action.EditAttributeAction
-import xmlparser.gui.action.RemoveAttributeAction
 import java.awt.GridLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
@@ -20,15 +19,15 @@ class AttributeView(private val application: Application,
         xmlElementAttribute.addObserver {
             removeAll()
             createPopupMenu()
-            makeElementUI()
+            createView()
             updateUI()
             revalidate()
             repaint()
         }
-        makeElementUI()
+        createView()
     }
 
-    private fun makeElementUI()
+    private fun createView()
     {
         add(JLabel(xmlElementAttribute.name))
         val textField = JTextField(xmlElementAttribute.value)
@@ -41,11 +40,20 @@ class AttributeView(private val application: Application,
     private fun createPopupMenu()
     {
         val popupmenu = JPopupMenu("Actions")
-        val jMenuItem = JMenuItem("Remove")
-        jMenuItem.addActionListener {
-            ActionStack.doAction(RemoveAttributeAction(xmlElement, xmlElementAttribute))
+
+        application.attributeViewPopupMenuActions.forEach {
+            if(it.accept(this))
+            {
+                val jMenuItem = JMenuItem(it.displayName)
+                jMenuItem.addActionListener {_ ->
+                    val action = it.action(this)
+                    if(action != null)
+                        ActionStack.doAction(action)
+                }
+                popupmenu.add(jMenuItem)
+            }
         }
-        popupmenu.add(jMenuItem)
+
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
                 if (SwingUtilities.isRightMouseButton(e))

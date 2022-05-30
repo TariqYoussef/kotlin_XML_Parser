@@ -26,16 +26,16 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         xmlElement.addObserver {
             removeAll()
             createPopupMenu()
-            makeElementUI()
+            createView()
             updateUI()
             revalidate()
             repaint()
         }
         createPopupMenu()
-        makeElementUI()
+        createView()
     }
 
-    private fun makeElementUI()
+    private fun createView()
     {
         panel.removeAll()
         panel.layout = GridLayout(xmlElement.attributes.size + 1,1)
@@ -59,7 +59,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
     private fun createPopupMenu() {
         val popupmenu = JPopupMenu("Actions")
 
-        application.popupMenuActions.forEach {
+        application.elementViewPopupMenuActions.forEach {
             if(it.accept(this))
             {
                 val jMenuItem = JMenuItem(it.displayName)
