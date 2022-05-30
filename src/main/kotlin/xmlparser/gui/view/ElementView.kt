@@ -11,7 +11,7 @@ import java.awt.GridLayout
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ElementView(private val application: Application, val xmlElement: XmlElement) : IContextView() {
+class ElementView(private val application: Application, val xmlElement: XmlElement) : IContextView<ElementView>() {
 
     override val popupMenuName: String = "Actions"
 
@@ -25,13 +25,17 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         )
         xmlElement.addObserver {
             removeAll()
-            createPopupMenu()
+            createPopupMenu(this,
+                application.elementViewPopupMenuActions,
+                application.elementViewPluginPopupMenuActions)
             createView()
             updateUI()
             revalidate()
             repaint()
         }
-        createPopupMenu()
+        createPopupMenu(this,
+            application.elementViewPopupMenuActions,
+            application.elementViewPluginPopupMenuActions)
         createView()
     }
 
@@ -53,34 +57,6 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
 
         xmlElement.children.forEach {
             add(ElementView(application, it))
-        }
-    }
-
-    override fun populatePopupMenu(popupMenu: JPopupMenu) {
-        application.elementViewPopupMenuActions.forEach {
-            if(it.accept(this))
-            {
-                val jMenuItem = JMenuItem(it.displayName)
-                jMenuItem.addActionListener {_ ->
-                    val action = it.action(this)
-                    if(action != null)
-                        ActionStack.doAction(action)
-                }
-                popupMenu.add(jMenuItem)
-            }
-        }
-        popupMenu.addSeparator()
-        application.elementViewPluginPopupMenuActions.forEach {
-            if(it.accept(this))
-            {
-                val jMenuItem = JMenuItem(it.displayName)
-                jMenuItem.addActionListener {_ ->
-                    val action = it.action(this)
-                    if(action != null)
-                        ActionStack.doAction(action)
-                }
-                popupMenu.add(jMenuItem)
-            }
         }
     }
 
