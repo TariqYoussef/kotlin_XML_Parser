@@ -4,6 +4,7 @@ import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.action.popupmenu.*
 import xmlparser.gui.action.popupmenu.attribute.RemoveAttributePopupMenuAction
+import xmlparser.gui.action.popupmenu.attribute.RenameAttributePopupMenuAction
 import xmlparser.gui.action.popupmenu.element.AddAttributePopupMenuAction
 import xmlparser.gui.action.popupmenu.element.AddChildPopupMenuAction
 import xmlparser.gui.action.popupmenu.element.RemoveElementPopupMenuAction
@@ -112,6 +113,7 @@ class Application : JFrame("XML Editor") {
     private fun populateAttributeViewPopupMenuActions()
     {
         attributeViewPopupMenuActions.add(RemoveAttributePopupMenuAction())
+        attributeViewPopupMenuActions.add(RenameAttributePopupMenuAction())
     }
 
     fun open() {

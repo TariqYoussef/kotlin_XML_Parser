@@ -24,6 +24,7 @@ class AttributeView(private val application: Application,
             revalidate()
             repaint()
         }
+        createPopupMenu()
         createView()
     }
 
