@@ -2,7 +2,7 @@ package xmlparser.guilegacy.actions.view.main
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.IAction
+import xmlparser.guilegacy.IAction
 
 class RemoveXmlEntityAction(private val context: XmlContext,
                             private val treeTableViewObserver: ((XmlElement) -> Unit),

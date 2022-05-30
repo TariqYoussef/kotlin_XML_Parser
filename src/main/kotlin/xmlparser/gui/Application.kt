@@ -76,7 +76,7 @@ class Application : JFrame("XML Editor") {
             if(ActionStack.isRedoStackEmpty())
                 JOptionPane.showMessageDialog(this@Application, "No Actions to Redo");
             else
-            ActionStack.redoAction()
+                ActionStack.redoAction()
         }
         edit.add(redoMenuItem)
 

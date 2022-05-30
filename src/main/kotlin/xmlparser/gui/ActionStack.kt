@@ -25,12 +25,6 @@ object ActionStack {
         doAction(action)
     }
 
-    fun removeAction(action: IAction)
-    {
-        undoStack.remove(action)
-        redoStack.remove(action)
-    }
-
     fun getPeekActionUndo(): IAction = undoStack.peek()
 
     fun getPeekActionRedo(): IAction = redoStack.peek()
