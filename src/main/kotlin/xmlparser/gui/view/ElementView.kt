@@ -8,8 +8,6 @@ import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
 import java.awt.GridLayout
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
@@ -72,7 +70,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
             }
         }
         popupMenu.addSeparator()
-        application.elementViewPopupMenuPluginActions.forEach {
+        application.elementViewPluginPopupMenuActions.forEach {
             if(it.accept(this))
             {
                 val jMenuItem = JMenuItem(it.displayName)

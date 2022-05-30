@@ -4,7 +4,7 @@ import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
-import xmlparser.gui.action.EditAttributeValueAction
+import xmlparser.gui.view.component.BasicAttributeComponent
 import java.awt.GridLayout
 import javax.swing.*
 
@@ -37,6 +37,9 @@ class AttributeView(private val application: Application,
                 return@forEach
             }
         }
+
+        val basicAttributeComponent = BasicAttributeComponent()
+        basicAttributeComponent.draw(this)
     }
 
     override fun populatePopupMenu(popupMenu: JPopupMenu) {
@@ -53,7 +56,7 @@ class AttributeView(private val application: Application,
             }
         }
         popupMenu.addSeparator()
-        application.attributeViewPopupMenuPluginActions.forEach {
+        application.attributeViewPluginPopupMenuActions.forEach {
             if(it.accept(this))
             {
                 val jMenuItem = JMenuItem(it.displayName)
