@@ -5,10 +5,7 @@ import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
 import xmlparser.gui.action.*
-import xmlparser.gui.action.popupmenu.AddAttributeAction
-import xmlparser.gui.action.popupmenu.AddChildAction
-import xmlparser.gui.action.popupmenu.RemoveElementAction
-import xmlparser.gui.action.popupmenu.RenameElementAction
+import xmlparser.gui.action.popupmenu.*
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -18,7 +15,7 @@ import java.awt.event.MouseEvent
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ElementView(private val application: Application, private val xmlElement: XmlElement) : JPanel() {
+class ElementView(private val application: Application, val xmlElement: XmlElement) : JPanel() {
 
     private val panel = JPanel()
 
@@ -77,22 +74,19 @@ class ElementView(private val application: Application, private val xmlElement: 
         val popupmenu = JPopupMenu("Actions")
         val a = JMenuItem("Add child")
         a.addActionListener {
-            val text = JOptionPane.showInputDialog("Name")
-            ActionStack.doAction(AddChildAction(xmlElement, XmlElement(text)))
+            ActionStack.doAction(AddChildPopupMenuAction().getAction(this))
         }
         popupmenu.add(a)
 
         val b = JMenuItem("Rename")
         b.addActionListener {
-            val text = JOptionPane.showInputDialog("text")
-            ActionStack.doAction(RenameElementAction(xmlElement, text))
+            ActionStack.doAction(RenameElementPopupMenuAction().getAction(this))
         }
         popupmenu.add(b)
 
         val c = JMenuItem("Add attribute")
         c.addActionListener {
-            val text = JOptionPane.showInputDialog("text")
-            ActionStack.doAction(AddAttributeAction(xmlElement, XmlElementAttribute(text)))
+            ActionStack.doAction(AddAttributePopupMenuAction().getAction(this))
         }
         popupmenu.add(c)
 
@@ -100,7 +94,7 @@ class ElementView(private val application: Application, private val xmlElement: 
         {
             val d = JMenuItem("Remove")
             d.addActionListener {
-                ActionStack.doAction(RemoveElementAction(xmlElement, xmlElement.father!!))
+                ActionStack.doAction(RemoveElementPopupMenuAction().getAction(this))
             }
             popupmenu.add(d)
         }
