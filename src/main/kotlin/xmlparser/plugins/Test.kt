@@ -15,15 +15,14 @@ class Test {
 class AddPointPopupMenuAction : IActionPopupMenu
 {
     override val displayName: String = "Add Point"
+
+    override fun accept(elementView: ElementView): Boolean = elementView.xmlElement.name != "Point"
+
     override fun getAction(elementView: ElementView): IAction? {
-        val nameField = JTextField(5)
         val xField = JTextField(5)
         val yField = JTextField(5)
 
         val jPanel = JPanel()
-        jPanel.add(JLabel("Name:"))
-        jPanel.add(nameField)
-        jPanel.add(Box.createHorizontalStrut(15))
 
         jPanel.add(JLabel("x:"))
         jPanel.add(xField)
@@ -36,11 +35,6 @@ class AddPointPopupMenuAction : IActionPopupMenu
             "Please Enter X and Y Values", JOptionPane.OK_CANCEL_OPTION
         )
         return if (result == JOptionPane.OK_OPTION) {
-            if(nameField.text == "")
-            {
-                JOptionPane.showMessageDialog(elementView, "Invalid Name")
-                return null
-            }
             if(xField.text == "")
             {
                 JOptionPane.showMessageDialog(elementView, "Invalid x value")
@@ -70,7 +64,7 @@ class AddPointPopupMenuAction : IActionPopupMenu
                 JOptionPane.showMessageDialog(elementView, "Invalid y value")
                 return null
             }
-            val xmlElement = XmlElement(nameField.text)
+            val xmlElement = XmlElement("Point")
             xmlElement.addChild("x", xField.text)
             xmlElement.addChild("y", yField.text)
             AddChildAction(elementView.xmlElement, xmlElement)

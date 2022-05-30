@@ -25,6 +25,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         )
         xmlElement.addObserver {
             removeAll()
+            createPopupMenu()
             makeElementUI()
             updateUI()
             revalidate()
