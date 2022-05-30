@@ -11,6 +11,9 @@ class RemoveElementPopupMenuAction : IActionPopupMenu
     override fun getAction(elementView: ElementView): IAction {
         return RemoveElementAction(elementView.xmlElement, elementView.xmlElement.father!!)
     }
+
+    override fun accept(elementView: ElementView): Boolean = elementView.xmlElement.hasFather()
+
     class RemoveElementAction(private val xmlElementChild: XmlElement, private val xmlElementFather: XmlElement) : IAction {
         override val name: String = "Remove child ${xmlElementChild.name} on ${xmlElementFather.name}"
 

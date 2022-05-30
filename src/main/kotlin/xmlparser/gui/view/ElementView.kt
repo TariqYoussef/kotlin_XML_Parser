@@ -72,31 +72,16 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
 
     private fun createPopupMenu() {
         val popupmenu = JPopupMenu("Actions")
-        val a = JMenuItem("Add child")
-        a.addActionListener {
-            ActionStack.doAction(AddChildPopupMenuAction().getAction(this))
-        }
-        popupmenu.add(a)
 
-        val b = JMenuItem("Rename")
-        b.addActionListener {
-            ActionStack.doAction(RenameElementPopupMenuAction().getAction(this))
-        }
-        popupmenu.add(b)
-
-        val c = JMenuItem("Add attribute")
-        c.addActionListener {
-            ActionStack.doAction(AddAttributePopupMenuAction().getAction(this))
-        }
-        popupmenu.add(c)
-
-        if(xmlElement.hasFather())
-        {
-            val d = JMenuItem("Remove")
-            d.addActionListener {
-                ActionStack.doAction(RemoveElementPopupMenuAction().getAction(this))
+        application.popupMenuActions.forEach {
+            if(it.accept(this))
+            {
+                val jMenuItem = JMenuItem(it.displayName)
+                jMenuItem.addActionListener {_ ->
+                    ActionStack.doAction(it.getAction(this))
+                }
+                popupmenu.add(jMenuItem)
             }
-            popupmenu.add(d)
         }
 
         addMouseListener(object : MouseAdapter() {

@@ -2,6 +2,10 @@ package xmlparser.gui
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
+import xmlparser.gui.action.popupmenu.AddAttributePopupMenuAction
+import xmlparser.gui.action.popupmenu.AddChildPopupMenuAction
+import xmlparser.gui.action.popupmenu.RemoveElementPopupMenuAction
+import xmlparser.gui.action.popupmenu.RenameElementPopupMenuAction
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
 import xmlparser.plugins.Test
@@ -30,6 +34,7 @@ class Application : JFrame("XML Editor") {
         contentPane.layout = BorderLayout()
 
         createMenuBar()
+        populateDefaultMenuActions()
     }
 
     private fun createMenuBar() {
@@ -89,7 +94,10 @@ class Application : JFrame("XML Editor") {
 
     private fun populateDefaultMenuActions()
     {
-
+        popupMenuActions.add(AddChildPopupMenuAction())
+        popupMenuActions.add(RenameElementPopupMenuAction())
+        popupMenuActions.add(AddAttributePopupMenuAction())
+        popupMenuActions.add(RemoveElementPopupMenuAction())
     }
 
     fun open() {
