@@ -42,6 +42,7 @@ class Application : JFrame("XML Editor") {
 
         val saveMenuItem = JMenuItem("Save")
         saveMenuItem.addActionListener {
+            println(context)
             val fileChooser = JFileChooser()
             val option = fileChooser.showSaveDialog(this@Application)
             if (option == JFileChooser.APPROVE_OPTION) {

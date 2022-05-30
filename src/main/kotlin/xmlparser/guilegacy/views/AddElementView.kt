@@ -73,7 +73,7 @@ class AddElementView: View() {
             }
 
             onEditStart {
-                oldAttribute = it.copy()
+                oldAttribute = XmlElementAttribute(it.name, it.value)
             }
 
             contextmenu {

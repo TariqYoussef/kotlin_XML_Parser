@@ -41,20 +41,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         panel.layout = GridLayout(xmlElement.attributes.size + 1,1)
 
         xmlElement.attributes.forEach {
-            val panel = JPanel()
-            panel.layout = GridLayout(1,3)
-            panel.add(JLabel(it.name))
-            val textField = JTextField(it.value)
-            textField.addActionListener{ _ ->
-                ActionStack.doAction(EditAttributeAction(xmlElement, it, textField.text))
-            }
-            panel.add(textField)
-            val button = JButton("Remove")
-            button.addActionListener{ _ ->
-                ActionStack.doAction(RemoveAttributeAction(xmlElement, it))
-            }
-            panel.add(button)
-            this.panel.add(panel)
+            this.panel.add(AttributeView(application, xmlElement, it))
         }
 
         val textField = JTextField(xmlElement.value.toString())
