@@ -31,12 +31,13 @@ class Application : JFrame("XML Editor") {
     val elementViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
     @InjectAdd
     val attributeViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<AttributeView>>()
+    @InjectAdd
+    val attributePluginComponents = mutableListOf<IAttributeComponent>()
 
     val elementViewPopupMenuActions: List<IActionPopupMenu<ElementView>> = listOf(AddChildPopupMenuAction(),
         RenameElementPopupMenuAction(), AddAttributePopupMenuAction(), RemoveElementPopupMenuAction())
     val attributeViewPopupMenuActions: List<IActionPopupMenu<AttributeView>> = listOf(RemoveAttributePopupMenuAction(),
         RenameAttributePopupMenuAction())
-    val attributeComponents = mutableListOf<IAttributeComponent>()
 
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
