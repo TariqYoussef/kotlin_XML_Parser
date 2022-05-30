@@ -33,7 +33,6 @@ class ElementView(private val application: Application, private val xmlElement: 
         }
         createPopupMenu()
         makeElementUI()
-        println(application.popupMenuActions.size)
     }
 
     private fun makeElementUI()
