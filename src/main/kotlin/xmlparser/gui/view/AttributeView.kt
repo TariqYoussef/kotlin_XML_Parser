@@ -18,7 +18,6 @@ class AttributeView(private val application: Application,
     init {
         layout = GridLayout(1,2)
         xmlElementAttribute.addObserver {
-            print("d")
             removeAll()
             createPopupMenu()
             makeElementUI()
