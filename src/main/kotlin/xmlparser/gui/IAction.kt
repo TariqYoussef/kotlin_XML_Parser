@@ -1,6 +1,9 @@
 package xmlparser.gui
 
 interface IAction {
+    /**
+     * Action name.
+     */
     val name: String
 
     /**
