@@ -6,13 +6,13 @@ import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
 import xmlparser.gui.action.EditAttributeValueAction
 import java.awt.GridLayout
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
 import javax.swing.*
 
 class AttributeView(private val application: Application,
                     val xmlElement: XmlElement,
-                    val xmlElementAttribute: XmlElementAttribute) : JPanel() {
+                    val xmlElementAttribute: XmlElementAttribute) : IContextView() {
+
+    override val popupMenuName: String = "Actions"
 
     init {
         layout = GridLayout(1,2)
@@ -28,7 +28,7 @@ class AttributeView(private val application: Application,
         createView()
     }
 
-    private fun createView()
+    override fun createView()
     {
         add(JLabel(xmlElementAttribute.name))
         val textField = JTextField(xmlElementAttribute.value)
@@ -38,10 +38,7 @@ class AttributeView(private val application: Application,
         add(textField)
     }
 
-    private fun createPopupMenu()
-    {
-        val popupmenu = JPopupMenu("Actions")
-
+    override fun populatePopupMenu(popupMenu: JPopupMenu) {
         application.attributeViewPopupMenuActions.forEach {
             if(it.accept(this))
             {
@@ -51,15 +48,9 @@ class AttributeView(private val application: Application,
                     if(action != null)
                         ActionStack.doAction(action)
                 }
-                popupmenu.add(jMenuItem)
+                popupMenu.add(jMenuItem)
             }
         }
-
-        addMouseListener(object : MouseAdapter() {
-            override fun mouseClicked(e: MouseEvent) {
-                if (SwingUtilities.isRightMouseButton(e))
-                    popupmenu.show(this@AttributeView, e.x, e.y)
-            }
-        })
     }
+
 }

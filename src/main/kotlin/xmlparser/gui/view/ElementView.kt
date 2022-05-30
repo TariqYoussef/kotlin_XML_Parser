@@ -13,7 +13,9 @@ import java.awt.event.MouseEvent
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ElementView(private val application: Application, val xmlElement: XmlElement) : JPanel() {
+class ElementView(private val application: Application, val xmlElement: XmlElement) : IContextView() {
+
+    override val popupMenuName: String = "Actions"
 
     private val panel = JPanel()
 
@@ -35,7 +37,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         createView()
     }
 
-    private fun createView()
+    override fun createView()
     {
         panel.removeAll()
         panel.layout = GridLayout(xmlElement.attributes.size + 1,1)
@@ -56,9 +58,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         }
     }
 
-    private fun createPopupMenu() {
-        val popupmenu = JPopupMenu("Actions")
-
+    override fun populatePopupMenu(popupMenu: JPopupMenu) {
         application.elementViewPopupMenuActions.forEach {
             if(it.accept(this))
             {
@@ -68,16 +68,9 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
                     if(action != null)
                         ActionStack.doAction(action)
                 }
-                popupmenu.add(jMenuItem)
+                popupMenu.add(jMenuItem)
             }
         }
-
-        addMouseListener(object : MouseAdapter() {
-            override fun mouseClicked(e: MouseEvent) {
-                if (SwingUtilities.isRightMouseButton(e))
-                    popupmenu.show(this@ElementView, e.x, e.y)
-            }
-        })
     }
 
     override fun paintComponent(g: Graphics) {
