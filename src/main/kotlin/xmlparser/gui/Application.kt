@@ -3,6 +3,10 @@ package xmlparser.gui
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.action.popupmenu.*
+import xmlparser.gui.action.popupmenu.element.AddAttributePopupMenuAction
+import xmlparser.gui.action.popupmenu.element.AddChildPopupMenuAction
+import xmlparser.gui.action.popupmenu.element.RemoveElementPopupMenuAction
+import xmlparser.gui.action.popupmenu.element.RenameElementPopupMenuAction
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
 import xmlparser.plugins.Test
