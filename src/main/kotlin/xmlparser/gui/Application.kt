@@ -87,6 +87,11 @@ class Application : JFrame("XML Editor") {
         jMenuBar = menuBar
     }
 
+    private fun populateDefaultMenuActions()
+    {
+
+    }
+
     fun open() {
         if(this::test.isInitialized)
             add(JLabel(test.name), BorderLayout.NORTH)

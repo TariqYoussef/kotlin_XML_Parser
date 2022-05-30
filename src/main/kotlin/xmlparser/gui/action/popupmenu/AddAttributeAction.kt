@@ -1,4 +1,4 @@
-package xmlparser.gui.action
+package xmlparser.gui.action.popupmenu
 
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute

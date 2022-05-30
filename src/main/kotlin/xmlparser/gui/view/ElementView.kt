@@ -5,6 +5,10 @@ import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
 import xmlparser.gui.action.*
+import xmlparser.gui.action.popupmenu.AddAttributeAction
+import xmlparser.gui.action.popupmenu.AddChildAction
+import xmlparser.gui.action.popupmenu.RemoveElementAction
+import xmlparser.gui.action.popupmenu.RenameElementAction
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
