@@ -21,7 +21,7 @@ class Application : JFrame("XML Editor") {
     private lateinit var test: Test
 
     @InjectAdd
-    val popupMenuActions = mutableListOf<IActionPopupMenu>()
+    val popupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(300, 300)

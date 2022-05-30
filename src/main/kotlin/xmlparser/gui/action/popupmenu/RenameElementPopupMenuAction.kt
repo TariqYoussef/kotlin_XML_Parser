@@ -5,11 +5,11 @@ import xmlparser.gui.action.RenameElementAction
 import xmlparser.gui.view.ElementView
 import javax.swing.JOptionPane
 
-class RenameElementPopupMenuAction : IActionPopupMenu
+class RenameElementPopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Rename"
-    override fun getAction(elementView: ElementView): IAction {
+    override fun getAction(view: ElementView): IAction {
         val text = JOptionPane.showInputDialog("text")
-        return RenameElementAction(elementView.xmlElement, text)
+        return RenameElementAction(view.xmlElement, text)
     }
 }

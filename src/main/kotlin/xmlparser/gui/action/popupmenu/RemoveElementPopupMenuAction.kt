@@ -4,13 +4,13 @@ import xmlparser.gui.action.IAction
 import xmlparser.gui.action.RemoveElementAction
 import xmlparser.gui.view.ElementView
 
-class RemoveElementPopupMenuAction : IActionPopupMenu
+class RemoveElementPopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Remove"
-    override fun getAction(elementView: ElementView): IAction {
-        return RemoveElementAction(elementView.xmlElement, elementView.xmlElement.father!!)
+    override fun getAction(view: ElementView): IAction {
+        return RemoveElementAction(view.xmlElement, view.xmlElement.father!!)
     }
 
-    override fun accept(elementView: ElementView): Boolean = elementView.xmlElement.hasFather()
+    override fun accept(view: ElementView): Boolean = view.xmlElement.hasFather()
 
 }

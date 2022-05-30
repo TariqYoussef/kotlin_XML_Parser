@@ -6,12 +6,12 @@ import xmlparser.gui.action.AddAttributeAction
 import xmlparser.gui.view.ElementView
 import javax.swing.JOptionPane
 
-class AddAttributePopupMenuAction : IActionPopupMenu
+class AddAttributePopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Add attribute"
-    override fun getAction(elementView: ElementView): IAction {
+    override fun getAction(view: ElementView): IAction {
         val text = JOptionPane.showInputDialog("text")
-        return AddAttributeAction(elementView.xmlElement, XmlElementAttribute(text))
+        return AddAttributeAction(view.xmlElement, XmlElementAttribute(text))
     }
 }
 

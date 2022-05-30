@@ -12,13 +12,13 @@ class Test {
     val name = "ce"
 }
 
-class AddPointPopupMenuAction : IActionPopupMenu
+class AddPointPopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Add Point"
 
-    override fun accept(elementView: ElementView): Boolean = elementView.xmlElement.name != "Point"
+    override fun accept(view: ElementView): Boolean = view.xmlElement.name != "Point"
 
-    override fun getAction(elementView: ElementView): IAction? {
+    override fun getAction(view: ElementView): IAction? {
         val xField = JTextField(5)
         val yField = JTextField(5)
 
@@ -37,12 +37,12 @@ class AddPointPopupMenuAction : IActionPopupMenu
         return if (result == JOptionPane.OK_OPTION) {
             if(xField.text == "")
             {
-                JOptionPane.showMessageDialog(elementView, "Invalid x value")
+                JOptionPane.showMessageDialog(view, "Invalid x value")
                 return null
             }
             if(yField.text == "")
             {
-                JOptionPane.showMessageDialog(elementView, "Invalid y value")
+                JOptionPane.showMessageDialog(view, "Invalid y value")
                 return null
             }
 
@@ -52,7 +52,7 @@ class AddPointPopupMenuAction : IActionPopupMenu
             }
             catch (exception: Exception)
             {
-                JOptionPane.showMessageDialog(elementView, "Invalid x value")
+                JOptionPane.showMessageDialog(view, "Invalid x value")
                 return null
             }
             try
@@ -61,23 +61,23 @@ class AddPointPopupMenuAction : IActionPopupMenu
             }
             catch (exception: Exception)
             {
-                JOptionPane.showMessageDialog(elementView, "Invalid y value")
+                JOptionPane.showMessageDialog(view, "Invalid y value")
                 return null
             }
             val xmlElement = XmlElement("Point")
             xmlElement.addChild("x", xField.text)
             xmlElement.addChild("y", yField.text)
-            AddChildAction(elementView.xmlElement, xmlElement)
+            AddChildAction(view.xmlElement, xmlElement)
         }else
             null
     }
 
 }
 
-class ActionPopupMenu2 : IActionPopupMenu
+class ActionPopupMenu2 : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "PluginActionTest2"
-    override fun getAction(elementView: ElementView): IAction? {
+    override fun getAction(view: ElementView): IAction? {
         return ActionTest2()
     }
 

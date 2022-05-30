@@ -1,9 +1,8 @@
 package xmlparser.gui.action.popupmenu
 
 import xmlparser.gui.action.IAction
-import xmlparser.gui.view.ElementView
 
-interface IActionPopupMenu {
+interface IActionPopupMenu<T> {
     /**
      * Action display name.
      */
@@ -11,9 +10,9 @@ interface IActionPopupMenu {
     /**
      * Condition to accept.
      */
-    fun accept(elementView: ElementView): Boolean = true
+    fun accept(view: T): Boolean = true
     /**
      * Gets the action.
      */
-    fun getAction(elementView: ElementView): IAction?
+    fun getAction(view: T): IAction?
 }
