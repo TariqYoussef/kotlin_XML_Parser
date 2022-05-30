@@ -4,9 +4,8 @@ import xmlparser.core.element.XmlElement
 
 class RenameElementAction(private val xmlElement: XmlElement, private val newName: String) : IAction {
 
-    override val name: String = "Rename Element ${xmlElement.name} to $newName"
-
     private val oldName: String = xmlElement.name
+    override val name: String = "Rename Element $oldName to $newName"
 
     override fun execute() {
         xmlElement.name = newName

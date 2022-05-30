@@ -4,7 +4,7 @@ import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
-import xmlparser.gui.action.EditAttributeAction
+import xmlparser.gui.action.EditAttributeValueAction
 import java.awt.GridLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
@@ -32,7 +32,7 @@ class AttributeView(private val application: Application,
         add(JLabel(xmlElementAttribute.name))
         val textField = JTextField(xmlElementAttribute.value)
         textField.addActionListener{
-            ActionStack.doAction(EditAttributeAction(xmlElementAttribute, textField.text))
+            ActionStack.doAction(EditAttributeValueAction(xmlElementAttribute, textField.text))
         }
         add(textField)
     }
