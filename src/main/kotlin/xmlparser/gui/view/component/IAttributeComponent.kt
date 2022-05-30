@@ -1,15 +1,15 @@
 package xmlparser.gui.view.component
 
-import xmlparser.gui.view.ElementView
+import xmlparser.gui.view.AttributeView
 
 interface IAttributeComponent {
     /**
      * Condition to accept.
      */
-    fun accept(elementView: ElementView): Boolean = true
+    fun accept(attributeView: AttributeView): Boolean = true
 
     /**
      * Draws UI.
      */
-    fun draw(elementView: ElementView)
+    fun draw(attributeView: AttributeView)
 }

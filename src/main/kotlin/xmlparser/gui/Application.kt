@@ -12,6 +12,8 @@ import xmlparser.gui.action.popupmenu.element.RenameElementPopupMenuAction
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
+import xmlparser.gui.view.component.BasicAttributeComponent
+import xmlparser.gui.view.component.IAttributeComponent
 import xmlparser.plugins.Test
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -33,6 +35,9 @@ class Application : JFrame("XML Editor") {
     @InjectAdd
     val attributeViewPopupMenuActions = mutableListOf<IActionPopupMenu<AttributeView>>()
 
+    @InjectAdd
+    val attributeComponents = mutableListOf<IAttributeComponent>()
+
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(300, 300)
@@ -44,6 +49,7 @@ class Application : JFrame("XML Editor") {
         createMenuBar()
         populateElementViewPopupMenuActions()
         populateAttributeViewPopupMenuActions()
+        populateAttributeComponents()
     }
 
     private fun createMenuBar() {
@@ -114,6 +120,11 @@ class Application : JFrame("XML Editor") {
     {
         attributeViewPopupMenuActions.add(RemoveAttributePopupMenuAction())
         attributeViewPopupMenuActions.add(RenameAttributePopupMenuAction())
+    }
+
+    private fun populateAttributeComponents()
+    {
+        attributeComponents.add(BasicAttributeComponent())
     }
 
     fun open() {

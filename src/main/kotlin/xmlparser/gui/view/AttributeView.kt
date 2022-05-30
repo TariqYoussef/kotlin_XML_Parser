@@ -30,12 +30,13 @@ class AttributeView(private val application: Application,
 
     override fun createView()
     {
-        add(JLabel(xmlElementAttribute.name))
-        val textField = JTextField(xmlElementAttribute.value)
-        textField.addActionListener{
-            ActionStack.doAction(EditAttributeValueAction(xmlElementAttribute, textField.text))
+        application.attributeComponents.forEach {
+            if(it.accept(this))
+            {
+                it.draw(this)
+                return@forEach
+            }
         }
-        add(textField)
     }
 
     override fun populatePopupMenu(popupMenu: JPopupMenu) {
