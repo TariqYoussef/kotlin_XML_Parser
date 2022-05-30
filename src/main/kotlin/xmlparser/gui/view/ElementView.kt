@@ -3,8 +3,7 @@ package xmlparser.gui.view
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.ActionStack
-import xmlparser.gui.IAction
-import xmlparser.gui.InjectAdd
+import xmlparser.gui.Application
 import xmlparser.gui.action.*
 import java.awt.Color
 import java.awt.Font
@@ -15,12 +14,10 @@ import java.awt.event.MouseEvent
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ElementView(private val xmlElement: XmlElement) : JPanel() {
+class ElementView(private val application: Application, private val xmlElement: XmlElement) : JPanel() {
 
     private val panel = JPanel()
 
-    @InjectAdd
-    private val pluginActions = mutableListOf<IAction>()
     init {
         layout = GridLayout(2, 1)
         border = CompoundBorder(
@@ -36,6 +33,7 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
         }
         createPopupMenu()
         makeElementUI()
+        println(application.popupMenuActions.size)
     }
 
     private fun makeElementUI()
@@ -68,7 +66,7 @@ class ElementView(private val xmlElement: XmlElement) : JPanel() {
         add(panel)
 
         xmlElement.children.forEach {
-            add(ElementView(it))
+            add(ElementView(application, it))
         }
     }
 

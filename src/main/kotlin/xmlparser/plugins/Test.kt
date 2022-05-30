@@ -1,14 +1,14 @@
 package xmlparser.plugins
 
 import xmlparser.gui.IAction
-import xmlparser.gui.IPluginActionPopupMenu
+import xmlparser.gui.IActionPopupMenu
 import xmlparser.gui.view.ElementView
 
 class Test {
     val name = "ce"
 }
 
-class PluginActionPopupMenu1 : IPluginActionPopupMenu
+class ActionPopupMenu1 : IActionPopupMenu
 {
     override val displayName: String = "PluginActionTest1"
     override fun getAction(elementView: ElementView): IAction {
@@ -16,7 +16,7 @@ class PluginActionPopupMenu1 : IPluginActionPopupMenu
     }
 }
 
-class PluginActionPopupMenu2 : IPluginActionPopupMenu
+class ActionPopupMenu2 : IActionPopupMenu
 {
     override val displayName: String = "PluginActionTest2"
     override fun getAction(elementView: ElementView): IAction {

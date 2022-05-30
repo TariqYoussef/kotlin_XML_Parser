@@ -19,6 +19,8 @@ class Application : JFrame("XML Editor") {
     @Inject
     private lateinit var test: Test
 
+    @InjectAdd
+    val popupMenuActions = mutableListOf<IActionPopupMenu>()
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(300, 300)
@@ -26,7 +28,6 @@ class Application : JFrame("XML Editor") {
         context.setRootXmlElement(XmlElement("Root"))
 
         contentPane.layout = BorderLayout()
-        add(ElementView(context.rootXmlElement!!), BorderLayout.CENTER)
 
         createMenuBar()
     }
@@ -89,6 +90,8 @@ class Application : JFrame("XML Editor") {
     fun open() {
         if(this::test.isInitialized)
             add(JLabel(test.name), BorderLayout.NORTH)
+
+        add(ElementView(this, context.rootXmlElement!!), BorderLayout.CENTER)
         isVisible = true
     }
 }

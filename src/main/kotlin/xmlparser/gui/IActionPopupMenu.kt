@@ -2,7 +2,7 @@ package xmlparser.gui
 
 import xmlparser.gui.view.ElementView
 
-interface IPluginActionPopupMenu {
+interface IActionPopupMenu {
     /**
      * Action display name.
      */
