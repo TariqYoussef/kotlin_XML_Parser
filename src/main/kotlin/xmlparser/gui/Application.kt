@@ -28,14 +28,15 @@ class Application : JFrame("XML Editor") {
 
     @Inject
     private lateinit var test: Test
-
     @InjectAdd
-    val elementViewPopupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
-
+    val elementViewPopupMenuPluginActions = mutableListOf<IActionPopupMenu<ElementView>>()
     @InjectAdd
-    val attributeViewPopupMenuActions = mutableListOf<IActionPopupMenu<AttributeView>>()
+    val attributeViewPopupMenuPluginActions = mutableListOf<IActionPopupMenu<AttributeView>>()
 
-    @InjectAdd
+    val elementViewPopupMenuActions: List<IActionPopupMenu<ElementView>> = listOf(AddChildPopupMenuAction(),
+        RenameElementPopupMenuAction(), AddAttributePopupMenuAction(), RemoveElementPopupMenuAction())
+    val attributeViewPopupMenuActions: List<IActionPopupMenu<AttributeView>> = listOf(RemoveAttributePopupMenuAction(),
+        RenameAttributePopupMenuAction())
     val attributeComponents = mutableListOf<IAttributeComponent>()
 
     init {
@@ -47,8 +48,6 @@ class Application : JFrame("XML Editor") {
         contentPane.layout = BorderLayout()
 
         createMenuBar()
-        populateElementViewPopupMenuActions()
-        populateAttributeViewPopupMenuActions()
         populateAttributeComponents()
     }
 
@@ -106,20 +105,6 @@ class Application : JFrame("XML Editor") {
         menuBar.add(edit)
 
         jMenuBar = menuBar
-    }
-
-    private fun populateElementViewPopupMenuActions()
-    {
-        elementViewPopupMenuActions.add(AddChildPopupMenuAction())
-        elementViewPopupMenuActions.add(RenameElementPopupMenuAction())
-        elementViewPopupMenuActions.add(AddAttributePopupMenuAction())
-        elementViewPopupMenuActions.add(RemoveElementPopupMenuAction())
-    }
-
-    private fun populateAttributeViewPopupMenuActions()
-    {
-        attributeViewPopupMenuActions.add(RemoveAttributePopupMenuAction())
-        attributeViewPopupMenuActions.add(RenameAttributePopupMenuAction())
     }
 
     private fun populateAttributeComponents()

@@ -71,6 +71,19 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
                 popupMenu.add(jMenuItem)
             }
         }
+        popupMenu.addSeparator()
+        application.elementViewPopupMenuPluginActions.forEach {
+            if(it.accept(this))
+            {
+                val jMenuItem = JMenuItem(it.displayName)
+                jMenuItem.addActionListener {_ ->
+                    val action = it.action(this)
+                    if(action != null)
+                        ActionStack.doAction(action)
+                }
+                popupMenu.add(jMenuItem)
+            }
+        }
     }
 
     override fun paintComponent(g: Graphics) {

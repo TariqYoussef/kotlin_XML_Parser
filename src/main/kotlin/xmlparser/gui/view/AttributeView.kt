@@ -52,6 +52,19 @@ class AttributeView(private val application: Application,
                 popupMenu.add(jMenuItem)
             }
         }
+        popupMenu.addSeparator()
+        application.attributeViewPopupMenuPluginActions.forEach {
+            if(it.accept(this))
+            {
+                val jMenuItem = JMenuItem(it.displayName)
+                jMenuItem.addActionListener {_ ->
+                    val action = it.action(this)
+                    if(action != null)
+                        ActionStack.doAction(action)
+                }
+                popupMenu.add(jMenuItem)
+            }
+        }
     }
 
 }
