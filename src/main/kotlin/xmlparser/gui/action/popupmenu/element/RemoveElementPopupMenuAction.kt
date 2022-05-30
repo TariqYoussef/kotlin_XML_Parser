@@ -8,7 +8,7 @@ import xmlparser.gui.view.ElementView
 class RemoveElementPopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Remove"
-    override fun getAction(view: ElementView): IAction {
+    override fun action(view: ElementView): IAction {
         return RemoveElementAction(view.xmlElement, view.xmlElement.father!!)
     }
 

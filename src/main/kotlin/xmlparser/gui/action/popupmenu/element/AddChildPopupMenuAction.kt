@@ -10,7 +10,7 @@ import javax.swing.JOptionPane
 class AddChildPopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Add child"
-    override fun getAction(view: ElementView): IAction {
+    override fun action(view: ElementView): IAction {
         val text = JOptionPane.showInputDialog("text")
         return AddChildAction(view.xmlElement, XmlElement(text))
     }

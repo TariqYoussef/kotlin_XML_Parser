@@ -18,7 +18,7 @@ class AddPointPopupMenuAction : IActionPopupMenu<ElementView>
 
     override fun accept(view: ElementView): Boolean = view.xmlElement.name != "Point"
 
-    override fun getAction(view: ElementView): IAction? {
+    override fun action(view: ElementView): IAction? {
         val xField = JTextField(5)
         val yField = JTextField(5)
 
@@ -77,7 +77,7 @@ class AddPointPopupMenuAction : IActionPopupMenu<ElementView>
 class ActionPopupMenu2 : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "PluginActionTest2"
-    override fun getAction(view: ElementView): IAction? {
+    override fun action(view: ElementView): IAction? {
         return ActionTest2()
     }
 

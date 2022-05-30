@@ -10,7 +10,7 @@ import javax.swing.JOptionPane
 class AddAttributePopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Add attribute"
-    override fun getAction(view: ElementView): IAction {
+    override fun action(view: ElementView): IAction {
         val text = JOptionPane.showInputDialog("text")
         return AddAttributeAction(view.xmlElement, XmlElementAttribute(text))
     }

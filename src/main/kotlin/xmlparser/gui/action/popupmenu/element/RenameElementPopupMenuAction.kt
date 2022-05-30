@@ -9,7 +9,7 @@ import javax.swing.JOptionPane
 class RenameElementPopupMenuAction : IActionPopupMenu<ElementView>
 {
     override val displayName: String = "Rename"
-    override fun getAction(view: ElementView): IAction {
+    override fun action(view: ElementView): IAction {
         val text = JOptionPane.showInputDialog("text")
         return RenameElementAction(view.xmlElement, text)
     }

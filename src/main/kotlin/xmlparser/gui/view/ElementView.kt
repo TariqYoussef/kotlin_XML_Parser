@@ -64,7 +64,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
             {
                 val jMenuItem = JMenuItem(it.displayName)
                 jMenuItem.addActionListener {_ ->
-                    val action = it.getAction(this)
+                    val action = it.action(this)
                     if(action != null)
                         ActionStack.doAction(action)
                 }
