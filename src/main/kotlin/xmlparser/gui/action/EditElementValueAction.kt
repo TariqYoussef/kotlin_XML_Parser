@@ -8,7 +8,6 @@ class EditElementValueAction(private val xmlElement: XmlElement, private val new
     private val oldValue: String = xmlElement.value as String
 
     override val name: String = "Edit Element Value to $newValue from $oldValue"
-    override val displayName: String = ""
 
     override fun execute() {
         xmlElement.value = newValue
