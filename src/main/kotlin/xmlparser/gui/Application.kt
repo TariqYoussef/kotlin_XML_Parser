@@ -13,7 +13,6 @@ import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
 import xmlparser.gui.view.component.IAttributeComponent
-import xmlparser.plugins.Test
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.io.PrintWriter
@@ -26,7 +25,7 @@ class Application : JFrame("XML Editor") {
     private val context = XmlContext()
 
     @Inject
-    private lateinit var test: Test
+    private lateinit var test: String
     @InjectAdd
     val elementViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
     @InjectAdd
@@ -108,7 +107,7 @@ class Application : JFrame("XML Editor") {
 
     fun open() {
         if(this::test.isInitialized)
-            add(JLabel(test.name), BorderLayout.NORTH)
+            add(JLabel(test), BorderLayout.NORTH)
 
         add(ElementView(this, context.rootXmlElement!!), BorderLayout.CENTER)
         isVisible = true

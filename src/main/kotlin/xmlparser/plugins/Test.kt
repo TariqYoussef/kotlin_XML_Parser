@@ -9,13 +9,8 @@ import xmlparser.gui.action.popupmenu.IActionPopupMenu
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.component.IAttributeComponent
-import java.awt.event.ActionListener
 import javax.swing.*
 
-
-class Test {
-    val name = "ce"
-}
 
 class AddPointPopupMenuAction : IActionPopupMenu<ElementView>
 {
