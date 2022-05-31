@@ -1,10 +1,15 @@
 package xmlparser.plugins
 
 import xmlparser.core.element.XmlElement
+import xmlparser.gui.ActionStack
+import xmlparser.gui.action.AddChildAction
+import xmlparser.gui.action.EditAttributeValueAction
 import xmlparser.gui.action.IAction
 import xmlparser.gui.action.popupmenu.IActionPopupMenu
-import xmlparser.gui.action.AddChildAction
+import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
+import xmlparser.gui.view.component.IAttributeComponent
+import java.awt.event.ActionListener
 import javax.swing.*
 
 
@@ -91,6 +96,28 @@ class ActionPopupMenu2 : IActionPopupMenu<ElementView>
         override fun undo() {
             TODO("Not yet implemented")
         }
+    }
+}
+
+class BoolAttributeComponent: IAttributeComponent
+{
+    private var selected = false
+    override fun accept(attributeView: AttributeView): Boolean = attributeView.xmlElementAttribute.name == "bool"
+    override fun draw(attributeView: AttributeView) {
+        attributeView.add(JLabel(attributeView.xmlElementAttribute.name))
+        val jCheckBox = JCheckBox()
+        jCheckBox.isSelected = selected
+        jCheckBox.addActionListener {
+            val value = jCheckBox.isSelected.toString()
+            selected = jCheckBox.isSelected
+            ActionStack.doAction(
+                EditAttributeValueAction(
+                    attributeView.xmlElementAttribute,
+                    value
+                )
+            )
+        }
+        attributeView.add(jCheckBox)
     }
 }
 

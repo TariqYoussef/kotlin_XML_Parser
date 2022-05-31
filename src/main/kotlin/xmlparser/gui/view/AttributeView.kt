@@ -36,7 +36,7 @@ class AttributeView(private val application: Application,
             if(it.accept(this))
             {
                 it.draw(this)
-                return@forEach
+                return
             }
         }
 
