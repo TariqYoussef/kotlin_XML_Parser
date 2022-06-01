@@ -52,7 +52,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     {
         children.remove(xmlElement)
         xmlElement.father = null
-        xmlElement.removeAllObservers()
         notifyObservers { it(this) }
     }
 
