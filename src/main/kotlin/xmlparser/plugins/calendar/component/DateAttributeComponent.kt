@@ -1,4 +1,4 @@
-package xmlparser.plugins.calendar
+package xmlparser.plugins.calendar.component
 
 import xmlparser.gui.ActionStack
 import xmlparser.gui.action.EditAttributeValueAction
