@@ -6,7 +6,10 @@ import xmlparser.gui.action.AddChildAction
 import xmlparser.gui.action.IAction
 import xmlparser.gui.action.popupmenu.IActionPopupMenu
 import xmlparser.gui.view.ElementView
+import java.awt.GridLayout
+import java.util.*
 import javax.swing.*
+
 
 class AddEventPopupMenuAction : IActionPopupMenu<ElementView> {
     override val displayName: String = "Add Event"
@@ -15,22 +18,34 @@ class AddEventPopupMenuAction : IActionPopupMenu<ElementView> {
 
     override fun action(view: ElementView): IAction? {
         val textFieldDescription = JTextField(5)
+        val date = JSpinner(SpinnerDateModel(Date(), null, null, Calendar.MINUTE))
         val jCheckBox = JCheckBox("Mandatory")
-        val jPanel = JPanel()
 
-        jPanel.add(JLabel("Description:"))
-        jPanel.add(textFieldDescription)
-        jPanel.add(Box.createHorizontalStrut(15))
+        val principalPanel = JPanel()
+        principalPanel.layout = GridLayout(0,1)
 
-        jPanel.add(jCheckBox)
+        val descriptionPanel = JPanel()
+        descriptionPanel.layout = GridLayout(0, 2)
+        descriptionPanel.add(JLabel("Description:"))
+        descriptionPanel.add(textFieldDescription)
+        principalPanel.add(descriptionPanel)
+
+        val datePanel = JPanel()
+        datePanel.layout = GridLayout(0, 2)
+        datePanel.add(JLabel("Date:"))
+        datePanel.add(date)
+        principalPanel.add(datePanel)
+
+        principalPanel.add(jCheckBox)
         val result = JOptionPane.showConfirmDialog(
-            null, jPanel,
+            null, principalPanel,
             "Please Enter Event Information", JOptionPane.OK_CANCEL_OPTION
         )
         return if (result == JOptionPane.OK_OPTION) {
             val xmlElement = XmlElement("Event")
-            xmlElement.addAttribute(XmlElementAttribute("Mandatory", jCheckBox.isSelected.toString()))
             xmlElement.addAttribute(XmlElementAttribute("Description", textFieldDescription.text))
+            xmlElement.addAttribute(XmlElementAttribute("Date", date.value.toString()))
+            xmlElement.addAttribute(XmlElementAttribute("Mandatory", jCheckBox.isSelected.toString()))
             AddChildAction(view.xmlElement, xmlElement)
         }else
             null
