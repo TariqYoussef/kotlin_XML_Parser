@@ -22,10 +22,9 @@ import kotlin.system.exitProcess
 
 class Application : JFrame("XML Editor") {
 
-    private val context = XmlContext()
-
     @Inject
-    private lateinit var test: String
+    private lateinit var context: XmlContext
+
     @InjectAdd
     val elementViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
     @InjectAdd
@@ -41,8 +40,6 @@ class Application : JFrame("XML Editor") {
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(300, 300)
-
-        context.setRootXmlElement(XmlElement("Root"))
 
         contentPane.layout = BorderLayout()
 
@@ -106,8 +103,11 @@ class Application : JFrame("XML Editor") {
     }
 
     fun open() {
-        if(this::test.isInitialized)
-            add(JLabel(test), BorderLayout.NORTH)
+        if(!this::context.isInitialized)
+        {
+            context = XmlContext()
+            context.setRootXmlElement(XmlElement("Root"))
+        }
 
         add(ElementView(this, context.rootXmlElement!!), BorderLayout.CENTER)
         isVisible = true

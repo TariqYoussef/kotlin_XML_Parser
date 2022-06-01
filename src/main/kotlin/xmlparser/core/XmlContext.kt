@@ -15,7 +15,7 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 /**
  * Represents a Xml context.
  */
-class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable, IObservable<(XmlContext) -> Unit> {
+open class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable, IObservable<(XmlContext) -> Unit> {
     val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     var rootXmlElement: XmlElement? = null
     private set
