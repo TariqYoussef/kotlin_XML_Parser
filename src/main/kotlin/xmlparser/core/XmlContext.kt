@@ -20,7 +20,7 @@ open class XmlContext(version: String = "1.0", encoding: String = "UTF-8", stand
     var rootXmlElement: XmlElement? = null
     private set
 
-    override val observers: MutableList<(XmlContext) -> Unit> = mutableListOf()
+    final override val observers: MutableList<(XmlContext) -> Unit> = mutableListOf()
     /**
      * Sets root of the context.
      */
@@ -85,13 +85,13 @@ open class XmlContext(version: String = "1.0", encoding: String = "UTF-8", stand
             rootXmlElement?.addObserverToAllChildren(handler)
     }
 
-    override fun accept(visitor: IVisitor) {
+    final override fun accept(visitor: IVisitor) {
         if(visitor.visit(this) && rootXmlElement != null)
             rootXmlElement!!.accept(visitor)
         visitor.endVisit(this)
     }
 
-    override fun toString(): String {
+    final override fun toString(): String {
         return dump(4)
     }
 
