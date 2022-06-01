@@ -18,7 +18,7 @@ class AddEventPopupMenuAction : IActionPopupMenu<ElementView> {
 
     override fun action(view: ElementView): IAction? {
         val textFieldDescription = JTextField(5)
-        val date = JSpinner(SpinnerDateModel(Date(), null, null, Calendar.MINUTE))
+        val date = JSpinner(SpinnerDateModel(Date(), null, null, Calendar.DATE))
         val jCheckBox = JCheckBox("Mandatory")
 
         val principalPanel = JPanel()
@@ -44,7 +44,7 @@ class AddEventPopupMenuAction : IActionPopupMenu<ElementView> {
         return if (result == JOptionPane.OK_OPTION) {
             val xmlElement = XmlElement("Event")
             xmlElement.addAttribute(XmlElementAttribute("Description", textFieldDescription.text))
-            xmlElement.addAttribute(XmlElementAttribute("Date", date.value.toString()))
+            xmlElement.addAttribute(XmlElementAttribute("Date", (date.value as Date).toString()))
             xmlElement.addAttribute(XmlElementAttribute("Mandatory", jCheckBox.isSelected.toString()))
             AddChildAction(view.xmlElement, xmlElement)
         }else
