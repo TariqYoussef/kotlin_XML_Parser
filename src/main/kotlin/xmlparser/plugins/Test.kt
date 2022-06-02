@@ -8,7 +8,7 @@ import xmlparser.gui.action.IAction
 import xmlparser.gui.action.popupmenu.IActionPopupMenu
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
-import xmlparser.gui.view.component.IAttributeComponent
+import xmlparser.gui.view.component.AttributePanelComponent
 import javax.swing.*
 
 
@@ -94,11 +94,11 @@ class ActionPopupMenu2 : IActionPopupMenu<ElementView>
     }
 }
 
-class BoolAttributeComponent: IAttributeComponent
+class BoolAttributePanelComponent: AttributePanelComponent()
 {
     private var selected = false
     override fun accept(attributeView: AttributeView): Boolean = attributeView.xmlElementAttribute.name == "bool"
-    override fun draw(attributeView: AttributeView) {
+    override fun getComponent(attributeView: AttributeView) {
         attributeView.add(JLabel(attributeView.xmlElementAttribute.name))
         val jCheckBox = JCheckBox()
         jCheckBox.isSelected = selected

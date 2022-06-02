@@ -3,12 +3,12 @@ package xmlparser.plugins.calendar.component
 import xmlparser.gui.ActionStack
 import xmlparser.gui.action.EditAttributeValueAction
 import xmlparser.gui.view.AttributeView
-import xmlparser.gui.view.component.IAttributeComponent
+import xmlparser.gui.view.component.AttributePanelComponent
 import javax.swing.JCheckBox
 import javax.swing.JLabel
 import javax.swing.SwingConstants
 
-class MandatoryAttributeComponent: IAttributeComponent
+class MandatoryAttributePanelComponent: AttributePanelComponent()
 {
 
     override fun accept(attributeView: AttributeView): Boolean {
@@ -16,7 +16,7 @@ class MandatoryAttributeComponent: IAttributeComponent
                 attributeView.xmlElement.name == "Event"
     }
 
-    override fun draw(attributeView: AttributeView) {
+    override fun getComponent(attributeView: AttributeView) {
         val label = JLabel(attributeView.xmlElementAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
         attributeView.add(label)

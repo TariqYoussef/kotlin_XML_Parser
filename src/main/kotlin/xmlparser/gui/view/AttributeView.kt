@@ -3,7 +3,7 @@ package xmlparser.gui.view
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.Application
-import xmlparser.gui.view.component.BasicAttributeComponent
+import xmlparser.gui.view.component.BasicAttributePanelComponent
 import java.awt.GridLayout
 
 class AttributeView(private val application: Application,
@@ -32,16 +32,16 @@ class AttributeView(private val application: Application,
 
     override fun createView()
     {
-        application.attributePluginComponents.forEach {
+        application.attributePanelPluginComponents.forEach {
             if(it.accept(this))
             {
-                it.draw(this)
+                it.getComponent(this)
                 return
             }
         }
 
-        val basicAttributeComponent = BasicAttributeComponent()
-        basicAttributeComponent.draw(this)
+        val basicAttributeComponent = BasicAttributePanelComponent()
+        basicAttributeComponent.getComponent(this)
     }
 
 }
