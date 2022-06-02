@@ -1,9 +1,7 @@
 package xmlparser.gui.view
 
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
-import xmlparser.gui.action.*
 import xmlparser.gui.view.component.BasicElementValueComponent
 import java.awt.Color
 import java.awt.Font
@@ -12,7 +10,7 @@ import java.awt.GridLayout
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ElementView(private val application: Application, val xmlElement: XmlElement) : ContextView<ElementView>() {
+class ElementView(private val application: Application, val xmlElement: XmlElement) : AbstractContextView<ElementView>() {
 
     override val popupMenuName: String = "Actions"
 

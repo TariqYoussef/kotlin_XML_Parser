@@ -8,7 +8,7 @@ import java.awt.GridLayout
 
 class AttributeView(private val application: Application,
                     val xmlElement: XmlElement,
-                    val xmlElementAttribute: XmlElementAttribute) : ContextView<AttributeView>() {
+                    val xmlElementAttribute: XmlElementAttribute) : AbstractContextView<AttributeView>() {
 
     override val popupMenuName: String = "Actions"
 
