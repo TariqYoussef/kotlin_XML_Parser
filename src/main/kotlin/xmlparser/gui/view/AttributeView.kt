@@ -40,8 +40,7 @@ class AttributeView(private val application: Application,
             }
         }
 
-        val basicAttributeComponent = BasicAttributeComponent()
-        add(basicAttributeComponent.component(this))
+        add(BasicAttributeComponent().component(this))
     }
 
 }
