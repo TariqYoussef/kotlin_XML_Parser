@@ -4,8 +4,10 @@ import xmlparser.gui.ActionStack
 import xmlparser.gui.action.EditAttributeValueAction
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.component.IAttributeComponent
+import java.awt.GridLayout
 import javax.swing.JCheckBox
 import javax.swing.JLabel
+import javax.swing.JPanel
 import javax.swing.SwingConstants
 
 class MandatoryAttributeComponent: IAttributeComponent
@@ -16,10 +18,12 @@ class MandatoryAttributeComponent: IAttributeComponent
                 attributeView.xmlElement.name == "Event"
     }
 
-    override fun draw(attributeView: AttributeView) {
+    override fun component(attributeView: AttributeView): JPanel {
+        val panel = JPanel()
+        panel.layout = GridLayout(0,2)
         val label = JLabel(attributeView.xmlElementAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
-        attributeView.add(label)
+        panel.add(label)
 
         val jCheckBox = JCheckBox()
         jCheckBox.isSelected = convertToBool(attributeView.xmlElementAttribute.value)
@@ -32,7 +36,8 @@ class MandatoryAttributeComponent: IAttributeComponent
                 )
             )
         }
-        attributeView.add(jCheckBox)
+        panel.add(jCheckBox)
+        return panel
     }
 
     private fun convertToBool(boolString: String): Boolean = boolString == "true"

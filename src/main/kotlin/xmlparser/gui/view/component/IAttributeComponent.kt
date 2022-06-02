@@ -1,6 +1,7 @@
 package xmlparser.gui.view.component
 
 import xmlparser.gui.view.AttributeView
+import javax.swing.JPanel
 
 interface IAttributeComponent {
     /**
@@ -9,7 +10,7 @@ interface IAttributeComponent {
     fun accept(attributeView: AttributeView): Boolean = true
 
     /**
-     * Draws UI.
+     * Gets the component.
      */
-    fun draw(attributeView: AttributeView)
+    fun component(attributeView: AttributeView): JPanel
 }

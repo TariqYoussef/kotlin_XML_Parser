@@ -4,6 +4,7 @@ import xmlparser.gui.ActionStack
 import xmlparser.gui.action.EditAttributeValueAction
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.component.IAttributeComponent
+import java.awt.GridLayout
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.swing.*
@@ -16,10 +17,12 @@ class DateAttributeComponent: IAttributeComponent
                 attributeView.xmlElement.name == "Event"
     }
 
-    override fun draw(attributeView: AttributeView) {
+    override fun component(attributeView: AttributeView): JPanel {
+        val panel = JPanel()
+        panel.layout = GridLayout(0,2)
         val label = JLabel(attributeView.xmlElementAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
-        attributeView.add(label)
+        panel.add(label)
 
         val date = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(attributeView.xmlElementAttribute.value)
         val jSpinner = JSpinner(SpinnerDateModel(date,
@@ -33,7 +36,8 @@ class DateAttributeComponent: IAttributeComponent
                 )
             )
         }
-        attributeView.add(jSpinner)
+        panel.add(jSpinner)
+        return panel
     }
 
 }

@@ -9,6 +9,7 @@ import xmlparser.gui.action.popupmenu.IActionPopupMenu
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.component.IAttributeComponent
+import java.awt.GridLayout
 import javax.swing.*
 
 
@@ -98,8 +99,10 @@ class BoolAttributeComponent: IAttributeComponent
 {
     private var selected = false
     override fun accept(attributeView: AttributeView): Boolean = attributeView.xmlElementAttribute.name == "bool"
-    override fun draw(attributeView: AttributeView) {
-        attributeView.add(JLabel(attributeView.xmlElementAttribute.name))
+    override fun component(attributeView: AttributeView): JPanel {
+        val panel = JPanel()
+        panel.layout = GridLayout(0,2)
+        panel.add(JLabel(attributeView.xmlElementAttribute.name))
         val jCheckBox = JCheckBox()
         jCheckBox.isSelected = selected
         jCheckBox.addActionListener {
@@ -112,7 +115,8 @@ class BoolAttributeComponent: IAttributeComponent
                 )
             )
         }
-        attributeView.add(jCheckBox)
+        panel.add(jCheckBox)
+        return panel
     }
 }
 
