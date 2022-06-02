@@ -13,7 +13,7 @@ class AttributeView(private val application: Application,
     override val popupMenuName: String = "Actions"
 
     init {
-        layout = GridLayout(1,2)
+        layout = GridLayout(0,1)
         xmlElementAttribute.addObserver {
             removeAll()
             createPopupMenu(this,
