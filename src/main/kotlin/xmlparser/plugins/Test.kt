@@ -98,7 +98,7 @@ class BoolAttributePanelComponent: AttributePanelComponent()
 {
     private var selected = false
     override fun accept(attributeView: AttributeView): Boolean = attributeView.xmlElementAttribute.name == "bool"
-    override fun draw(attributeView: AttributeView) {
+    override fun getComponent(attributeView: AttributeView) {
         attributeView.add(JLabel(attributeView.xmlElementAttribute.name))
         val jCheckBox = JCheckBox()
         jCheckBox.isSelected = selected

@@ -16,7 +16,7 @@ class DateAttributePanelComponent: AttributePanelComponent()
                 attributeView.xmlElement.name == "Event"
     }
 
-    override fun draw(attributeView: AttributeView) {
+    override fun getComponent(attributeView: AttributeView) {
         val label = JLabel(attributeView.xmlElementAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
         attributeView.add(label)

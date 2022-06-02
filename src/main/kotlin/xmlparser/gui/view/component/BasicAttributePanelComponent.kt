@@ -9,7 +9,7 @@ import javax.swing.SwingConstants
 
 class BasicAttributePanelComponent : AttributePanelComponent() {
 
-    override fun draw(attributeView: AttributeView) {
+    override fun getComponent(attributeView: AttributeView) {
         val label = JLabel(attributeView.xmlElementAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
         attributeView.add(label)
