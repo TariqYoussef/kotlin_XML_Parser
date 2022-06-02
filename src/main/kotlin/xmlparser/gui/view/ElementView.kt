@@ -4,6 +4,7 @@ import xmlparser.core.element.XmlElement
 import xmlparser.gui.ActionStack
 import xmlparser.gui.Application
 import xmlparser.gui.action.*
+import xmlparser.gui.view.component.BasicElementValueComponent
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -46,11 +47,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
             panel.add(AttributeView(application, xmlElement, it))
         }
 
-        val textField = JTextField(xmlElement.value.toString())
-        textField.addActionListener{
-            ActionStack.doAction(EditElementValueAction(xmlElement, textField.text))
-        }
-        panel.add(textField)
+        panel.add(BasicElementValueComponent().component(this))
         add(panel)
 
         xmlElement.children.forEach {
