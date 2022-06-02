@@ -1,16 +1,15 @@
 package xmlparser.gui.view.component
 
-import xmlparser.gui.view.AttributeView
 import javax.swing.JPanel
 
-interface IComponent {
+interface IComponent<T> {
     /**
      * Condition to accept.
      */
-    fun accept(attributeView: AttributeView): Boolean = true
+    fun accept(view: T): Boolean = true
 
     /**
      * Gets the component.
      */
-    fun component(attributeView: AttributeView): JPanel
+    fun component(view: T): JPanel
 }

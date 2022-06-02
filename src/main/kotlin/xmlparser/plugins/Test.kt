@@ -95,14 +95,14 @@ class ActionPopupMenu2 : IActionPopupMenu<ElementView>
     }
 }
 
-class BoolAttributeComponent: IComponent
+class BoolAttributeComponent: IComponent<AttributeView>
 {
     private var selected = false
-    override fun accept(attributeView: AttributeView): Boolean = attributeView.xmlElementAttribute.name == "bool"
-    override fun component(attributeView: AttributeView): JPanel {
+    override fun accept(view: AttributeView): Boolean = view.xmlElementAttribute.name == "bool"
+    override fun component(view: AttributeView): JPanel {
         val panel = JPanel()
         panel.layout = GridLayout(0,2)
-        panel.add(JLabel(attributeView.xmlElementAttribute.name))
+        panel.add(JLabel(view.xmlElementAttribute.name))
         val jCheckBox = JCheckBox()
         jCheckBox.isSelected = selected
         jCheckBox.addActionListener {
@@ -110,7 +110,7 @@ class BoolAttributeComponent: IComponent
             selected = jCheckBox.isSelected
             ActionStack.doAction(
                 EditAttributeValueAction(
-                    attributeView.xmlElementAttribute,
+                    view.xmlElementAttribute,
                     value
                 )
             )

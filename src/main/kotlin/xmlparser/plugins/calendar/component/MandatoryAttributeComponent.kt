@@ -10,28 +10,28 @@ import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.SwingConstants
 
-class MandatoryAttributeComponent: IComponent
+class MandatoryAttributeComponent: IComponent<AttributeView>
 {
 
-    override fun accept(attributeView: AttributeView): Boolean {
-        return attributeView.xmlElementAttribute.name == "Mandatory" &&
-                attributeView.xmlElement.name == "Event"
+    override fun accept(view: AttributeView): Boolean {
+        return view.xmlElementAttribute.name == "Mandatory" &&
+                view.xmlElement.name == "Event"
     }
 
-    override fun component(attributeView: AttributeView): JPanel {
+    override fun component(view: AttributeView): JPanel {
         val panel = JPanel()
         panel.layout = GridLayout(0,2)
-        val label = JLabel(attributeView.xmlElementAttribute.name)
+        val label = JLabel(view.xmlElementAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
         panel.add(label)
 
         val jCheckBox = JCheckBox()
-        jCheckBox.isSelected = convertToBool(attributeView.xmlElementAttribute.value)
+        jCheckBox.isSelected = convertToBool(view.xmlElementAttribute.value)
         jCheckBox.addActionListener {
             val value = jCheckBox.isSelected.toString()
             ActionStack.doAction(
                 EditAttributeValueAction(
-                    attributeView.xmlElementAttribute,
+                    view.xmlElementAttribute,
                     value
                 )
             )

@@ -9,29 +9,29 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.swing.*
 
-class DateAttributeComponent: IComponent
+class DateAttributeComponent: IComponent<AttributeView>
 {
 
-    override fun accept(attributeView: AttributeView): Boolean {
-        return attributeView.xmlElementAttribute.name == "Date" &&
-                attributeView.xmlElement.name == "Event"
+    override fun accept(view: AttributeView): Boolean {
+        return view.xmlElementAttribute.name == "Date" &&
+                view.xmlElement.name == "Event"
     }
 
-    override fun component(attributeView: AttributeView): JPanel {
+    override fun component(view: AttributeView): JPanel {
         val panel = JPanel()
         panel.layout = GridLayout(0,2)
-        val label = JLabel(attributeView.xmlElementAttribute.name)
+        val label = JLabel(view.xmlElementAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
         panel.add(label)
 
-        val date = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(attributeView.xmlElementAttribute.value)
+        val date = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(view.xmlElementAttribute.value)
         val jSpinner = JSpinner(SpinnerDateModel(date,
             null, null, Calendar.MINUTE))
         jSpinner.addChangeListener {
             val value = jSpinner.value.toString()
             ActionStack.doAction(
                 EditAttributeValueAction(
-                    attributeView.xmlElementAttribute,
+                    view.xmlElementAttribute,
                     value
                 )
             )
