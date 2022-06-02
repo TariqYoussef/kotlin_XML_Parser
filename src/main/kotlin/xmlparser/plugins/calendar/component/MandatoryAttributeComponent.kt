@@ -3,14 +3,14 @@ package xmlparser.plugins.calendar.component
 import xmlparser.gui.ActionStack
 import xmlparser.gui.action.EditAttributeValueAction
 import xmlparser.gui.view.AttributeView
-import xmlparser.gui.view.component.IAttributeComponent
+import xmlparser.gui.view.component.IComponent
 import java.awt.GridLayout
 import javax.swing.JCheckBox
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.SwingConstants
 
-class MandatoryAttributeComponent: IAttributeComponent
+class MandatoryAttributeComponent: IComponent
 {
 
     override fun accept(attributeView: AttributeView): Boolean {

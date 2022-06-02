@@ -9,7 +9,7 @@ import javax.swing.JPanel
 import javax.swing.JTextField
 import javax.swing.SwingConstants
 
-class BasicAttributeComponent : IAttributeComponent {
+class BasicAttributeComponent : IComponent {
 
     override fun component(attributeView: AttributeView): JPanel {
         val panel = JPanel()

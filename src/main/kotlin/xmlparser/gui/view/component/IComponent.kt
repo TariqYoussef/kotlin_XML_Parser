@@ -3,7 +3,7 @@ package xmlparser.gui.view.component
 import xmlparser.gui.view.AttributeView
 import javax.swing.JPanel
 
-interface IAttributeComponent {
+interface IComponent {
     /**
      * Condition to accept.
      */

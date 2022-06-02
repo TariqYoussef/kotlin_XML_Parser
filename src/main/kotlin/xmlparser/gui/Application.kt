@@ -12,7 +12,7 @@ import xmlparser.gui.action.popupmenu.element.RenameElementPopupMenuAction
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
-import xmlparser.gui.view.component.IAttributeComponent
+import xmlparser.gui.view.component.IComponent
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.io.PrintWriter
@@ -30,7 +30,7 @@ class Application : JFrame("XML Editor") {
     @InjectAdd
     val attributeViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<AttributeView>>()
     @InjectAdd
-    val attributePluginComponents = mutableListOf<IAttributeComponent>()
+    val attributePluginComponents = mutableListOf<IComponent>()
 
     val elementViewPopupMenuActions: List<IActionPopupMenu<ElementView>> = listOf(AddChildPopupMenuAction(),
         RenameElementPopupMenuAction(), AddAttributePopupMenuAction(), RemoveElementPopupMenuAction())
