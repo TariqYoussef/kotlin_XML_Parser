@@ -15,8 +15,6 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
 
     override val popupMenuName: String = "Actions"
 
-    private val panel = JPanel()
-
     init {
         layout = GridLayout(2, 1)
         border = CompoundBorder(
@@ -41,11 +39,11 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
 
     override fun createView()
     {
-        panel.removeAll()
+        val panel = JPanel()
         panel.layout = GridLayout(xmlElement.attributes.size + 1,1)
 
         xmlElement.attributes.forEach {
-            this.panel.add(AttributeView(application, xmlElement, it))
+            panel.add(AttributeView(application, xmlElement, it))
         }
 
         val textField = JTextField(xmlElement.value.toString())
