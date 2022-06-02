@@ -10,7 +10,7 @@ abstract class AttributePanelComponent : JPanel() {
     open fun accept(attributeView: AttributeView): Boolean = true
 
     /**
-     * Gets Component.
+     * Draws Component.
      */
-    abstract fun getComponent(attributeView: AttributeView)
+    abstract fun draw(attributeView: AttributeView)
 }

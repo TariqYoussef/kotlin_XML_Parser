@@ -35,13 +35,13 @@ class AttributeView(private val application: Application,
         application.attributePanelPluginComponents.forEach {
             if(it.accept(this))
             {
-                it.getComponent(this)
+                it.draw(this)
                 return
             }
         }
 
         val basicAttributeComponent = BasicAttributePanelComponent()
-        basicAttributeComponent.getComponent(this)
+        basicAttributeComponent.draw(this)
     }
 
 }
