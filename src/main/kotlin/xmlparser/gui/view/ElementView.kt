@@ -16,7 +16,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
     override val popupMenuName: String = "Actions"
 
     init {
-        layout = GridLayout(2, 1)
+        layout = GridLayout(0, 1)
         border = CompoundBorder(
             BorderFactory.createEmptyBorder(30, 10, 10, 10),
             BorderFactory.createLineBorder(Color.BLACK, 2, true)
