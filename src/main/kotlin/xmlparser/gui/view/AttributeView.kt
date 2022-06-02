@@ -32,7 +32,7 @@ class AttributeView(private val application: Application,
 
     override fun createView()
     {
-        application.attributePluginComponents.forEach {
+        application.attributeViewPluginComponents.forEach {
             if(it.accept(this))
             {
                 add(it.component(this))

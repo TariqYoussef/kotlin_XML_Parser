@@ -30,7 +30,7 @@ class Application : JFrame("XML Editor") {
     @InjectAdd
     val attributeViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<AttributeView>>()
     @InjectAdd
-    val attributePluginComponents = mutableListOf<IComponent<AttributeView>>()
+    val attributeViewPluginComponents = mutableListOf<IComponent<AttributeView>>()
 
     val elementViewPopupMenuActions: List<IActionPopupMenu<ElementView>> = listOf(AddChildPopupMenuAction(),
         RenameElementPopupMenuAction(), AddAttributePopupMenuAction(), RemoveElementPopupMenuAction())
