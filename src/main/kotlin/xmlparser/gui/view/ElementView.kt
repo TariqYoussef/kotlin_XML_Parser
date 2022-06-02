@@ -40,7 +40,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
     override fun createView()
     {
         val panel = JPanel()
-        panel.layout = GridLayout(xmlElement.attributes.size + 1,1)
+        panel.layout = GridLayout(0,1)
 
         xmlElement.attributes.forEach {
             panel.add(AttributeView(application, xmlElement, it))
