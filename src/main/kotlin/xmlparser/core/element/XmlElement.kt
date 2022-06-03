@@ -73,16 +73,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     }
 
     /**
-     * Updates an attribute of the xml element.
-     */
-    fun updateAttribute(xmlElementAttribute: XmlElementAttribute, newName: String, newValue: String)
-    {
-        xmlElementAttribute.name = newName
-        xmlElementAttribute.value = newValue
-        notifyObservers { it(this) }
-    }
-
-    /**
      * Tells if the xml element has children.
      */
     fun hasChildren() = children.isNotEmpty()
@@ -91,16 +81,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
      * Tells the number of children of the xml element.
      */
     fun childrenCount() = children.count()
-
-    /**
-     * Updates name and value.
-     */
-    fun updateEntity(newName: String, newValue: String)
-    {
-        name = newName
-        value = newValue
-        notifyObservers { it(this) }
-    }
 
     /**
      * Tells if xml element has a father.
