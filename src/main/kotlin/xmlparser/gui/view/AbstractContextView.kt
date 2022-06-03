@@ -21,31 +21,25 @@ abstract class AbstractContextView<T> : JPanel() {
     {
         val popupMenu = JPopupMenu(popupMenuName)
 
-        viewPopupMenuActions.forEach {
-            if(it.accept(view))
-            {
-                val jMenuItem = JMenuItem(it.displayName)
-                jMenuItem.addActionListener {_ ->
-                    val action = it.action(view)
-                    if(action != null)
-                        ActionStack.doAction(action)
+        fun populatePopupMenu(popupMenuActions: List<IActionPopupMenu<T>>)
+        {
+            popupMenuActions.forEach {
+                if(it.accept(view))
+                {
+                    val jMenuItem = JMenuItem(it.displayName)
+                    jMenuItem.addActionListener {_ ->
+                        val action = it.action(view)
+                        if(action != null)
+                            ActionStack.doAction(action)
+                    }
+                    popupMenu.add(jMenuItem)
                 }
-                popupMenu.add(jMenuItem)
             }
         }
+
+        populatePopupMenu(viewPopupMenuActions)
         popupMenu.addSeparator()
-        viewPluginPopupMenuActions.forEach {
-            if(it.accept(view))
-            {
-                val jMenuItem = JMenuItem(it.displayName)
-                jMenuItem.addActionListener {_ ->
-                    val action = it.action(view)
-                    if(action != null)
-                        ActionStack.doAction(action)
-                }
-                popupMenu.add(jMenuItem)
-            }
-        }
+        populatePopupMenu(viewPluginPopupMenuActions)
 
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
