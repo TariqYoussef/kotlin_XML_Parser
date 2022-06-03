@@ -20,9 +20,6 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
         field = value
         notifyObservers { it(this) }
     }
-    init {
-        require(name != ""){"Element name cannot be empty."}
-    }
 
     val children: MutableList<XmlElement> = mutableListOf()
     val attributes: MutableList<XmlElementAttribute> = mutableListOf()
@@ -30,6 +27,10 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     private set
 
     override val observers: MutableList<(XmlElement) -> Unit> = mutableListOf()
+
+    init {
+        require(name != ""){"Element name cannot be empty."}
+    }
 
     /**
      * Adds a child to the xml element.
@@ -143,7 +144,7 @@ class XmlElement(name: String, value: Any = "") : IVisitable, IObservable<(XmlEl
     /**
      * Adds observer to all children
      */
-    internal fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
+    fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
     {
         this.addObserver(handler)
         children.forEach{
