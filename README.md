@@ -22,3 +22,29 @@ To dump a xml context we can do the following:
 ```kotlin
 xmlContext.dump() // or toString()
 ```
+### Xml Elements and Attributes
+A xml element is a something commonly known as a xml tag, this is a xml element:
+````xml
+<element></element>
+````
+A xml element can have a value:
+````xml
+<element>Value Xml Element</element>
+````
+And multiple attributes:
+````xml
+<element attribute1="valueAttribute2" attribute2="valueAttribute2"></element>
+````
+To create a xml element we need to instantiate the XmlElement class:
+```kotlin
+val xmlElement: XmlElement = XmlElement("name", "value")
+```
+We can add an attribute to a xmlElement like this:
+```kotlin
+val xmlElementAttribute: XmlElementAttribute = XmlElementAttribute("attributeName", "attributeValue")
+xmlElement.addAttribute(xmlElementAttribute)
+```
+### Visitor and observation
+A xml context is visitable and observable.
+
+### Serializing classes - Reflexion
