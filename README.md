@@ -35,6 +35,12 @@ And multiple attributes:
 ````xml
 <element attribute1="valueAttribute2" attribute2="valueAttribute2"></element>
 ````
+A xml element can also have a child or multiple children:
+````xml
+<element>
+    <child></child>
+</element>
+````
 To create a xml element we need to instantiate the XmlElement class:
 ```kotlin
 val xmlElement: XmlElement = XmlElement("name", "value")
@@ -43,6 +49,11 @@ We can add an attribute to a xmlElement like this:
 ```kotlin
 val xmlElementAttribute: XmlElementAttribute = XmlElementAttribute("attributeName", "attributeValue")
 xmlElement.addAttribute(xmlElementAttribute)
+```
+We can a child to a xml element this way:
+```kotlin
+val xmlElementChild: XmlElement = XmlElement("child", "valueChild")
+xmlElement.addChild(xmlElementChild) // or xmlElement.addChild("child", "valueChild")
 ```
 ### Visitor and observation
 A xml context is visitable and observable.
