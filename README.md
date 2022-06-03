@@ -55,7 +55,9 @@ We can a child to a xml element this way:
 val xmlElementChild: XmlElement = XmlElement("child", "valueChild")
 xmlElement.addChild(xmlElementChild) // or xmlElement.addChild("child", "valueChild")
 ```
-### Visitor and observation
+### Visiting and observing
 A xml context is visitable and observable.
+
+### Standard Containers Support
 
 ### Serializing classes - Reflexion
