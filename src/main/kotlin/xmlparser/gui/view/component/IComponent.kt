@@ -11,5 +11,5 @@ interface IComponent<T> {
     /**
      * Gets the component.
      */
-    fun component(view: T): JPanel
+    fun component(view: T): JPanel?
 }

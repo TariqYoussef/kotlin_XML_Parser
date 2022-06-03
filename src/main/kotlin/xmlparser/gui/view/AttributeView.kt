@@ -35,7 +35,9 @@ class AttributeView(private val application: Application,
         application.attributeViewPluginComponents.forEach {
             if(it.accept(this))
             {
-                add(it.component(this))
+                val component = it.component(this)
+                if(component != null)
+                    add(component)
                 return
             }
         }

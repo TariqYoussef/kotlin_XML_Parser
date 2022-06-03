@@ -38,15 +38,23 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
 
     override fun createView()
     {
-        val panel = JPanel()
-        panel.layout = GridLayout(0,1)
-
         xmlElement.attributes.forEach {
-            panel.add(AttributeView(application, xmlElement, it))
+            add(AttributeView(application, xmlElement, it))
         }
 
-        panel.add(BasicElementValueComponent().component(this))
-        add(panel)
+        var componentAdded = false
+        application.elementValueViewPluginComponents.forEach {
+            if(it.accept(this))
+            {
+                val component = it.component(this)
+                if(component != null)
+                    add(component)
+                componentAdded = true
+                return@forEach
+            }
+        }
+
+        if(!componentAdded) add(BasicElementValueComponent().component(this))
 
         xmlElement.children.forEach {
             add(ElementView(application, it))
