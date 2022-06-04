@@ -25,7 +25,8 @@ internal class XmlContextTest {
     @Test
     internal fun iterableBasicTypeSerialization() {
         val list = listOf(1, 2, 3)
-        xmlContext.setRootXmlElement(list)
+        val element = XmlElement(list, "iterable")
+        xmlContext.rootXmlElement = element
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><iterable><item>1</item><item>2</item><item>3</item></iterable>"
         assertEquals(expected, xmlContext.dump())
     }
@@ -33,7 +34,8 @@ internal class XmlContextTest {
     @Test
     internal fun iterableAnotherTypeSerialization() {
         val list = listOf(Entity(0, "0"), Entity(1, "1"), Entity(2, "2"))
-        xmlContext.setRootXmlElement(list)
+        val element = XmlElement(list, "iterable")
+        xmlContext.rootXmlElement = element
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><iterable><item><id>0</id><name>0</name></item><item><id>1</id><name>1</name></item><item><id>2</id><name>2</name></item></iterable>"
         assertEquals(expected, xmlContext.dump())
     }
@@ -41,7 +43,8 @@ internal class XmlContextTest {
     @Test
     internal fun mapBasicTypeSerialization() {
         val map = mapOf(Pair(1, 2), Pair(3, 4))
-        xmlContext.setRootXmlElement(map)
+        val element = XmlElement(map, "map")
+        xmlContext.rootXmlElement = element
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><map><item><key>1</key><value>2</value></item><item><key>3</key><value>4</value></item></map>"
         assertEquals(expected, xmlContext.dump())
     }
@@ -51,29 +54,30 @@ internal class XmlContextTest {
         val map = mapOf(Pair(Entity(0, "0"), listOf(Point(0,0), Point(1,1))),
                         Pair(Entity(1, "1"), listOf(Point(1,1), Point(2,2))),
                         Pair(Entity(2, "2"), listOf(Point(2,2), Point(3,3))))
-        xmlContext.setRootXmlElement(map)
+        val element = XmlElement(map, "map")
+        xmlContext.rootXmlElement = element
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><map><item><key><id>0</id><name>0</name></key><value><item><x>0</x><y>0</y></item><item><x>1</x><y>1</y></item></value></item><item><key><id>1</id><name>1</name></key><value><item><x>1</x><y>1</y></item><item><x>2</x><y>2</y></item></value></item><item><key><id>2</id><name>2</name></key><value><item><x>2</x><y>2</y></item><item><x>3</x><y>3</y></item></value></item></map>"
         assertEquals(expected, xmlContext.dump())
     }
 
     @Test
     internal fun basicTypeSerialization() {
-        xmlContext.setRootXmlElement(XmlElement("container"))
+        xmlContext.rootXmlElement = XmlElement("container")
         val int = 1
         val double = 1.0
         val string = "string"
         val boolean = true
-        xmlContext.rootXmlElement!!.addChild("Int", int)
-        xmlContext.rootXmlElement!!.addChild("Double", double)
+        xmlContext.rootXmlElement!!.addChild("Int", int.toString())
+        xmlContext.rootXmlElement!!.addChild("Double", double.toString())
         xmlContext.rootXmlElement!!.addChild("String", string)
-        xmlContext.rootXmlElement!!.addChild("Boolean", boolean)
+        xmlContext.rootXmlElement!!.addChild("Boolean", boolean.toString())
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><container><Int>1</Int><Double>1.0</Double><String>string</String><Boolean>true</Boolean></container>"
         assertEquals(expected, xmlContext.dump())
     }
 
     @Test
     internal fun enumSerialization() {
-        xmlContext.setRootXmlElement(Direction.NORTH)
+        xmlContext.rootXmlElement = XmlElement(Direction.NORTH)
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><Direction>NORTH</Direction>"
         assertEquals(expected, xmlContext.dump())
     }
@@ -101,7 +105,7 @@ internal class XmlContextTest {
     internal fun anotherTypeSerialization()
     {
         val complex = Complex()
-        xmlContext.setRootXmlElement(complex)
+        xmlContext.rootXmlElement = XmlElement(complex)
         val expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><ComplexEntity attribute1=\"Attribute content\" SpecialAttribute=\"Attribute content\">Data Example<entity><id>1</id><name>1</name></entity><id>1</id><maps><item><key>0</key><value><x>0</x><y>0</y></value></item><item><key>1</key><value><x>1</x><y>1</y></value></item></maps><point><x>1</x><y>1</y></point></ComplexEntity>"
         assertEquals(expected, xmlContext.dump())
     }
@@ -109,7 +113,7 @@ internal class XmlContextTest {
     @Test
     internal fun filterVisitor() {
         val complex = Complex()
-        xmlContext.setRootXmlElement(complex)
+        xmlContext.rootXmlElement = XmlElement(complex)
 
         val filterEntity: (xmlElement: XmlElement) -> Boolean = {
             it.name == "ComplexEntity" || it.name == "entity" ||
@@ -139,7 +143,7 @@ internal class XmlContextTest {
     @Test
     internal fun findVisitor() {
         val complex = Complex()
-        xmlContext.setRootXmlElement(complex)
+        xmlContext.rootXmlElement = XmlElement(complex)
 
         val filterPoint: (xmlElement: XmlElement) -> Boolean = {
             it.name == "ComplexEntity" || it.name == "entity" ||

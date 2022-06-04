@@ -108,7 +108,7 @@ class Application : JFrame("XML Editor") {
         if(!this::context.isInitialized)
         {
             context = XmlContext()
-            context.setRootXmlElement(XmlElement("Root"))
+            context.rootXmlElement = XmlElement("Root")
         }
 
         add(ElementView(this, context.rootXmlElement!!), BorderLayout.CENTER)

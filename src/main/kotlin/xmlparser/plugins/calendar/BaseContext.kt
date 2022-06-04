@@ -5,6 +5,6 @@ import xmlparser.core.element.XmlElement
 
 class BaseContext : XmlContext() {
     init {
-        this.setRootXmlElement(XmlElement("Calendar"))
+        this.rootXmlElement = XmlElement("Calendar")
     }
 }
