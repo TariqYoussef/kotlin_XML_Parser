@@ -89,3 +89,65 @@ But first, let's see the available annotations that we can use to better customi
 | XmlElementContent   | Content of the element       |
 | XmlElementIgnore    | This element will be ignored |
 | XmlElementAttribute | Attribute of the element     |
+
+Example of usage of the annotations when serializing a custom class.
+```kotlin
+private data class Entity(private val id: Int, val name: String)
+
+private data class Point(val x: Int, val y: Int)
+
+@XmlElementName("ComplexEntity")
+private class Complex {
+    @XmlElementContent
+    val data: String = "Data Example"
+    @XmlElementIgnore
+    val ignore: String = "Element to ignore"
+    @XmlElementAttribute
+    val attribute1: String = "Attribute content"
+    @XmlElementAttribute
+    @XmlElementName("SpecialAttribute")
+    val attribute2: String = "Attribute content"
+
+    private val entity: Entity = Entity(1, "1")
+    private val point: Point = Point(1,1)
+    private val id: Int = 1
+    @XmlElementName("maps")
+    val map: Map<Int, Point> = mapOf(Pair(0, Point(0, 0)), Pair(1, Point(1, 1)))
+}
+```
+Serialization:
+```kotlin
+val complex = Complex()
+xmlContext.rootXmlElement = XmlElement(complex)
+```
+Result:
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ComplexEntity attribute1="Attribute content" SpecialAttribute="Attribute content">Data Example
+    <entity>
+        <id>1</id>
+        <name>1</name>
+    </entity>
+    <id>1</id>
+    <maps>
+        <item>
+            <key>0</key>
+            <value>
+                <x>0</x>
+                <y>0</y>
+            </value>
+        </item>
+        <item>
+            <key>1</key>
+            <value>
+                <x>1</x>
+                <y>1</y>
+            </value>
+        </item>
+    </maps>
+    <point>
+        <x>1</x>
+        <y>1</y>
+    </point>
+</ComplexEntity>
+```
