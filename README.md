@@ -80,7 +80,7 @@ This way, the context will be:
 </iterable>
 ```
 ### Serializing classes - Reflexion
-In xmlparser.core it's very easy serialize custom classes.
+In xmlparser.core it's very easy to serialize custom classes.
 But first, let's see the available annotations that we can use to better customize the behaviour of the serialization.
 
 | Name                | Usage                        |
