@@ -16,7 +16,7 @@ A xml file must have a root/principal node, we can create a xml element and set 
 We can do this by:
 ```kotlin
 val rootElement: XmlElement = XmlElement(name = "Root")
-xmlContext.setRootXmlElement(rootElement)
+xmlContext.rootXmlElement = rootElement
 ```
 To dump a xml context we can do the following:
 ```kotlin
@@ -59,5 +59,25 @@ xmlElement.addChild(xmlElementChild) // or xmlElement.addChild("child", "valueCh
 A xml context is visitable and observable.
 
 ### Standard Containers Support
+xmlparser.core supports:
+1. Arrays
+2. Classes that implement iterable(set and list)
+3. Maps
 
+Example:
+```kotlin
+val list = listOf(1, 2, 3)
+val element = XmlElement(list, name = "iterable")
+xmlContext.rootXmlElement = element
+```
+This way, the context will be:
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<iterable>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</iterable>
+```
 ### Serializing classes - Reflexion
+In xmlparser.core it's very easy serialize custom classes.

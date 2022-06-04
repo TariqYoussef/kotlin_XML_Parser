@@ -36,9 +36,9 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
         require(name != ""){"Element name cannot be empty."}
     }
 
-    constructor(element: Any) : this(element, getElementName(element))
+    constructor(element: Any) : this(element, getName(element))
 
-    constructor(element: Any, elementName: String) : this(elementName, getElementValue(element))
+    constructor(element: Any, name: String) : this(name, getValue(element))
     {
         if (isBasicType(element) || isEnum(element))
         {
@@ -202,7 +202,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
 
     private companion object
     {
-        private fun getElementName(element: Any): String
+        private fun getName(element: Any): String
         {
             val kClass: KClass<out Any> = element::class
             return if (kClass.hasAnnotation<XmlElementName>()) {
@@ -218,7 +218,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
             }
         }
 
-        private fun getElementValue(element: Any): String
+        private fun getValue(element: Any): String
         {
             if (isBasicType(element) || isEnum(element)) {
                 return element.toString()
