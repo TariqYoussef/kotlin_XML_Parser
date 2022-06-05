@@ -1,8 +1,9 @@
-package xmlparser.gui.view.component
+package xmlparser.gui.view.component.attribute
 
 import xmlparser.gui.ActionStack
 import xmlparser.gui.action.EditAttributeValueAction
 import xmlparser.gui.view.AttributeView
+import xmlparser.gui.view.component.IComponent
 import java.awt.GridLayout
 import javax.swing.JLabel
 import javax.swing.JPanel

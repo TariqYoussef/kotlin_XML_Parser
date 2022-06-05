@@ -2,7 +2,7 @@ package xmlparser.gui.view
 
 import xmlparser.core.element.XmlElement
 import xmlparser.gui.Application
-import xmlparser.gui.view.component.BasicElementValueComponent
+import xmlparser.gui.view.component.element.BasicElementValueComponent
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics

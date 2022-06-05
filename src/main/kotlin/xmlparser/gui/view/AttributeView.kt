@@ -3,7 +3,7 @@ package xmlparser.gui.view
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
 import xmlparser.gui.Application
-import xmlparser.gui.view.component.BasicAttributeComponent
+import xmlparser.gui.view.component.attribute.BasicAttributeComponent
 import java.awt.GridLayout
 
 class AttributeView(private val application: Application,
