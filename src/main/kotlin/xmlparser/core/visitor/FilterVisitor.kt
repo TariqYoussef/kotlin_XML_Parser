@@ -1,4 +1,4 @@
-package xmlparser.core.visitors
+package xmlparser.core.visitor
 
 import xmlparser.core.IVisitor
 import xmlparser.core.XmlContext

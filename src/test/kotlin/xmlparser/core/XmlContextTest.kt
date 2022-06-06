@@ -3,8 +3,8 @@ package xmlparser.core
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import xmlparser.core.element.XmlElement
-import xmlparser.core.visitors.FilterVisitor
-import xmlparser.core.visitors.FindVisitor
+import xmlparser.core.visitor.FilterVisitor
+import xmlparser.core.visitor.FindVisitor
 import kotlin.test.assertEquals
 
 internal class XmlContextTest {

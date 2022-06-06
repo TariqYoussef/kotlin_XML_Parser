@@ -1,4 +1,4 @@
-package xmlparser.core.utils
+package xmlparser.core.util
 
 fun createFilledString(size: Int, char: Char): String
 {

@@ -1,14 +1,6 @@
 package xmlparser.core
 
 import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlElementAttribute
-import xmlparser.core.type.createXmlElement
-import xmlparser.core.utils.*
-import kotlin.reflect.KClass
-import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.hasAnnotation
-import kotlin.reflect.jvm.isAccessible
 
 typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 
