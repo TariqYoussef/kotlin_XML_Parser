@@ -113,8 +113,7 @@ class Application : JFrame("XML Editor") {
     fun open() {
         if(!this::context.isInitialized)
         {
-            context = XmlContext()
-            context.rootXmlElement = XmlElement("Root")
+            context = DefaultContext()
         }
 
         add(ElementView(this, context.rootXmlElement!!), BorderLayout.CENTER)
