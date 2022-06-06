@@ -17,16 +17,16 @@ class AttributeView(private val application: Application,
         xmlElementAttribute.addObserver {
             removeAll()
             createPopupMenu(this,
-                application.attributeViewPopupMenuActions,
-                application.attributeViewPluginPopupMenuActions)
+                application.attributeViewMenuItems,
+                application.attributeViewPluginMenuItems)
             createView()
             updateUI()
             revalidate()
             repaint()
         }
         createPopupMenu(this,
-            application.attributeViewPopupMenuActions,
-            application.attributeViewPluginPopupMenuActions)
+            application.attributeViewMenuItems,
+            application.attributeViewPluginMenuItems)
         createView()
     }
 

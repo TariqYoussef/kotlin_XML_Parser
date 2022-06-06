@@ -23,16 +23,16 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         xmlElement.addObserver {
             removeAll()
             createPopupMenu(this,
-                application.elementViewPopupMenuActions,
-                application.elementViewPluginPopupMenuActions)
+                application.elementViewMenuItems,
+                application.elementViewPluginMenuItems)
             createView()
             updateUI()
             revalidate()
             repaint()
         }
         createPopupMenu(this,
-            application.elementViewPopupMenuActions,
-            application.elementViewPluginPopupMenuActions)
+            application.elementViewMenuItems,
+            application.elementViewPluginMenuItems)
         createView()
     }
 

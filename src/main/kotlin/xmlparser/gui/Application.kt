@@ -2,17 +2,17 @@ package xmlparser.gui
 
 import xmlparser.core.XmlContext
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.action.popupmenu.*
-import xmlparser.gui.action.popupmenu.attribute.RemoveAttributePopupMenuAction
-import xmlparser.gui.action.popupmenu.attribute.RenameAttributePopupMenuAction
-import xmlparser.gui.action.popupmenu.element.AddAttributePopupMenuAction
-import xmlparser.gui.action.popupmenu.element.AddChildPopupMenuAction
-import xmlparser.gui.action.popupmenu.element.RemoveElementPopupMenuAction
-import xmlparser.gui.action.popupmenu.element.RenameElementPopupMenuAction
 import xmlparser.gui.view.AttributeView
 import xmlparser.gui.view.ElementView
 import xmlparser.gui.view.HistoryView
 import xmlparser.gui.view.component.IComponent
+import xmlparser.gui.view.menuitem.IMenuItem
+import xmlparser.gui.view.menuitem.attribute.RemoveAttributeMenuItem
+import xmlparser.gui.view.menuitem.attribute.RenameAttributeMenuItem
+import xmlparser.gui.view.menuitem.element.AddAttributeMenuItem
+import xmlparser.gui.view.menuitem.element.AddChildMenuItem
+import xmlparser.gui.view.menuitem.element.RemoveElementMenuItem
+import xmlparser.gui.view.menuitem.element.RenameElementMenuItem
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.io.PrintWriter
@@ -26,18 +26,24 @@ class Application : JFrame("XML Editor") {
     private lateinit var context: XmlContext
 
     @InjectAdd
-    val elementViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<ElementView>>()
+    val elementViewPluginMenuItems = mutableListOf<IMenuItem<ElementView>>()
     @InjectAdd
-    val attributeViewPluginPopupMenuActions = mutableListOf<IActionPopupMenu<AttributeView>>()
+    val attributeViewPluginMenuItems = mutableListOf<IMenuItem<AttributeView>>()
     @InjectAdd
     val attributeViewPluginComponents = mutableListOf<IComponent<AttributeView>>()
     @InjectAdd
     val elementValueViewPluginComponents = mutableListOf<IComponent<ElementView>>()
 
-    val elementViewPopupMenuActions: List<IActionPopupMenu<ElementView>> = listOf(AddChildPopupMenuAction(),
-        RenameElementPopupMenuAction(), AddAttributePopupMenuAction(), RemoveElementPopupMenuAction())
-    val attributeViewPopupMenuActions: List<IActionPopupMenu<AttributeView>> = listOf(RemoveAttributePopupMenuAction(),
-        RenameAttributePopupMenuAction())
+    val elementViewMenuItems: List<IMenuItem<ElementView>> = listOf(
+        AddChildMenuItem(),
+        RenameElementMenuItem(),
+        AddAttributeMenuItem(),
+        RemoveElementMenuItem()
+    )
+    val attributeViewMenuItems: List<IMenuItem<AttributeView>> = listOf(
+        RemoveAttributeMenuItem(),
+        RenameAttributeMenuItem()
+    )
 
     init {
         defaultCloseOperation = EXIT_ON_CLOSE

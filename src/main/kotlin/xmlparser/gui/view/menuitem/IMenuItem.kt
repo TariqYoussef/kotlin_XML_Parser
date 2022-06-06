@@ -11,5 +11,5 @@ interface IMenuItem<T> {
     /**
      * Gets the menu item.
      */
-    fun menuItem(view: T): JMenuItem?
+    fun menuItem(view: T): JMenuItem
 }

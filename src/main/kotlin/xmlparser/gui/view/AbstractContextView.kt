@@ -1,10 +1,8 @@
 package xmlparser.gui.view
 
-import xmlparser.gui.ActionStack
-import xmlparser.gui.action.popupmenu.IActionPopupMenu
+import xmlparser.gui.view.menuitem.IMenuItem
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import javax.swing.JMenuItem
 import javax.swing.JPanel
 import javax.swing.JPopupMenu
 import javax.swing.SwingUtilities
@@ -16,30 +14,24 @@ abstract class AbstractContextView<T> : JPanel() {
     internal abstract fun createView()
 
     internal fun createPopupMenu(view: T,
-                                 viewPopupMenuActions: List<IActionPopupMenu<T>>,
-                                 viewPluginPopupMenuActions: MutableList<IActionPopupMenu<T>> )
+                                 viewMenuItems: List<IMenuItem<T>>,
+                                 viewPluginMenuItems: MutableList<IMenuItem<T>> )
     {
         val popupMenu = JPopupMenu(popupMenuName)
 
-        fun populatePopupMenu(popupMenuActions: List<IActionPopupMenu<T>>)
+        fun populatePopupMenu(popupMenuActions: List<IMenuItem<T>>)
         {
             popupMenuActions.forEach {
                 if(it.accept(view))
                 {
-                    val jMenuItem = JMenuItem(it.displayName)
-                    jMenuItem.addActionListener {_ ->
-                        val action = it.action(view)
-                        if(action != null)
-                            ActionStack.doAction(action)
-                    }
-                    popupMenu.add(jMenuItem)
+                    popupMenu.add(it.menuItem(view))
                 }
             }
         }
 
-        populatePopupMenu(viewPopupMenuActions)
+        populatePopupMenu(viewMenuItems)
         popupMenu.addSeparator()
-        populatePopupMenu(viewPluginPopupMenuActions)
+        populatePopupMenu(viewPluginMenuItems)
 
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
