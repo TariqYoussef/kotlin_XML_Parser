@@ -3,6 +3,7 @@ package xmlparser.editor.view
 import xmlparser.core.element.XmlElement
 import xmlparser.editor.Application
 import xmlparser.editor.view.component.element.BasicElementValueComponent
+import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -15,7 +16,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
     override val popupMenuName: String = "Actions"
 
     init {
-        layout = GridLayout(0, 1)
+        layout = BorderLayout()
         border = CompoundBorder(
             BorderFactory.createEmptyBorder(30, 10, 10, 10),
             BorderFactory.createLineBorder(Color.BLACK, 2, true)
@@ -38,9 +39,12 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
 
     override fun createView()
     {
+        val northPanel = JPanel()
+        northPanel.layout = GridLayout(0, 1)
         xmlElement.attributes.forEach {
-            add(AttributeView(application, xmlElement, it))
+            northPanel.add(AttributeView(application, xmlElement, it))
         }
+        add(northPanel, BorderLayout.NORTH)
 
         var componentAdded = false
         application.elementValueViewPluginComponents.forEach {
@@ -54,11 +58,14 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
             }
         }
 
-        if(!componentAdded) add(BasicElementValueComponent().component(this))
+        if(!componentAdded) add(BasicElementValueComponent().component(this), BorderLayout.CENTER)
 
+        val southPanel = JPanel()
+        southPanel.layout = GridLayout(0, 1)
         xmlElement.children.forEach {
             add(ElementView(application, it))
         }
+        add(southPanel, BorderLayout.SOUTH)
     }
 
     override fun paintComponent(g: Graphics) {
