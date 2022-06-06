@@ -1,13 +1,13 @@
 package xmlparser.plugins
 
 import xmlparser.core.element.XmlElement
-import xmlparser.gui.ActionStack
-import xmlparser.gui.action.AddChildAction
-import xmlparser.gui.action.EditAttributeValueAction
-import xmlparser.gui.view.AttributeView
-import xmlparser.gui.view.ElementView
-import xmlparser.gui.view.component.IComponent
-import xmlparser.gui.view.menuitem.IMenuItem
+import xmlparser.editor.ActionStack
+import xmlparser.editor.action.AddChildAction
+import xmlparser.editor.action.EditAttributeValueAction
+import xmlparser.editor.view.AttributeView
+import xmlparser.editor.view.ElementView
+import xmlparser.editor.view.component.IComponent
+import xmlparser.editor.view.menuitem.IMenuItem
 import java.awt.GridLayout
 import javax.swing.*
 

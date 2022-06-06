@@ -1,7 +1,7 @@
 package xmlparser.plugins.calendar.component
 
-import xmlparser.gui.view.ElementView
-import xmlparser.gui.view.component.IComponent
+import xmlparser.editor.view.ElementView
+import xmlparser.editor.view.component.IComponent
 import javax.swing.JPanel
 
 class CalendarElementValueComponent : IComponent<ElementView> {

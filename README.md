@@ -2,7 +2,7 @@
 
 This project has 2 main modules:
 1. **xmlparser.core** - Standalone library that creates and edits xml documents with packages/classes/methods well documented.
-2. **xmlparser.gui** - A graphical user interface that helps to edit a xml document. It uses the xmlparse.core library and its highly extendable using plugins.  
+2. **xmlparser.editor** - A graphical user interface that helps to edit a xml document. It uses the xmlparse.core library and its highly extendable using plugins.  
 
 ***
 
@@ -151,4 +151,4 @@ Result:
     </point>
 </ComplexEntity>
 ```
-## xmlparser.gui
+## xmlparser.editor

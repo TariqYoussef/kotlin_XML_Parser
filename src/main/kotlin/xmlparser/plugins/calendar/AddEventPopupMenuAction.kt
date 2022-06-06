@@ -2,10 +2,10 @@ package xmlparser.plugins.calendar
 
 import xmlparser.core.element.XmlElement
 import xmlparser.core.element.XmlElementAttribute
-import xmlparser.gui.ActionStack
-import xmlparser.gui.action.AddChildAction
-import xmlparser.gui.view.ElementView
-import xmlparser.gui.view.menuitem.IMenuItem
+import xmlparser.editor.ActionStack
+import xmlparser.editor.action.AddChildAction
+import xmlparser.editor.view.ElementView
+import xmlparser.editor.view.menuitem.IMenuItem
 import java.awt.GridLayout
 import java.util.*
 import javax.swing.*

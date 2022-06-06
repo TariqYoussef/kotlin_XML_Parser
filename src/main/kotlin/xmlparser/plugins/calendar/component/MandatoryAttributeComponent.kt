@@ -1,9 +1,9 @@
 package xmlparser.plugins.calendar.component
 
-import xmlparser.gui.ActionStack
-import xmlparser.gui.action.EditAttributeValueAction
-import xmlparser.gui.view.AttributeView
-import xmlparser.gui.view.component.IComponent
+import xmlparser.editor.ActionStack
+import xmlparser.editor.action.EditAttributeValueAction
+import xmlparser.editor.view.AttributeView
+import xmlparser.editor.view.component.IComponent
 import java.awt.GridLayout
 import javax.swing.JCheckBox
 import javax.swing.JLabel
