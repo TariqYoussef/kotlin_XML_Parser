@@ -1,7 +1,6 @@
 package xmlparser.editor
 
 import xmlparser.core.XmlContext
-import xmlparser.core.element.XmlElement
 import xmlparser.editor.view.AttributeView
 import xmlparser.editor.view.ElementView
 import xmlparser.editor.view.HistoryView

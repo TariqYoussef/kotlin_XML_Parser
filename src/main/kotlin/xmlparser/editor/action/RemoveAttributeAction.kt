@@ -1,7 +1,7 @@
 package xmlparser.editor.action
 
-import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlAttribute
+import xmlparser.core.XmlElement
+import xmlparser.core.XmlAttribute
 
 class RemoveAttributeAction(private val xmlElement: XmlElement, private val xmlAttribute: XmlAttribute) :
     IAction {

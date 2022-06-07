@@ -1,6 +1,6 @@
 package xmlparser.editor.view.menuitem.element
 
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 import xmlparser.editor.ActionStack
 import xmlparser.editor.action.AddChildAction
 import xmlparser.editor.view.ElementView

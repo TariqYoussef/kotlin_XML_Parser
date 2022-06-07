@@ -1,7 +1,5 @@
 package xmlparser.core
 
-import xmlparser.core.element.XmlElement
-
 typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 
 /**

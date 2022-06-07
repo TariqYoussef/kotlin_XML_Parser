@@ -1,6 +1,6 @@
 package xmlparser.editor.action
 
-import xmlparser.core.element.XmlAttribute
+import xmlparser.core.XmlAttribute
 
 class EditAttributeValueAction(private val xmlAttribute: XmlAttribute,
                                private val newValue: String) : IAction {

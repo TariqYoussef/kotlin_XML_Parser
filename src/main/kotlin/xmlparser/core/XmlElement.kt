@@ -1,6 +1,5 @@
-package xmlparser.core.element
+package xmlparser.core
 
-import xmlparser.core.*
 import xmlparser.core.type.createXmlElement
 import xmlparser.core.util.*
 import kotlin.reflect.KClass

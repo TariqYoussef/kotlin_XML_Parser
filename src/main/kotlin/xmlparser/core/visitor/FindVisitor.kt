@@ -1,7 +1,7 @@
 package xmlparser.core.visitor
 
 import xmlparser.core.IVisitor
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 
 class FindVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : IVisitor {
 

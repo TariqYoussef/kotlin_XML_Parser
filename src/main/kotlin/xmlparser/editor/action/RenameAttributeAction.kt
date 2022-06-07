@@ -1,6 +1,6 @@
 package xmlparser.editor.action
 
-import xmlparser.core.element.XmlAttribute
+import xmlparser.core.XmlAttribute
 
 class RenameAttributeAction(private val xmlAttribute: XmlAttribute,
                             private val newName: String) : IAction{

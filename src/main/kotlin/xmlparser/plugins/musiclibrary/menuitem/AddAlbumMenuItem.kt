@@ -1,7 +1,7 @@
 package xmlparser.plugins.musiclibrary.menuitem
 
-import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlAttribute
+import xmlparser.core.XmlElement
+import xmlparser.core.XmlAttribute
 import xmlparser.editor.ActionStack
 import xmlparser.editor.action.AddChildAction
 import xmlparser.editor.view.ElementView

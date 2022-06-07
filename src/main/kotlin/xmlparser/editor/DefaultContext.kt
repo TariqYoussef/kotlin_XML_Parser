@@ -1,7 +1,7 @@
 package xmlparser.editor
 
 import xmlparser.core.XmlContext
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 
 class DefaultContext : XmlContext() {
     init {

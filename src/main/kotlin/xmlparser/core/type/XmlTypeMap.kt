@@ -1,6 +1,6 @@
 package xmlparser.core.type
 
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 
 fun Map<Any, Any>.createXmlElement(xmlElement: XmlElement)
 {

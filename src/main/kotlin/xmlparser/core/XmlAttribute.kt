@@ -1,6 +1,4 @@
-package xmlparser.core.element
-
-import xmlparser.core.IObservable
+package xmlparser.core
 
 /**
  * Represents an attribute that can be assigned to a xml element.

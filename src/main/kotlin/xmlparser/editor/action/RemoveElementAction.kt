@@ -1,6 +1,6 @@
 package xmlparser.editor.action
 
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 
 class RemoveElementAction(private val xmlElementChild: XmlElement, private val xmlElementFather: XmlElement) : IAction {
     override val name: String = "Remove child ${xmlElementChild.name} on ${xmlElementFather.name}"

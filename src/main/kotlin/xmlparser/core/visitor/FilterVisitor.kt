@@ -2,7 +2,7 @@ package xmlparser.core.visitor
 
 import xmlparser.core.IVisitor
 import xmlparser.core.XmlContext
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 
 class FilterVisitor(private val accept: (xmlElement: XmlElement) -> Boolean) : IVisitor {
 

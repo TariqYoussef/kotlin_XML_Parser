@@ -1,6 +1,6 @@
 package xmlparser.plugins
 
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 import xmlparser.editor.ActionStack
 import xmlparser.editor.action.AddChildAction
 import xmlparser.editor.action.EditAttributeValueAction

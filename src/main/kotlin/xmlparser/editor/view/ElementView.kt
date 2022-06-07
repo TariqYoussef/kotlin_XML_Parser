@@ -1,6 +1,6 @@
 package xmlparser.editor.view
 
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 import xmlparser.editor.Application
 import xmlparser.editor.view.component.element.BasicElementValueComponent
 import java.awt.BorderLayout

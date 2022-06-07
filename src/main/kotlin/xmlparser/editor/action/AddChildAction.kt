@@ -1,6 +1,6 @@
 package xmlparser.editor.action
 
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 
 class AddChildAction(private val xmlElementFather: XmlElement, private val xmlElementChild: XmlElement) : IAction {
     override val name: String = "Add child ${xmlElementChild.name}  on ${xmlElementFather.name}"

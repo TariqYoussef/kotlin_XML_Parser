@@ -1,7 +1,7 @@
 package xmlparser.plugins.calendar
 
 import xmlparser.core.XmlContext
-import xmlparser.core.element.XmlElement
+import xmlparser.core.XmlElement
 
 class BaseContext : XmlContext() {
     init {
