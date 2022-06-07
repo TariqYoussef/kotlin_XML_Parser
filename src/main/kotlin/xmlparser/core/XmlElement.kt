@@ -1,6 +1,6 @@
 package xmlparser.core
 
-import xmlparser.core.type.createXmlElement
+import xmlparser.core.type.populateXmlElement
 import xmlparser.core.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
@@ -51,13 +51,13 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
             } else {
                 element as Iterable<Any>
             }
-            iterable.createXmlElement(this)
+            iterable.populateXmlElement(this)
             return
         }
         else if(isMap(element))
         {
             val map: Map<Any, Any> = element as Map<Any, Any>
-            map.createXmlElement(this)
+            map.populateXmlElement(this)
             return
         }
         else

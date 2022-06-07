@@ -2,7 +2,7 @@ package xmlparser.core.type
 
 import xmlparser.core.XmlElement
 
-fun Map<Any, Any>.createXmlElement(xmlElement: XmlElement)
+fun Map<Any, Any>.populateXmlElement(xmlElement: XmlElement)
 {
     this.forEach{
         val xmlElementItem = XmlElement("item")
