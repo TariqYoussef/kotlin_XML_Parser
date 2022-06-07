@@ -13,25 +13,25 @@ class DateAttributeComponent: IComponent<AttributeView>
 {
 
     override fun accept(view: AttributeView): Boolean {
-        return view.xmlElementAttribute.name == "Date" &&
+        return view.xmlAttribute.name == "Date" &&
                 view.xmlElement.name == "Event"
     }
 
     override fun component(view: AttributeView): JPanel {
         val panel = JPanel()
         panel.layout = GridLayout(0,2)
-        val label = JLabel(view.xmlElementAttribute.name)
+        val label = JLabel(view.xmlAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
         panel.add(label)
 
-        val date = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(view.xmlElementAttribute.value)
+        val date = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(view.xmlAttribute.value)
         val jSpinner = JSpinner(SpinnerDateModel(date,
             null, null, Calendar.MINUTE))
         jSpinner.addChangeListener {
             val value = jSpinner.value.toString()
             ActionStack.doAction(
                 EditAttributeValueAction(
-                    view.xmlElementAttribute,
+                    view.xmlAttribute,
                     value
                 )
             )

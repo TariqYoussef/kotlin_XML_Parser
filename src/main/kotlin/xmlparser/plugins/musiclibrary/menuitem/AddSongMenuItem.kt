@@ -1,7 +1,7 @@
 package xmlparser.plugins.musiclibrary.menuitem
 
 import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlElementAttribute
+import xmlparser.core.element.XmlAttribute
 import xmlparser.editor.ActionStack
 import xmlparser.editor.action.AddChildAction
 import xmlparser.editor.view.ElementView
@@ -32,8 +32,8 @@ class AddSongMenuItem : IMenuItem<ElementView> {
             )
             if (result == JOptionPane.OK_OPTION) {
                 val xmlElement = XmlElement("Song")
-                xmlElement.addAttribute(XmlElementAttribute("name", nameField.text))
-                xmlElement.addAttribute(XmlElementAttribute("Length", lengthField.text))
+                xmlElement.addAttribute(XmlAttribute("name", nameField.text))
+                xmlElement.addAttribute(XmlAttribute("Length", lengthField.text))
                 ActionStack.doAction(AddChildAction(view.xmlElement, xmlElement))
             }
         }

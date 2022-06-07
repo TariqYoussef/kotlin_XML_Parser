@@ -12,7 +12,7 @@ class RenameAttributeMenuItem : IMenuItem<AttributeView> {
         val jMenuItem = JMenuItem("Rename Attribute")
         jMenuItem.addActionListener {
             val text = JOptionPane.showInputDialog("text")
-            ActionStack.doAction(RenameAttributeAction(view.xmlElementAttribute, text))
+            ActionStack.doAction(RenameAttributeAction(view.xmlAttribute, text))
         }
         return jMenuItem
     }

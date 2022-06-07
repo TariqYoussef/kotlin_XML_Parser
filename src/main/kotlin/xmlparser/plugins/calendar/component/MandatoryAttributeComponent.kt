@@ -14,24 +14,24 @@ class MandatoryAttributeComponent: IComponent<AttributeView>
 {
 
     override fun accept(view: AttributeView): Boolean {
-        return view.xmlElementAttribute.name == "Mandatory" &&
+        return view.xmlAttribute.name == "Mandatory" &&
                 view.xmlElement.name == "Event"
     }
 
     override fun component(view: AttributeView): JPanel {
         val panel = JPanel()
         panel.layout = GridLayout(0,2)
-        val label = JLabel(view.xmlElementAttribute.name)
+        val label = JLabel(view.xmlAttribute.name)
         label.horizontalAlignment = SwingConstants.RIGHT
         panel.add(label)
 
         val jCheckBox = JCheckBox()
-        jCheckBox.isSelected = convertToBool(view.xmlElementAttribute.value)
+        jCheckBox.isSelected = convertToBool(view.xmlAttribute.value)
         jCheckBox.addActionListener {
             val value = jCheckBox.isSelected.toString()
             ActionStack.doAction(
                 EditAttributeValueAction(
-                    view.xmlElementAttribute,
+                    view.xmlAttribute,
                     value
                 )
             )

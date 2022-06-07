@@ -10,7 +10,7 @@ class RemoveAttributeMenuItem : IMenuItem<AttributeView> {
     override fun menuItem(view: AttributeView): JMenuItem {
         val jMenuItem = JMenuItem("Remove Attribute")
         jMenuItem.addActionListener {
-            ActionStack.doAction(RemoveAttributeAction( view.xmlElement, view.xmlElementAttribute))
+            ActionStack.doAction(RemoveAttributeAction( view.xmlElement, view.xmlAttribute))
         }
         return jMenuItem
     }

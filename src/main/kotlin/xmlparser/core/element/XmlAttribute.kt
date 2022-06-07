@@ -5,9 +5,9 @@ import xmlparser.core.IObservable
 /**
  * Represents an attribute that can be assigned to a xml element.
  */
-class XmlElementAttribute(name: String, value: String = ""): IObservable<(XmlElementAttribute) -> Unit>
+class XmlAttribute(name: String, value: String = ""): IObservable<(XmlAttribute) -> Unit>
 {
-    override val observers: MutableList<(XmlElementAttribute) -> Unit> = mutableListOf()
+    override val observers: MutableList<(XmlAttribute) -> Unit> = mutableListOf()
     var name: String = name
     set(name)
     {

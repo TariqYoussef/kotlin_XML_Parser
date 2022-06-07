@@ -26,7 +26,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
     }
 
     val children: MutableList<XmlElement> = mutableListOf()
-    val attributes: MutableList<XmlElementAttribute> = mutableListOf()
+    val attributes: MutableList<XmlAttribute> = mutableListOf()
     var father: XmlElement? = null
     private set
 
@@ -95,17 +95,17 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
     /**
      * Adds an attribute to the xml element.
      */
-    fun addAttribute(xmlElementAttribute: XmlElementAttribute)
+    fun addAttribute(xmlAttribute: XmlAttribute)
     {
-        attributes.add(xmlElementAttribute)
+        attributes.add(xmlAttribute)
         notifyObservers { it(this) }
     }
     /**
      * Removes an attribute to the xml element.
      */
-    fun removeAttribute(xmlElementAttribute: XmlElementAttribute)
+    fun removeAttribute(xmlAttribute: XmlAttribute)
     {
-        attributes.remove(xmlElementAttribute)
+        attributes.remove(xmlAttribute)
         notifyObservers { it(this) }
     }
 
@@ -274,8 +274,8 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
                         "An Attribute must be a basic type or an enum and not a/an ${it.call(element)!!::class.qualifiedName}"
                     )
 
-                val xmlElementAttribute = XmlElementAttribute(elementAttributeName, it.call(element)!! as String)
-                xmlElement.addAttribute(xmlElementAttribute)
+                val xmlAttribute = XmlAttribute(elementAttributeName, it.call(element)!! as String)
+                xmlElement.addAttribute(xmlAttribute)
             }
         }
 

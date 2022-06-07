@@ -1,18 +1,18 @@
 package xmlparser.editor.action
 
-import xmlparser.core.element.XmlElementAttribute
+import xmlparser.core.element.XmlAttribute
 
-class RenameAttributeAction(private val xmlElementAttribute: XmlElementAttribute,
+class RenameAttributeAction(private val xmlAttribute: XmlAttribute,
                             private val newName: String) : IAction{
 
-    private val oldName: String = xmlElementAttribute.name
+    private val oldName: String = xmlAttribute.name
     override val name: String = "Rename attribute $oldName to $newName"
 
     override fun execute() {
-        xmlElementAttribute.name = newName
+        xmlAttribute.name = newName
     }
 
     override fun undo() {
-        xmlElementAttribute.name = oldName
+        xmlAttribute.name = oldName
     }
 }

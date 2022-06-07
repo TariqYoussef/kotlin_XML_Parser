@@ -1,20 +1,20 @@
 package xmlparser.editor.view
 
 import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlElementAttribute
+import xmlparser.core.element.XmlAttribute
 import xmlparser.editor.Application
 import xmlparser.editor.view.component.attribute.BasicAttributeComponent
 import java.awt.GridLayout
 
 class AttributeView(private val application: Application,
                     val xmlElement: XmlElement,
-                    val xmlElementAttribute: XmlElementAttribute) : AbstractContextView<AttributeView>() {
+                    val xmlAttribute: XmlAttribute) : AbstractContextView<AttributeView>() {
 
     override val popupMenuName: String = "Actions"
 
     init {
         layout = GridLayout(0,1)
-        xmlElementAttribute.addObserver {
+        xmlAttribute.addObserver {
             removeAll()
             createPopupMenu(this,
                 application.attributeViewMenuItems,

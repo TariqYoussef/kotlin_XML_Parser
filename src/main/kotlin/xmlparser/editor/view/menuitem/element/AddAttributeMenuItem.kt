@@ -1,6 +1,6 @@
 package xmlparser.editor.view.menuitem.element
 
-import xmlparser.core.element.XmlElementAttribute
+import xmlparser.core.element.XmlAttribute
 import xmlparser.editor.ActionStack
 import xmlparser.editor.action.AddAttributeAction
 import xmlparser.editor.view.ElementView
@@ -13,7 +13,7 @@ class AddAttributeMenuItem : IMenuItem<ElementView> {
         val jMenuItem = JMenuItem("Add attribute")
         jMenuItem.addActionListener {
             val text = JOptionPane.showInputDialog("text")
-            ActionStack.doAction(AddAttributeAction(view.xmlElement, XmlElementAttribute(text)))
+            ActionStack.doAction(AddAttributeAction(view.xmlElement, XmlAttribute(text)))
         }
         return jMenuItem
     }

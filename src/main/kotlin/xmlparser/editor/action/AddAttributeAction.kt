@@ -1,17 +1,17 @@
 package xmlparser.editor.action
 
 import xmlparser.core.element.XmlElement
-import xmlparser.core.element.XmlElementAttribute
+import xmlparser.core.element.XmlAttribute
 
-class AddAttributeAction(private val xmlElement: XmlElement, private val xmlElementAttribute: XmlElementAttribute) :
+class AddAttributeAction(private val xmlElement: XmlElement, private val xmlAttribute: XmlAttribute) :
     IAction {
-    override val name: String = "Add Attribute ${xmlElementAttribute.name} to ${xmlElement.name}"
+    override val name: String = "Add Attribute ${xmlAttribute.name} to ${xmlElement.name}"
 
     override fun execute() {
-        xmlElement.addAttribute(xmlElementAttribute)
+        xmlElement.addAttribute(xmlAttribute)
     }
 
     override fun undo() {
-        xmlElement.removeAttribute(xmlElementAttribute)
+        xmlElement.removeAttribute(xmlAttribute)
     }
 }

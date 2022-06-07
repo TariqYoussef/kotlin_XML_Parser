@@ -1,18 +1,18 @@
 package xmlparser.editor.action
 
-import xmlparser.core.element.XmlElementAttribute
+import xmlparser.core.element.XmlAttribute
 
-class EditAttributeValueAction(private val xmlElementAttribute: XmlElementAttribute,
+class EditAttributeValueAction(private val xmlAttribute: XmlAttribute,
                                private val newValue: String) : IAction {
 
-    private val oldValue: String = xmlElementAttribute.value
+    private val oldValue: String = xmlAttribute.value
     override val name: String = "Attribute value from $oldValue to $newValue"
 
     override fun execute() {
-        xmlElementAttribute.value = newValue
+        xmlAttribute.value = newValue
     }
 
     override fun undo() {
-        xmlElementAttribute.value = oldValue
+        xmlAttribute.value = oldValue
     }
 }
