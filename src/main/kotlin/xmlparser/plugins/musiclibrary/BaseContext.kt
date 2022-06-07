@@ -5,6 +5,6 @@ import xmlparser.core.element.XmlElement
 
 class BaseContext : XmlContext() {
     init {
-        this.rootXmlElement = XmlElement("Albums")
+        this.rootXmlElement = XmlElement("MusicLibrary")
     }
 }

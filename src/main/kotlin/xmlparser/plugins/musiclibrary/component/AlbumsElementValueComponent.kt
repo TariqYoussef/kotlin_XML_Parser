@@ -6,7 +6,7 @@ import javax.swing.JPanel
 
 class AlbumsElementValueComponent : IComponent<ElementView> {
 
-    override fun accept(view: ElementView): Boolean = view.xmlElement.name == "Albums"
+    override fun accept(view: ElementView): Boolean = view.xmlElement.name == "MusicLibrary"
 
     override fun component(view: ElementView): JPanel? {
         return null

@@ -10,7 +10,7 @@ import javax.swing.*
 
 class AddAlbumMenuItem : IMenuItem<ElementView> {
 
-    override fun accept(view: ElementView): Boolean = view.xmlElement.name == "Albums"
+    override fun accept(view: ElementView): Boolean = view.xmlElement.name == "MusicLibrary"
 
     override fun menuItem(view: ElementView): JMenuItem {
         val jMenuItem = JMenuItem("Add Album")
