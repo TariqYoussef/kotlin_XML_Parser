@@ -46,26 +46,26 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         }
         add(northPanel, BorderLayout.NORTH)
 
+        val centerPanel = JPanel()
+        centerPanel.layout = GridLayout(0, 1)
         var componentAdded = false
         application.elementValueViewPluginComponents.forEach {
             if(it.accept(this))
             {
                 val component = it.component(this)
                 if(component != null)
-                    add(component)
+                    centerPanel.add(component)
                 componentAdded = true
                 return@forEach
             }
         }
 
-        if(!componentAdded) add(BasicElementValueComponent().component(this), BorderLayout.CENTER)
+        if(!componentAdded) centerPanel.add(BasicElementValueComponent().component(this))
 
-        val southPanel = JPanel()
-        southPanel.layout = GridLayout(0, 1)
         xmlElement.children.forEach {
-            add(ElementView(application, it))
+            centerPanel.add(ElementView(application, it))
         }
-        add(southPanel, BorderLayout.SOUTH)
+        add(centerPanel, BorderLayout.CENTER)
     }
 
     override fun paintComponent(g: Graphics) {
