@@ -1,4 +1,4 @@
-package xmlparser.plugins.musiclibrary.menuitem
+package xmlparser.examples.plugins.musiclibrary.menuitem
 
 import xmlparser.core.XmlElement
 import xmlparser.core.XmlAttribute

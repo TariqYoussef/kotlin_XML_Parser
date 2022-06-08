@@ -165,16 +165,56 @@ We have 2 interfaces we can implement to add new functionalities to the applicat
 #### IComponent
 This interface looks like this:
 ```kotlin
-interface IComponent<T> {
+interface IComponent<T1 : AbstractContextView<T1>, T2 : Component> {
     /**
      * Condition to accept.
      */
-    fun accept(view: T): Boolean = true
+    fun accept(view: T1): Boolean = true
 
     /**
      * Gets the component.
      */
-    fun component(view: T): JPanel?
+    fun component(view: T1): T2?
 }
 ```
-It can be implemented using an attribute view or an element view.
+The accept function is used to know if the component should be applied in a context.
+The function component will return the component to be drawn on the editor.
+```kotlin
+class DateAttributeComponent: IComponent<AttributeView, JPanel>
+{
+    override fun accept(view: AttributeView): Boolean {
+        return view.xmlAttribute.name == "Date" &&
+                view.xmlElement.name == "Event"
+    }
+    
+    override fun component(view: AttributeView): JPanel {
+        val panel = JPanel()
+        panel.layout = GridLayout(0,2)
+        val label = JLabel(view.xmlAttribute.name)
+        label.horizontalAlignment = SwingConstants.RIGHT
+        panel.add(label)
+
+        val date = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(view.xmlAttribute.value)
+        val jSpinner = JSpinner(SpinnerDateModel(date,
+            null, null, Calendar.MINUTE))
+        jSpinner.addChangeListener {
+            val value = jSpinner.value.toString()
+            ActionStack.doAction(
+                EditAttributeValueAction(
+                    view.xmlAttribute,
+                    value
+                )
+            )
+        }
+        panel.add(jSpinner)
+        return panel
+    }
+
+}
+```
+In this example, this component will be used in an attribute view if the name of the attribute is "Date" and if the xml element of the attribute is "Event".
+It will return a JPanel with special field made to edit a date.
+With this plugin and others we could make something like this:
+![img.png](ReadMeRes/calendar_event.png)
+
+

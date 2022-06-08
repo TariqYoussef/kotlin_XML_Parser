@@ -1,4 +1,4 @@
-package xmlparser.plugins.calendar.menuitem
+package xmlparser.examples.plugins.calendar.menuitem
 
 import xmlparser.core.XmlElement
 import xmlparser.core.XmlAttribute

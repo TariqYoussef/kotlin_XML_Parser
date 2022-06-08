@@ -1,19 +1,20 @@
-package xmlparser.plugins.calendar.component
+package xmlparser.examples.plugins.calendar.component
 
 import xmlparser.editor.ActionStack
 import xmlparser.editor.action.EditAttributeValueAction
 import xmlparser.editor.view.AttributeView
 import xmlparser.editor.view.component.IComponent
 import java.awt.GridLayout
-import java.text.SimpleDateFormat
-import java.util.*
-import javax.swing.*
+import javax.swing.JCheckBox
+import javax.swing.JLabel
+import javax.swing.JPanel
+import javax.swing.SwingConstants
 
-class DateAttributeComponent: IComponent<AttributeView, JPanel>
+class MandatoryAttributeComponent: IComponent<AttributeView, JPanel>
 {
 
     override fun accept(view: AttributeView): Boolean {
-        return view.xmlAttribute.name == "Date" &&
+        return view.xmlAttribute.name == "Mandatory" &&
                 view.xmlElement.name == "Event"
     }
 
@@ -24,11 +25,10 @@ class DateAttributeComponent: IComponent<AttributeView, JPanel>
         label.horizontalAlignment = SwingConstants.RIGHT
         panel.add(label)
 
-        val date = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(view.xmlAttribute.value)
-        val jSpinner = JSpinner(SpinnerDateModel(date,
-            null, null, Calendar.MINUTE))
-        jSpinner.addChangeListener {
-            val value = jSpinner.value.toString()
+        val jCheckBox = JCheckBox()
+        jCheckBox.isSelected = convertToBool(view.xmlAttribute.value)
+        jCheckBox.addActionListener {
+            val value = jCheckBox.isSelected.toString()
             ActionStack.doAction(
                 EditAttributeValueAction(
                     view.xmlAttribute,
@@ -36,8 +36,10 @@ class DateAttributeComponent: IComponent<AttributeView, JPanel>
                 )
             )
         }
-        panel.add(jSpinner)
+        panel.add(jCheckBox)
         return panel
     }
+
+    private fun convertToBool(boolString: String): Boolean = boolString == "true"
 
 }

@@ -1,10 +1,10 @@
-package xmlparser.plugins.calendar
+package xmlparser.examples.plugins.musiclibrary
 
 import xmlparser.core.XmlContext
 import xmlparser.core.XmlElement
 
 class BaseContext : XmlContext() {
     init {
-        this.rootXmlElement = XmlElement("Calendar")
+        this.rootXmlElement = XmlElement("MusicLibrary")
     }
 }

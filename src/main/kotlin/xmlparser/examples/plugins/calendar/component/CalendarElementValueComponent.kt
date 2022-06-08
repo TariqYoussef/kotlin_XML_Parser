@@ -1,4 +1,4 @@
-package xmlparser.plugins.calendar.component
+package xmlparser.examples.plugins.calendar.component
 
 import xmlparser.editor.view.ElementView
 import xmlparser.editor.view.component.IComponent

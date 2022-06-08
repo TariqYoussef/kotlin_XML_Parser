@@ -1,4 +1,4 @@
-package xmlparser.plugins.musiclibrary.component
+package xmlparser.examples.plugins.musiclibrary.component
 
 import xmlparser.editor.view.ElementView
 import xmlparser.editor.view.component.IComponent

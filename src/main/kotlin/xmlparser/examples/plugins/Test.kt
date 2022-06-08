@@ -1,4 +1,4 @@
-package xmlparser.plugins
+package xmlparser.examples.plugins
 
 import xmlparser.core.XmlElement
 import xmlparser.editor.ActionStack
