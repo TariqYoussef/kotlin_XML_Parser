@@ -57,6 +57,9 @@ xmlElement.addChild(xmlElementChild) // or xmlElement.addChild("child", "valueCh
 ```
 ### Visiting and observing
 A xml context is visitable and observable.
+It contains 2 visitors but more can be created using IVisitor interface:
+1. Find Visitor
+2. Filter Visitor
 
 ### Standard Containers Support
 xmlparser.core supports:
@@ -151,6 +154,9 @@ Result:
     </point>
 </ComplexEntity>
 ```
+
+***
+
 ## xmlparser.editor
 ### How to write plugins
 xmlparser.editor is highly extensible. 
@@ -326,4 +332,7 @@ interface IAction {
     fun undo()
 }
 ```
-Can be used to create a custom action to use in plugins-
+Can be used to create a custom action to use in plugins.
+
+### di.properties
+TODO
