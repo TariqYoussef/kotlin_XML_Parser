@@ -48,19 +48,19 @@ class ElementView(private val mainController: MainController, val xmlElement: Xm
 
         val centerPanel = JPanel()
         centerPanel.layout = GridLayout(0, 1)
-        var componentAdded = false
+        var componentChosen = false
         mainController.elementValueViewPluginComponents.forEach {
             if(it.accept(this))
             {
                 val component = it.component(this)
                 if(component != null)
                     centerPanel.add(component)
-                componentAdded = true
+                componentChosen = true
                 return@forEach
             }
         }
 
-        if(!componentAdded) centerPanel.add(BasicElementValueComponent().component(this))
+        if(!componentChosen) centerPanel.add(BasicElementValueComponent().component(this))
 
         xmlElement.children.forEach {
             centerPanel.add(ElementView(mainController, it))
