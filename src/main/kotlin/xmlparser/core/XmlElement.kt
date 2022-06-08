@@ -1,5 +1,6 @@
 package xmlparser.core
 
+import xmlparser.core.notificationtype.NotificationTypeElement
 import xmlparser.core.type.populateXmlElement
 import xmlparser.core.util.*
 import kotlin.reflect.KClass

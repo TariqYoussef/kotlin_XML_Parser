@@ -1,5 +1,7 @@
 package xmlparser.core
 
+import xmlparser.core.notificationtype.NotificationTypeContext
+
 /**
  * Represents a Xml context.
  */

@@ -1,5 +1,7 @@
 package xmlparser.core
 
+import xmlparser.core.notificationtype.NotificationTypeAttribute
+
 /**
  * Represents an attribute that can be assigned to a xml element.
  */
