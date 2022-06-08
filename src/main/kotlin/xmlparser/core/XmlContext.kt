@@ -1,7 +1,5 @@
 package xmlparser.core
 
-typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
-
 /**
  * Represents a Xml context.
  */

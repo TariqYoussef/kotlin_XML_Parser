@@ -223,7 +223,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
                         "Can't be used more than one time in one class"
                     )
 
-                if (elementContent[0].hasAnnotation<XmlElementAttributeAnnotation>())
+                if (elementContent[0].hasAnnotation<XmlElementAttribute>())
                     throw InvalidXmlAnnotationException("XmlElementContent", "Can't be used with XmlElementAttribute")
 
                 if (elementContent[0].hasAnnotation<XmlElementName>())
@@ -238,7 +238,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
         {
             val kClass: KClass<out Any> = element::class
             val elementAttributes = kClass.declaredMemberProperties.filter {
-                !it.hasAnnotation<XmlElementIgnore>() && it.hasAnnotation<XmlElementAttributeAnnotation>()
+                !it.hasAnnotation<XmlElementIgnore>() && it.hasAnnotation<XmlElementAttribute>()
             }
             elementAttributes.forEach {
                 it.isAccessible = true
@@ -273,7 +273,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
             val properties = kClass.declaredMemberProperties.filter {
                 !it.hasAnnotation<XmlElementContent>() &&
                         !it.hasAnnotation<XmlElementIgnore>() &&
-                        !it.hasAnnotation<XmlElementAttributeAnnotation>()
+                        !it.hasAnnotation<XmlElementAttribute>()
             }
             properties.forEach {
                 it.isAccessible = true
