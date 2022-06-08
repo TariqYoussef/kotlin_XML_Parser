@@ -2,11 +2,11 @@ package xmlparser.editor.view
 
 import xmlparser.core.XmlElement
 import xmlparser.core.XmlAttribute
-import xmlparser.editor.Application
+import xmlparser.editor.controller.MainController
 import xmlparser.editor.view.component.attribute.BasicAttributeComponent
 import java.awt.GridLayout
 
-class AttributeView(private val application: Application,
+class AttributeView(private val mainController: MainController,
                     val xmlElement: XmlElement,
                     val xmlAttribute: XmlAttribute
 ) : AbstractContextView<AttributeView>() {
@@ -18,22 +18,22 @@ class AttributeView(private val application: Application,
         xmlAttribute.addObserver {
             removeAll()
             createPopupMenu(this,
-                application.attributeViewMenuItems,
-                application.attributeViewPluginMenuItems)
+                mainController.attributeViewMenuItems,
+                mainController.attributeViewPluginMenuItems)
             createView()
             updateUI()
             revalidate()
             repaint()
         }
         createPopupMenu(this,
-            application.attributeViewMenuItems,
-            application.attributeViewPluginMenuItems)
+            mainController.attributeViewMenuItems,
+            mainController.attributeViewPluginMenuItems)
         createView()
     }
 
     override fun createView()
     {
-        application.attributeViewPluginComponents.forEach {
+        mainController.attributeViewPluginComponents.forEach {
             if(it.accept(this))
             {
                 val component = it.component(this)

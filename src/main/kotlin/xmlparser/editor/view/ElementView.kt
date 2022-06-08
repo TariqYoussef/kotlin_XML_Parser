@@ -1,7 +1,7 @@
 package xmlparser.editor.view
 
 import xmlparser.core.XmlElement
-import xmlparser.editor.Application
+import xmlparser.editor.controller.MainController
 import xmlparser.editor.view.component.element.BasicElementValueComponent
 import java.awt.BorderLayout
 import java.awt.Color
@@ -11,7 +11,7 @@ import java.awt.GridLayout
 import javax.swing.*
 import javax.swing.border.CompoundBorder
 
-class ElementView(private val application: Application, val xmlElement: XmlElement) : AbstractContextView<ElementView>() {
+class ElementView(private val mainController: MainController, val xmlElement: XmlElement) : AbstractContextView<ElementView>() {
 
     override val popupMenuName: String = "Actions"
 
@@ -24,16 +24,16 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         xmlElement.addObserver {
             removeAll()
             createPopupMenu(this,
-                application.elementViewMenuItems,
-                application.elementViewPluginMenuItems)
+                mainController.elementViewMenuItems,
+                mainController.elementViewPluginMenuItems)
             createView()
             updateUI()
             revalidate()
             repaint()
         }
         createPopupMenu(this,
-            application.elementViewMenuItems,
-            application.elementViewPluginMenuItems)
+            mainController.elementViewMenuItems,
+            mainController.elementViewPluginMenuItems)
         createView()
     }
 
@@ -42,14 +42,14 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         val northPanel = JPanel()
         northPanel.layout = GridLayout(0, 1)
         xmlElement.attributes.forEach {
-            northPanel.add(AttributeView(application, xmlElement, it))
+            northPanel.add(AttributeView(mainController, xmlElement, it))
         }
         add(northPanel, BorderLayout.NORTH)
 
         val centerPanel = JPanel()
         centerPanel.layout = GridLayout(0, 1)
         var componentAdded = false
-        application.elementValueViewPluginComponents.forEach {
+        mainController.elementValueViewPluginComponents.forEach {
             if(it.accept(this))
             {
                 val component = it.component(this)
@@ -63,7 +63,7 @@ class ElementView(private val application: Application, val xmlElement: XmlEleme
         if(!componentAdded) centerPanel.add(BasicElementValueComponent().component(this))
 
         xmlElement.children.forEach {
-            centerPanel.add(ElementView(application, it))
+            centerPanel.add(ElementView(mainController, it))
         }
         add(centerPanel, BorderLayout.CENTER)
     }
