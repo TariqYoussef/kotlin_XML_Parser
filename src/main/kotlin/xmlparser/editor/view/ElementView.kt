@@ -23,9 +23,7 @@ class ElementView(private val mainController: MainController, val xmlElement: Xm
         )
         xmlElement.addObserver { _, _ ->
             removeAll()
-            createPopupMenu(this,
-                mainController.elementViewMenuItems,
-                mainController.elementViewPluginMenuItems)
+            createPopupMenu(this, mainController.elementViewMenuItems, mainController.elementViewPluginMenuItems)
             createView()
             updateUI()
             revalidate()
