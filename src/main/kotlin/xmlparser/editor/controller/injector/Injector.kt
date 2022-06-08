@@ -1,4 +1,4 @@
-package xmlparser.editor.controller
+package xmlparser.editor.controller.injector
 
 import java.io.FileInputStream
 import java.util.*

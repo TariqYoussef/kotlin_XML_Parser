@@ -1,4 +1,4 @@
-package xmlparser.editor.controller
+package xmlparser.editor.controller.injector
 
 @Target(AnnotationTarget.PROPERTY)
 annotation class Inject
