@@ -1,4 +1,4 @@
-package xmlparser.editor
+package xmlparser.editor.controller
 
 import xmlparser.core.XmlContext
 import xmlparser.core.XmlElement

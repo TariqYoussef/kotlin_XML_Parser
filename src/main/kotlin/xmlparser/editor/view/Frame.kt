@@ -1,7 +1,7 @@
 package xmlparser.editor.view
 
 import xmlparser.editor.controller.ActionStack
-import xmlparser.editor.DefaultContext
+import xmlparser.editor.controller.DefaultContext
 import xmlparser.editor.controller.MainController
 import java.awt.BorderLayout
 import java.awt.Dimension

@@ -1,9 +1,6 @@
 package xmlparser.editor.controller
 
 import xmlparser.core.XmlContext
-import xmlparser.editor.Inject
-import xmlparser.editor.InjectAdd
-import xmlparser.editor.Injector
 import xmlparser.editor.view.AttributeView
 import xmlparser.editor.view.ElementView
 import xmlparser.editor.view.Frame
