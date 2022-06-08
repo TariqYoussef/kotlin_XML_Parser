@@ -335,4 +335,10 @@ interface IAction {
 Can be used to create a custom action to use in plugins.
 
 ### di.properties
-TODO
+| Name                                            | Description                               |
+|-------------------------------------------------|-------------------------------------------|
+| MainController.context                          | Injects the context                       |
+| MainController.elementViewPluginMenuItems       | Injects Menu items in the element view    |
+| MainController.attributeViewPluginMenuItems     | Injects Menu items in the attribute view  |
+| MainController.elementValueViewPluginComponents | Injects a component in the element view   |
+| MainController.attributeViewPluginComponents    | Injects a component in the attribute view |
