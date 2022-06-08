@@ -5,16 +5,16 @@ typealias XmlElementAttributeAnnotation = xmlparser.core.XmlElementAttribute
 /**
  * Represents a Xml context.
  */
-open class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable, IObservable<(XmlContext) -> Unit> {
+open class XmlContext(version: String = "1.0", encoding: String = "UTF-8", standalone: String = "no") : IVisitable, IObservable<(XmlContext, NotificationTypeContext) -> Unit> {
     val xmlHeader: XmlHeader = XmlHeader(version, encoding, standalone)
     var rootXmlElement: XmlElement? = null
     set(rootXmlElement)
     {
         field = rootXmlElement
-        notifyObservers { it(this) }
+        notifyObservers { it(this, NotificationTypeContext.CHANGE_ROOT) }
     }
 
-    final override val observers: MutableList<(XmlContext) -> Unit> = mutableListOf()
+    final override val observers: MutableList<(XmlContext, NotificationTypeContext) -> Unit> = mutableListOf()
 
     /**
      * Dumps the context.
@@ -37,15 +37,6 @@ open class XmlContext(version: String = "1.0", encoding: String = "UTF-8", stand
         if (rootXmlElement != null)
             clonedXmlContext.rootXmlElement = rootXmlElement!!.deepCopy()
         return clonedXmlContext
-    }
-
-    /**
-     * Adds observer to all children
-     */
-    fun addObserverToAllXmlElements(handler: (XmlElement) -> Unit)
-    {
-        if (rootXmlElement != null)
-            rootXmlElement?.addObserverToAllChildren(handler)
     }
 
     final override fun accept(visitor: IVisitor) {

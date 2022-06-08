@@ -21,7 +21,7 @@ class ElementView(private val mainController: MainController, val xmlElement: Xm
             BorderFactory.createEmptyBorder(30, 10, 10, 10),
             BorderFactory.createLineBorder(Color.BLACK, 2, true)
         )
-        xmlElement.addObserver {
+        xmlElement.addObserver { _, _ ->
             removeAll()
             createPopupMenu(this,
                 mainController.elementViewMenuItems,

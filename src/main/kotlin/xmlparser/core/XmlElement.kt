@@ -11,17 +11,17 @@ import kotlin.reflect.jvm.isAccessible
 /**
  * Represents a xml context that can be assigned to a context or can be part of a context.
  */
-class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(XmlElement) -> Unit>
+class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(XmlElement, NotificationTypeElement) -> Unit>
 {
     var name: String = name
     set(name){
         field = name
-        notifyObservers { it(this) }
+        notifyObservers { it(this, NotificationTypeElement.CHANGE_NAME) }
     }
     var value: String = value
     set(value){
         field = value
-        notifyObservers { it(this) }
+        notifyObservers { it(this, NotificationTypeElement.CHANGE_VALUE) }
     }
 
     val children: MutableList<XmlElement> = mutableListOf()
@@ -29,7 +29,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
     var father: XmlElement? = null
     private set
 
-    override val observers: MutableList<(XmlElement) -> Unit> = mutableListOf()
+    override val observers: MutableList<(XmlElement, NotificationTypeElement) -> Unit> = mutableListOf()
 
     init {
         require(name != ""){"Element name cannot be empty."}
@@ -78,7 +78,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
     {
         xmlElement.father = this
         children.add(xmlElement)
-        notifyObservers { it(this) }
+        notifyObservers { it(this, NotificationTypeElement.ADD_CHILD) }
     }
 
     /**
@@ -88,7 +88,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
     {
         children.remove(xmlElement)
         xmlElement.father = null
-        notifyObservers { it(this) }
+        notifyObservers { it(this, NotificationTypeElement.REMOVE_CHILD) }
     }
 
     /**
@@ -97,7 +97,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
     fun addAttribute(xmlAttribute: XmlAttribute)
     {
         attributes.add(xmlAttribute)
-        notifyObservers { it(this) }
+        notifyObservers { it(this, NotificationTypeElement.ADD_ATTRIBUTE) }
     }
     /**
      * Removes an attribute to the xml element.
@@ -105,7 +105,7 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
     fun removeAttribute(xmlAttribute: XmlAttribute)
     {
         attributes.remove(xmlAttribute)
-        notifyObservers { it(this) }
+        notifyObservers { it(this, NotificationTypeElement.REMOVE_ATTRIBUTE) }
     }
 
     /**
@@ -174,17 +174,6 @@ class XmlElement(name: String, value: String = "") : IVisitable, IObservable<(Xm
             clonedXmlElement.addChild(it.deepCopy())
         }
         return clonedXmlElement
-    }
-
-    /**
-     * Adds observer to all children
-     */
-    fun addObserverToAllChildren(handler: (XmlElement) -> Unit)
-    {
-        this.addObserver(handler)
-        children.forEach{
-            it.addObserverToAllChildren(handler)
-        }
     }
 
     override fun accept(visitor: IVisitor) {

@@ -15,7 +15,7 @@ class AttributeView(private val mainController: MainController,
 
     init {
         layout = GridLayout(0,1)
-        xmlAttribute.addObserver {
+        xmlAttribute.addObserver { _, _ ->
             removeAll()
             createPopupMenu(this,
                 mainController.attributeViewMenuItems,
