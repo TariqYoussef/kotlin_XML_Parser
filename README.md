@@ -157,10 +157,11 @@ xmlparser.editor is highly extensible.
 We can customize and add new functionalities to the core editor.
 We have 2 interfaces we can implement to add new functionalities to the application.
 
-| Name       | Definition                |
-|------------|---------------------------|
-| IComponent | Represents a UI component |
-| IMenuItem  | Represents a menu item    |
+| Name       | Definition                                                              |
+|------------|-------------------------------------------------------------------------|
+| IComponent | Represents a UI component                                               |
+| IMenuItem  | Represents a menu item                                                  |
+| IAction    | Represents a Command/Action that can be implemented and used in plugins |
 
 #### IComponent
 This interface looks like this:
@@ -217,4 +218,112 @@ It will return a JPanel with special field made to edit a date.
 With this plugin and others we could make something like this:
 ![img.png](ReadMeRes/calendar_event.png)
 
+In examples.plugins we have some examples that further explain the usage.
 
+#### IMenuItem
+This interface looks like this:
+```kotlin
+interface IMenuItem<T1 : AbstractContextView<T1>> {
+    /**
+     * Condition to accept.
+     */
+    fun accept(view: T1): Boolean = true
+    /**
+     * Gets the menu item.
+     */
+    fun menuItem(view: T1): JMenuItem
+}
+```
+The accept function is used to know if the component should be applied in a context.
+The function menuItem will return the component to be available on the editor.
+
+```kotlin
+class AddPointMenuItem : IMenuItem<ElementView>
+{
+
+    override fun accept(view: ElementView): Boolean = view.xmlElement.name != "Point"
+
+    override fun menuItem(view: ElementView): JMenuItem {
+        val jMenuItem = JMenuItem("Add Point")
+        jMenuItem.addActionListener {
+            val xField = JTextField(5)
+            val yField = JTextField(5)
+
+            val jPanel = JPanel()
+
+            jPanel.add(JLabel("x:"))
+            jPanel.add(xField)
+            jPanel.add(Box.createHorizontalStrut(15))
+
+            jPanel.add(JLabel("y:"))
+            jPanel.add(yField)
+            val result = JOptionPane.showConfirmDialog(
+                null, jPanel,
+                "Please Enter X and Y Values", JOptionPane.OK_CANCEL_OPTION
+            )
+            if (result == JOptionPane.OK_OPTION) {
+                if(xField.text == "")
+                {
+                    JOptionPane.showMessageDialog(view, "Invalid x value")
+                    return@addActionListener
+                }
+                if(yField.text == "")
+                {
+                    JOptionPane.showMessageDialog(view, "Invalid y value")
+                    return@addActionListener
+                }
+
+                try
+                {
+                    Integer.parseInt(xField.text)
+                }
+                catch (exception: Exception)
+                {
+                    JOptionPane.showMessageDialog(view, "Invalid x value")
+                    return@addActionListener
+                }
+                try
+                {
+                    Integer.parseInt(yField.text)
+                }
+                catch (exception: Exception)
+                {
+                    JOptionPane.showMessageDialog(view, "Invalid y value")
+                    return@addActionListener
+                }
+                val xmlElement = XmlElement("Point")
+                xmlElement.addChild("x", xField.text)
+                xmlElement.addChild("y", yField.text)
+                ActionStack.doAction(AddChildAction(view.xmlElement, xmlElement))
+            }
+        }
+        return jMenuItem
+    }
+
+}
+```
+This class will create an option to create special xml element child called "Point" if the father is not called "Point".
+
+In examples.plugins we have some examples that further explain the usage.
+
+#### IAction
+This interface looks like this:
+```kotlin
+interface IAction {
+    /**
+     * Action name.
+     */
+    val name: String
+
+    /**
+     * Executes action.
+     */
+    fun execute()
+
+    /**
+     * Undo the action
+     */
+    fun undo()
+}
+```
+Can be used to create a custom action to use in plugins-
