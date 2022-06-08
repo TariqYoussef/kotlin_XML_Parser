@@ -61,6 +61,8 @@ It contains 2 visitors but more can be created using IVisitor interface:
 1. Find Visitor
 2. Filter Visitor
 
+It also contains many notification types that can be used in our observers to handle different types of situations. 
+
 ### Standard Containers Support
 xmlparser.core supports:
 1. Arrays
