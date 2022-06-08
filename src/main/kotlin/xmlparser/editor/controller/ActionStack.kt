@@ -1,6 +1,6 @@
 package xmlparser.editor.controller
 
-import xmlparser.editor.action.IAction
+import xmlparser.editor.controller.action.IAction
 import java.util.*
 
 object ActionStack {

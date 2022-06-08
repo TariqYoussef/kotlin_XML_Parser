@@ -1,7 +1,7 @@
 package xmlparser.editor.view.menuitem.attribute
 
 import xmlparser.editor.controller.ActionStack
-import xmlparser.editor.action.RenameAttributeAction
+import xmlparser.editor.controller.action.RenameAttributeAction
 import xmlparser.editor.view.AttributeView
 import xmlparser.editor.view.menuitem.IMenuItem
 import javax.swing.JMenuItem

@@ -2,8 +2,8 @@ package xmlparser.examples.plugins
 
 import xmlparser.core.XmlElement
 import xmlparser.editor.controller.ActionStack
-import xmlparser.editor.action.AddChildAction
-import xmlparser.editor.action.EditAttributeValueAction
+import xmlparser.editor.controller.action.AddChildAction
+import xmlparser.editor.controller.action.EditAttributeValueAction
 import xmlparser.editor.view.AttributeView
 import xmlparser.editor.view.ElementView
 import xmlparser.editor.view.component.IComponent

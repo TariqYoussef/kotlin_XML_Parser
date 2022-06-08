@@ -2,7 +2,7 @@ package xmlparser.editor.view.menuitem.element
 
 import xmlparser.core.XmlAttribute
 import xmlparser.editor.controller.ActionStack
-import xmlparser.editor.action.AddAttributeAction
+import xmlparser.editor.controller.action.AddAttributeAction
 import xmlparser.editor.view.ElementView
 import xmlparser.editor.view.menuitem.IMenuItem
 import javax.swing.JMenuItem
