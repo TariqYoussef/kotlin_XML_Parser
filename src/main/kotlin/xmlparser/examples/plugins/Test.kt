@@ -1,7 +1,7 @@
 package xmlparser.examples.plugins
 
 import xmlparser.core.XmlElement
-import xmlparser.editor.ActionStack
+import xmlparser.editor.controller.ActionStack
 import xmlparser.editor.action.AddChildAction
 import xmlparser.editor.action.EditAttributeValueAction
 import xmlparser.editor.view.AttributeView

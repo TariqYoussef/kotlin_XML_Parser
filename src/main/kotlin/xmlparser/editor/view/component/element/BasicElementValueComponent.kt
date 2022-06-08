@@ -1,6 +1,6 @@
 package xmlparser.editor.view.component.element
 
-import xmlparser.editor.ActionStack
+import xmlparser.editor.controller.ActionStack
 import xmlparser.editor.action.EditElementValueAction
 import xmlparser.editor.view.ElementView
 import xmlparser.editor.view.component.IComponent

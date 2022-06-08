@@ -1,6 +1,6 @@
 package xmlparser.editor.view
 
-import xmlparser.editor.ActionStack
+import xmlparser.editor.controller.ActionStack
 import java.awt.Dimension
 import java.awt.FlowLayout
 import javax.swing.JDialog
