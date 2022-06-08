@@ -13,6 +13,7 @@ import xmlparser.editor.view.menuitem.element.AddChildMenuItem
 import xmlparser.editor.view.menuitem.element.RemoveElementMenuItem
 import xmlparser.editor.view.menuitem.element.RenameElementMenuItem
 import java.awt.BorderLayout
+import java.awt.Component
 import java.awt.Dimension
 import java.io.PrintWriter
 import javax.swing.*
@@ -29,9 +30,9 @@ class Application : JFrame("XML Editor") {
     @InjectAdd
     val attributeViewPluginMenuItems = mutableListOf<IMenuItem<AttributeView>>()
     @InjectAdd
-    val attributeViewPluginComponents = mutableListOf<IComponent<AttributeView>>()
+    val attributeViewPluginComponents = mutableListOf<IComponent<AttributeView, Component>>()
     @InjectAdd
-    val elementValueViewPluginComponents = mutableListOf<IComponent<ElementView>>()
+    val elementValueViewPluginComponents = mutableListOf<IComponent<ElementView, Component>>()
 
     val elementViewMenuItems: List<IMenuItem<ElementView>> = listOf(
         AddChildMenuItem(),

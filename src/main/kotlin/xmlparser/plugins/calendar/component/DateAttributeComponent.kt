@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.swing.*
 
-class DateAttributeComponent: IComponent<AttributeView>
+class DateAttributeComponent: IComponent<AttributeView, JPanel>
 {
 
     override fun accept(view: AttributeView): Boolean {

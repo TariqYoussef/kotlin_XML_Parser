@@ -1,15 +1,16 @@
 package xmlparser.editor.view.component
 
-import javax.swing.JPanel
+import xmlparser.editor.view.AbstractContextView
+import java.awt.Component
 
-interface IComponent<T> {
+interface IComponent<T1 : AbstractContextView<T1>, T2 : Component> {
     /**
      * Condition to accept.
      */
-    fun accept(view: T): Boolean = true
+    fun accept(view: T1): Boolean = true
 
     /**
      * Gets the component.
      */
-    fun component(view: T): JPanel?
+    fun component(view: T1): T2?
 }

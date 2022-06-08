@@ -47,8 +47,8 @@ val xmlElement: XmlElement = XmlElement("name", "value")
 ```
 We can add an attribute to a xmlElement like this:
 ```kotlin
-val xmlElementAttribute: XmlElementAttribute = XmlElementAttribute("attributeName", "attributeValue")
-xmlElement.addAttribute(xmlElementAttribute)
+val xmlAttribute: XmlAttribute = XmlAttribute("attributeName", "attributeValue")
+xmlElement.addAttribute(xmlAttribute)
 ```
 We can a child to a xml element this way:
 ```kotlin
@@ -152,3 +152,29 @@ Result:
 </ComplexEntity>
 ```
 ## xmlparser.editor
+### How to write plugins
+xmlparser.editor is highly extensible. 
+We can customize and add new functionalities to the core editor.
+We have 2 interfaces we can implement to add new functionalities to the application.
+
+| Name       | Definition                |
+|------------|---------------------------|
+| IComponent | Represents a UI component |
+| IMenuItem  | Represents a menu item    |
+
+#### IComponent
+This interface looks like this:
+```kotlin
+interface IComponent<T> {
+    /**
+     * Condition to accept.
+     */
+    fun accept(view: T): Boolean = true
+
+    /**
+     * Gets the component.
+     */
+    fun component(view: T): JPanel?
+}
+```
+It can be implemented using an attribute view or an element view.

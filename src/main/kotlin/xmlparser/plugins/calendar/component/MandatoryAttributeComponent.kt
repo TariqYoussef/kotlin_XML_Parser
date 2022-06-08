@@ -10,7 +10,7 @@ import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.SwingConstants
 
-class MandatoryAttributeComponent: IComponent<AttributeView>
+class MandatoryAttributeComponent: IComponent<AttributeView, JPanel>
 {
 
     override fun accept(view: AttributeView): Boolean {

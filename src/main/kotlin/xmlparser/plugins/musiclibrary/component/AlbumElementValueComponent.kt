@@ -10,7 +10,7 @@ import javax.swing.JLabel
 import javax.swing.JPanel
 
 
-class AlbumElementValueComponent : IComponent<ElementView> {
+class AlbumElementValueComponent : IComponent<ElementView, JPanel> {
 
     override fun accept(view: ElementView): Boolean = view.xmlElement.name == "Album"
 

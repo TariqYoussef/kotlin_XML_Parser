@@ -76,7 +76,7 @@ class AddPointMenuItem : IMenuItem<ElementView>
 
 }
 
-class BoolAttributeComponent: IComponent<AttributeView>
+class BoolAttributeComponent: IComponent<AttributeView, JPanel>
 {
     private var selected = false
     override fun accept(view: AttributeView): Boolean = view.xmlAttribute.name == "bool"

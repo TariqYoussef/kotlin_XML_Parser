@@ -8,7 +8,7 @@ import java.awt.GridLayout
 import javax.swing.JPanel
 import javax.swing.JTextField
 
-class BasicElementValueComponent : IComponent<ElementView> {
+class BasicElementValueComponent : IComponent<ElementView, JPanel> {
 
     override fun component(view: ElementView): JPanel {
         val panel = JPanel()
