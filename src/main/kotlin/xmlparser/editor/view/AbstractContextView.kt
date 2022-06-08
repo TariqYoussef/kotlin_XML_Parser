@@ -7,7 +7,7 @@ import javax.swing.JPanel
 import javax.swing.JPopupMenu
 import javax.swing.SwingUtilities
 
-abstract class AbstractContextView<T> : JPanel() {
+abstract class AbstractContextView<T : AbstractContextView<T>> : JPanel() {
 
     abstract val popupMenuName: String
 
